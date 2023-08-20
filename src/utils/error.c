@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/18 22:14:35 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/05/21 04:39:27 by tkuramot         ###   ########.fr       */
+/*   Created: 2023/08/20 10:59:15 by tkuramot          #+#    #+#             */
+/*   Updated: 2023/08/20 11:01:01 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "builtin.h"
 
-void	ft_putendl_fd(char *s, int fd)
+void	ms_put_error(char *message)
 {
-	if (s == NULL)
-		return ;
-	ft_putstr_fd(s, fd);
-	write(fd, "\n", 1);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(message, STDERR_FILENO);
 }
-
-// int	main(void)
-// {
-// 	ft_putendl_fd("aaaaaaaaaaaaaaaa", 1);
-// }

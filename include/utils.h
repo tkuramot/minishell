@@ -1,34 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 21:20:46 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/05/20 18:43:53 by tkuramot         ###   ########.fr       */
+/*   Created: 2023/08/20 11:02:32 by tkuramot          #+#    #+#             */
+/*   Updated: 2023/08/20 11:02:59 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-char	*ft_strchr(const char *s, int c)
-{
-	char	*ret;
+void	ms_put_error(char *message);
 
-	ret = NULL;
-	while (*s != '\0' && *s != (char)c)
-		s++;
-	if (*s == (char)c)
-		ret = (char *)s;
-	return (ret);
-}
-
-// #include <string.h>
-
-// int	main(void)
-// {
-// 	// ft_strchr(NULL, 'a');
-// 	strchr(NULL, 'a');
-// 	return 0;
-// }
+#endif
