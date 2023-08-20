@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ms_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/20 10:55:41 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/20 10:55:43 by tkuramot         ###   ########.fr       */
+/*   Created: 2023/08/20 10:35:18 by tkuramot          #+#    #+#             */
+/*   Updated: 2023/08/20 10:35:45 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "builtin.h"
 
-#endif
+int	main(int argc, char **argv)
+{
+	return (EXIT_SUCCESS);
+}

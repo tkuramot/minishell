@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_putchar_r.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/20 10:55:41 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/20 10:55:43 by tkuramot         ###   ########.fr       */
+/*   Created: 2023/05/31 18:31:59 by tkuramot          #+#    #+#             */
+/*   Updated: 2023/06/03 22:21:01 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "ft_printf.h"
 
-#endif
+size_t	ft_putchar_r(char c)
+{
+	return (write(STDOUT_FILENO, &c, 1));
+}

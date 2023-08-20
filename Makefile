@@ -1,7 +1,7 @@
 CFLAGS  = -g -MMD -MP -Wall -Wextra -Werror
 LDFLAGS =
 LIBS    =
-INCLUDE = -I./include
+INCLUDE = -I./include -I./libft/include
 NAME    = minishell
 SRCDIR  = ./src
 SRCS    = main.c

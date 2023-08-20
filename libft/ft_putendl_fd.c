@@ -1,16 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/20 10:55:41 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/20 10:55:43 by tkuramot         ###   ########.fr       */
+/*   Created: 2023/05/18 22:14:35 by tkuramot          #+#    #+#             */
+/*   Updated: 2023/05/21 04:39:27 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-#endif
+void	ft_putendl_fd(char *s, int fd)
+{
+	if (s == NULL)
+		return ;
+	ft_putstr_fd(s, fd);
+	write(fd, "\n", 1);
+}
+
+// int	main(void)
+// {
+// 	ft_putendl_fd("aaaaaaaaaaaaaaaa", 1);
+// }

@@ -1,16 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_printf_char.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/20 10:55:41 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/20 10:55:43 by tkuramot         ###   ########.fr       */
+/*   Created: 2023/05/31 17:49:18 by tkuramot          #+#    #+#             */
+/*   Updated: 2023/06/03 21:56:58 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "ft_printf.h"
 
-#endif
+size_t	ft_printf_char(char c, t_placeholder ph)
+{
+	size_t	l;
+
+	l = 0;
+	if (!(ph.flags & HYPHEN) && ph.width != -1)
+		l += ft_putchar_n(ph.padding, ph.width - 1);
+	l += ft_putchar_r(c);
+	if ((ph.flags & HYPHEN) && ph.width != -1)
+		l += ft_putchar_n(ph.padding, ph.width - 1);
+	return (l);
+}
