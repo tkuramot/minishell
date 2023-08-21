@@ -1,7 +1,9 @@
 #!/bin/bash
 
-src=$(find . -name "assert.sh")
-source $src
+func=$(find . -name "assert.sh")
+source $func
+
+make echo
 
 # without option
 assert_echo ''

@@ -42,3 +42,7 @@ assert_builtin() {
 assert_echo() {
 	assert_builtin "echo" "$1"
 }
+
+assert_pwd() {
+	assert_builtin "pwd" "$1"
+}
