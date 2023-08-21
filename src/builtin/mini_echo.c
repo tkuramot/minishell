@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:35:18 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/21 10:38:00 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/08/21 12:22:34 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("\n", STDOUT_FILENO);
 		return (0);
 	}
-	if (ft_strncmp(argv[1], "-n", 2) == 0)
+	if (is_valid_option(argv[1]))
 		return (echo_with_option_n(argc, argv));
 	return (echo_without_option_n(argc, argv));
 }

@@ -39,4 +39,9 @@ re: fclean all
 echo: $(ECHOOBJS) $(LIBS)
 	$(CC) -o $@ $^ $(LDFLAGS) $(LIBS)
 
+test:
+	bash ./test/test_echo.sh
+
 -include $(DEPENDS)
+
+.PHONY: all clean fclean re test
