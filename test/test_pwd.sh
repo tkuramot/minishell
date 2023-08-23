@@ -3,8 +3,6 @@
 func=$(find . -name "assert.sh")
 source $func
 
-make pwd
-
 assert_pwd ''
 assert_pwd 'aaaaaaa'
 assert_pwd 'aaa bbb ccc'

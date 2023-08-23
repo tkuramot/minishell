@@ -1,7 +1,7 @@
 CFLAGS  = -g -MMD -MP -Wall -Wextra -Werror
-LDFLAGS =
+LDFLAGS =  -lreadline
 LIBS    = libft/libft.a
-INCLUDE = -I./include -I./libft/include
+INCLUDE = -I./include -I./libft/include -I $(brew --prefix readline)/include
 NAME    = minishell
 SRCDIR  = src
 SRCS    = src/builtin/mini_echo.c src/builtin/mini_pwd.c src/main.c src/utils/error.c
