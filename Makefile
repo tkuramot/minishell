@@ -4,18 +4,10 @@ LIBS    = libft/libft.a
 INCLUDE = -I./include -I./libft/include
 NAME    = minishell
 SRCDIR  = src
-SRCS    = src/main.c
+SRCS    = src/builtin/mini_echo.c src/builtin/mini_pwd.c src/main.c src/utils/error.c
 OBJDIR  = obj
 OBJS    = $(subst $(SRCDIR), $(OBJDIR), $(SRCS:.c=.o))
 DEPENDS = $(OBJS:.o=.d)
-
-builtins = echo pwd
-
-ECHOSRCS = src/builtin/mini_echo.c
-ECHOOBJS = $(subst $(SRCDIR), $(OBJDIR), $(ECHOSRCS:.c=.o))
-
-PWDSRCS = src/builtin/mini_pwd.c
-PWDOBJS = $(subst $(SRCDIR), $(OBJDIR), $(PWDSRCS:.c=.o))
 
 all: $(NAME)
 
@@ -35,18 +27,15 @@ clean:
 
 fclean: clean
 	make -C ./libft fclean
-	$(RM) $(NAME) $(builtins)
+	$(RM) $(NAME)
 
 re: fclean all
 
-echo: $(ECHOOBJS) $(LIBS)
-	$(CC) -o $@ $^ $(LDFLAGS) $(LIBS)
-
-pwd: $(PWDOBJS) $(LIBS)
-	$(CC) -o $@ $^ $(LDFLAGS) $(LIBS)
-
 test:
 	bash ./test/test.sh
+
+fname:
+	find . -name "*.c" -not -path "./libft/*" | sed 's/\.\///g' | tr '\n' ' '
 
 -include $(DEPENDS)
 

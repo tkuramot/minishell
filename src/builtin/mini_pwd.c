@@ -6,14 +6,14 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 17:23:23 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/21 19:20:07 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/08/23 19:12:18 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 
-int	main(void)
+int	mini_pwd(void)
 {
 	printf("%s\n", getenv("PWD"));
 	return (0);

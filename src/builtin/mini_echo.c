@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:35:18 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/21 12:22:34 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/08/23 19:12:05 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	echo_without_option_n(int argc, char **argv)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+int	mini_echo(int argc, char **argv)
 {
 	if (argc == 1)
 	{
