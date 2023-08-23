@@ -1,0 +1,8 @@
+cmp
+out
+obj
+*.o
+minishell
+echo
+pwd
+a.out
