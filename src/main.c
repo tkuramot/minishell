@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/24 12:32:47 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/08/24 18:02:42 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(void)
 {
 	char	*line;
 
-	line = readline("minishell$ ");
+	line = readline("\x1b[32mminishell$ \x1b[0m");
 	while (line)
 	{
 		// parse line
@@ -27,7 +27,7 @@ int	main(void)
 		if (line && *line)
 			add_history(line);
 		free(line);
-		line = readline("minishell$ ");
+		line = readline("\x1b[32mminishell$ \x1b[0m");
 	}
 	return (0);
 }

@@ -1,5 +1,5 @@
 CFLAGS  = -g -MMD -MP -Wall -Wextra -Werror
-LDFLAGS =  -lreadline
+LDFLAGS =  -lreadline -lhistory -L $(shell brew --prefix readline)/lib
 LIBS    = libft/libft.a
 INCLUDE = -I./include -I./libft/include -I $(brew --prefix readline)/include
 NAME    = minishell
