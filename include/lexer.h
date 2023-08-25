@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:19:08 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/25 18:00:17 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/08/25 21:02:12 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,19 @@ typedef struct s_tokenizer
 	t_token_type	type;
 	int64_t			str_i;
 	int64_t			tok_i;
-	t_token			*cur_token;
-	t_token			*token_list;
+	t_token			*lst;
 	t_token_state	state;
 }	t_tokenizer;
 
-int	get_char_type(char c);
+t_token	*make_token_list(char *line);
+int		get_char_type(char c);
+void	init_tokenizer(t_tokenizer *tokenizer);
+void	extract_token(char *line, t_tokenizer *tokenizer);
+void	tokenize_general(char *line, t_tokenizer *tokenizer);
+void	tokenize_dquote(char *line, t_tokenizer *tokenizer);
+void	tokenize_quote(char *line, t_tokenizer *tokenizer);
+t_token	*token_new(t_token_type type, char *data);
+t_token	*token_get_back(t_token *lst);
+void	token_add_back(t_token **lst, t_token *token);
 
 #endif
