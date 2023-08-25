@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   lexer_helper.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/25 15:57:42 by tkuramot         ###   ########.fr       */
+/*   Created: 2023/08/25 15:34:46 by tkuramot          #+#    #+#             */
+/*   Updated: 2023/08/25 17:55:18 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "libft.h"
 
-t_list	*make_token_list(char *line, t_list **list)
+int	get_char_type(char c)
 {
-	return (NULL);
+	if (c == TOK_PIPE)
+		return (TOK_PIPE);
+	if (c == TOK_DQUOTE)
+		return (TOK_DQUOTE);
+	if (c == TOK_QUOTE)
+		return (TOK_QUOTE);
+	return (TOK_GENERAL);
 }
