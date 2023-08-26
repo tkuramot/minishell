@@ -6,32 +6,61 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/25 21:37:30 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/08/27 07:42:51 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "libft.h"
-#include <stdio.h>
+#include <stdbool.h>
 
-t_token	*make_token_list(char *line)
+t_token	*init_token(char *word, t_token_type type)
 {
-	t_tokenizer	tokenizer;
-	int64_t		i;
+	t_token	*token;
 
-	init_tokenizer(&tokenizer);
-	i = tokenizer.str_i + tokenizer.tok_i;
+	token = ft_calloc(1, sizeof (t_token));
+	if (!token)
+		return (NULL);
+	token->word = word;
+	token->type = type;
+	return (token);
+}
+
+bool	is_blank(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\n');
+}
+
+bool is_metacharacter(char c)
+{
+	return (c && ft_strchr("|&<>\t\n", c));
+}
+
+bool	consume_blank(char **line)
+{
+	if (is_blank(**line))
+	{
+		(*line)++;
+		return (true);
+	}
+	return (false);
+}
+
+bool	is_word();
+
+bool	is_operator();
+
+t_token	*extract_word();
+
+t_token	*extract_operator();
+
+t_token *tokenize(char *line)
+{
+	t_token	head;
+	int64_t	i;
+
+	i = 0;
 	while (line[i])
 	{
-		//printf("[%lld]\n", tokenizer.str_i);
-		tokenizer.type = get_char_type(line[i]);
-		if (tokenizer.state == STATE_GENERAL)
-			tokenize_general(line, &tokenizer);
-		else if (tokenizer.state == STATE_IN_DQUOTE)
-			tokenize_dquote(line, &tokenizer);
-		else if (tokenizer.state == STATE_IN_QUOTE)
-			tokenize_quote(line, &tokenizer);
-		i = tokenizer.str_i + tokenizer.tok_i;
 	}
-	return (tokenizer.lst);
+	return (head.next);
 }

@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/25 21:37:06 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/08/27 06:36:14 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 int	main(void)
 {
 	char	*line;
-	t_token	*lst;
 
 	while (true)
 	{
@@ -29,12 +28,6 @@ int	main(void)
 			return (1);
 		if (*line)
 			add_history(line);
-		lst = make_token_list(line);
-		while (lst->next)
-		{
-			printf("[%s]\n", lst->data);
-			lst = lst->next;
-		}
 		printf("%s\n", line);
 		free(line);
 	}
