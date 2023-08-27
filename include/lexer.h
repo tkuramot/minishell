@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:19:08 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/27 07:01:09 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/08/27 08:29:30 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 typedef enum e_token_type
 {
-	TK_COMMAND,
-	TK_PIPE,
+	TK_WORD,
+	TK_OP,
 	TK_EOF
 } t_token_type;
 
@@ -29,5 +29,7 @@ struct s_token
 	t_token_type	type;
 	t_token			*next;
 };
+
+t_token *tokenize(char *line);
 
 #endif
