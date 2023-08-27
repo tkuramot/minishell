@@ -1,41 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   lexer_helper.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/27 09:24:02 by tkuramot         ###   ########.fr       */
+/*   Created: 2023/08/27 13:57:17 by tkuramot          #+#    #+#             */
+/*   Updated: 2023/08/27 15:55:28 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "lexer.h"
 #include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
+#include "libft.h"
 
-int	main(void)
+bool	is_blank(char c)
 {
-	char	*line;
-	t_token	*lst;
+	return (c == ' ' || c == '\t' || c == '\n');
+}
 
-	while (true)
-	{
-		line = readline("\x1b[32mminishell$ \x1b[0m");
-		if (!line)
-			return (1);
-		if (*line)
-			add_history(line);
-		lst = tokenize(line);
-		while (lst)
-		{
-			printf("[%s]\n", lst->word);
-			lst = lst->next;
-		}
-		free(line);
-	}
-	return (0);
+bool	is_metacharacter(char c)
+{
+	return (c && ft_strchr("|&<> \t\n", c));
+}
+
+bool	start_with(char *s, const char *prefix)
+{
+	return (ft_strncmp(s, prefix, ft_strlen(prefix)) == 0);
+}
+
+bool	is_word(char c)
+{
+	return (c && !is_metacharacter(c));
+}
+
+void	consume_blank(char **line)
+{
+	if (is_blank(**line))
+		(*line)++;
 }

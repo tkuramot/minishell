@@ -1,2 +1,3 @@
 -I./include
 -I./libft/include
+-I $(brew --prefix readline)/include
