@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   mini_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/20 10:55:41 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/28 11:29:25 by tsishika         ###   ########.fr       */
+/*   Created: 2023/08/28 11:10:58 by tsishika          #+#    #+#             */
+/*   Updated: 2023/08/28 11:22:45 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
+#include <stdlib.h>
 #include "builtin.h"
 
-#endif
+void mini_exit(void)
+{
+	exit(0);
+}
+
+// exit(status)みたいな形で終了すべき？
+// exit内でfreeする関数多そう

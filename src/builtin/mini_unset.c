@@ -1,18 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   mini_unset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/20 10:55:41 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/28 11:29:25 by tsishika         ###   ########.fr       */
+/*   Created: 2023/08/28 22:48:31 by tsishika          #+#    #+#             */
+/*   Updated: 2023/08/29 01:52:05 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
+// 単純に消去すればOK？
 #include "builtin.h"
 
-#endif
+static t_env *serch_env(const char *name, t_env *env_lst)
+{
+	while(env_lst)
+	{
+		if(ft_strcmp(env_lst->name, name) == 0)
+			return (env_lst);
+		env_lst = env_lst->next;
+	}
+	return (NULL);
+}
+
+void mini_unset(const t_token *lst, t_env *env_lst)
+{
+	t_env *delete_env;
+
+	if(!lst || !env_lst)
+		return ;
+	delete_env = serch_env(lst->word, env_lst);
+	env_lst_node_delete(env_lst, delete_env);
+}

@@ -4,7 +4,8 @@ LIBS    = libft/libft.a
 INCLUDE = -I./include -I./libft/include -I $(brew --prefix readline)/include
 NAME    = minishell
 SRCDIR  = src
-SRCS    = src/builtin/mini_echo.c src/builtin/mini_pwd.c src/lexer/lexer.c src/lexer/lexer_helper.c src/main.c src/utils/error.c
+SRCS    = src/builtin/mini_echo.c src/builtin/mini_pwd.c src/builtin/mini_exit.c src/builtin/mini_cd.c src/builtin/mini_env.c src/builtin/mini_unset.c src/builtin/mini_handle_command.c src/builtin/env_lst_operations.c src/builtin/decompress.c \
+			src/lexer/lexer.c src/lexer/lexer_helper.c src/main.c src/utils/error.c
 OBJDIR  = obj
 OBJS    = $(subst $(SRCDIR), $(OBJDIR), $(SRCS:.c=.o))
 DEPENDS = $(OBJS:.o=.d)

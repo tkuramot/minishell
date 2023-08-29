@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mini_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 17:23:23 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/23 19:12:18 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/08/28 11:22:50 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "builtin.h"
 
 int	mini_pwd(void)
 {
