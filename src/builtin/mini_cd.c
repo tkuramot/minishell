@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 12:06:23 by tsishika          #+#    #+#             */
-/*   Updated: 2023/08/29 20:56:12 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/08/30 23:14:25 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdio.h>
 // #include "../../libft/include/libft.h"
 
-void	ft_pwd(void);
+// void	ft_pwd(void);
 
 char	*get_environ_str(char *key, t_env *env_lst)
 {
@@ -56,7 +56,7 @@ void mini_cd(t_token *lst, t_env *env_lst)
 	char	*path_env;
 
 	path_env = get_environ_str("HOME", env_lst);
-	printf("%s\n", path_env);
+	// printf("%s\n", path_env);
 	if(!lst)
 		directory = chdir(path_env);
 	else if(!ft_strncmp(lst->word, "~", 1))
@@ -71,7 +71,7 @@ void mini_cd(t_token *lst, t_env *env_lst)
 	}
 	if(directory)
 		perror("cd");
-	ft_pwd();
+	// mini_pwd();
 }
 
 // int	mini_pwd(void)
@@ -79,21 +79,6 @@ void mini_cd(t_token *lst, t_env *env_lst)
 // 	printf("%s\n", getenv("PWD"));
 // 	return (0);
 // }
-
-void	ft_pwd(void)
-{
-	char	*path_name;
-
-	path_name = calloc(PATH_MAX, sizeof(char));
-	if (path_name == NULL)
-		return ;
-	getcwd(path_name, PATH_MAX);
-	if (path_name == NULL) ;
-		// ft_puterr(strerror(errno));
-	else
-		printf("%s\n", path_name);
-	free(path_name);
-}
 
 // #include <stdio.h>
 // int main(int argc, char **argv){
