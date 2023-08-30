@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:48 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/29 01:35:12 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:20:52 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,17 @@ struct s_env
 t_env *env_lst_node_new(char *new_env);
 void env_lst_add_back(t_env *lst, t_env *new);
 void env_lst_node_delete(t_env *lst, t_env *delete_node);
-t_env *env_lst_head(void);
 
 int	mini_echo(int argc, char **argv);
 void mini_exit(void);
-void mini_cd(t_token *lst, char **environ);
+void mini_cd(t_token *lst, t_env *env_lst);
 void mini_handle_command(t_token *lst, t_env *env_lst);
 void mini_env(const t_env *env_lst);
 void mini_unset(const t_token *lst, t_env *env_lst);
+void	mini_export(t_token *lst, t_env *env_lst);
 
 t_env *env_lst_init(void);
+char	*get_environ_str(char *key, t_env *env_lst);
 
 t_env *decompress(t_token *lst, t_env *env_lst);
 

@@ -6,11 +6,11 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 12:06:23 by tsishika          #+#    #+#             */
-/*   Updated: 2023/08/28 21:02:49 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/08/29 20:56:12 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "builtin.h"
+#include "builtin.h"
 #include "lexer.h"
 #include <unistd.h>
 #include <limits.h>
@@ -21,47 +21,41 @@
 
 void	ft_pwd(void);
 
-char	*get_environ_str(char *key, char **environ)
+char	*get_environ_str(char *key, t_env *env_lst)
 {
-	int		i;
-	char	*value;
-
-	i = 0;
-	while (environ[i] != NULL)
+	while(env_lst)
 	{
-		if (ft_strncmp(environ[i], key, ft_strlen(key)) == 0)
-		{
-			value = ft_strdup(ft_strchr(environ[i], '=') + 1);
-			return (value);
-		}
-		i++;
+		if(ft_strcmp(key, env_lst->name) == 0)
+			return (env_lst->value);
+		env_lst = env_lst->next;
 	}
 	return (NULL);
 }
 
-// void mini_cd(char *str, char **environ){
-// 	int directory;
-// 	char	*path_env;
+// char	*get_environ_str(char *key, char **environ)
+// {
+// 	int		i;
+// 	char	*value;
 
-// 	path_env = get_environ_str("HOME=", environ);
-// 	printf("%s\n", path_env);
-// 	if(!str)
-// 		directory = chdir(path_env);
-// 	else{
-// 		if (!access(str, X_OK))
-// 			directory = chdir(str);
-// 		else
-// 			printf("どこ移動しようとしてんねん！\n");
+// 	i = 0;
+// 	while (environ[i] != NULL)
+// 	{
+// 		if (ft_strncmp(environ[i], key, ft_strlen(key)) == 0)
+// 		{
+// 			value = ft_strdup(ft_strchr(environ[i], '=') + 1);
+// 			return (value);
+// 		}
+// 		i++;
 // 	}
-// 	if(directory)
-// 		perror("cd");
+// 	return (NULL);
 // }
 
-void mini_cd(t_token *lst, char **environ){
+void mini_cd(t_token *lst, t_env *env_lst)
+{
 	int		directory = 0;
 	char	*path_env;
 
-	path_env = get_environ_str("HOME=", environ);
+	path_env = get_environ_str("HOME", env_lst);
 	printf("%s\n", path_env);
 	if(!lst)
 		directory = chdir(path_env);

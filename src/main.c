@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/28 22:35:07 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:54:02 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	main(void)
 			printf("[%s]\n", lst->word);
 			lst = lst->next;
 		}
-		mini_handle_command(buf, env_lst); //exit処理(仮)
+		if(buf)
+			mini_handle_command(buf, env_lst); //exit処理(仮)
 		free(line);
 	}
 	return (0);
