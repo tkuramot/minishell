@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:22:12 by tsishika          #+#    #+#             */
-/*   Updated: 2023/08/31 12:07:05 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/08/31 13:43:37 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void mini_handle_command(t_token *lst, t_env *env_lst)
 		mini_export(lst->next->word, env_lst);
 	if (ft_strncmp(lst->word, "$", 1) == 0)
 	{
-		buf = decompress(lst, env_lst);
+		buf = decompress(lst->word, env_lst);
 		if(!buf){
 			printf("そんな環境変数ねーだろ。\n");
 			return ;
