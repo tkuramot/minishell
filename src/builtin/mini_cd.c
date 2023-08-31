@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 12:06:23 by tsishika          #+#    #+#             */
-/*   Updated: 2023/08/30 23:14:25 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/08/31 00:02:28 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,24 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <stdio.h>
-// #include "../../libft/include/libft.h"
 
-// void	ft_pwd(void);
+int	update_path(char *env_name, char *path, t_env *env_lst)
+{
+	printf("PATHPATH==============%s\n", path);
+	while(env_lst)
+	{
+		if(ft_strcmp(env_name, env_lst->name) == 0)
+		{
+			free(env_lst->value);
+			env_lst->value = ft_strdup(path);
+			if(env_lst->value == NULL)
+				return(0);
+			return (1);
+		}
+		env_lst = env_lst->next;
+	}
+	return (0);
+}
 
 char	*get_environ_str(char *key, t_env *env_lst)
 {
@@ -32,46 +47,30 @@ char	*get_environ_str(char *key, t_env *env_lst)
 	return (NULL);
 }
 
-// char	*get_environ_str(char *key, char **environ)
-// {
-// 	int		i;
-// 	char	*value;
-
-// 	i = 0;
-// 	while (environ[i] != NULL)
-// 	{
-// 		if (ft_strncmp(environ[i], key, ft_strlen(key)) == 0)
-// 		{
-// 			value = ft_strdup(ft_strchr(environ[i], '=') + 1);
-// 			return (value);
-// 		}
-// 		i++;
-// 	}
-// 	return (NULL);
-// }
-
 void mini_cd(t_token *lst, t_env *env_lst)
 {
 	int		directory = 0;
 	char	*path_env;
 
-	path_env = get_environ_str("HOME", env_lst);
-	// printf("%s\n", path_env);
-	if(!lst)
+	path_env = NULL;
+	if(!lst || !ft_strcmp(lst->word, "~")){
+		path_env = get_environ_str("HOME", env_lst);
 		directory = chdir(path_env);
+	}
 	else if(!ft_strncmp(lst->word, "~", 1))
 		printf("~ のみのときはHOMEと挙動一緒\n~/のときはHOMEにstrjoinかなあ\n先に展開つくるわ。");
-	else if(!ft_strcmp(lst->word, "-"))
-		printf("環境変数から一個前のパスを取ってくる予定。\n");
+	else if(!ft_strcmp(lst->word, "-")){
+		path_env = get_environ_str("OLDPWD", env_lst);
+		directory = chdir(path_env);
+	}
 	else{
-		if (!access(lst->word, X_OK))
-			directory = chdir(lst->word);
-		else
-			printf("どこ移動しようとしてんねん！\n");
+		path_env = lst->word;
+		directory = chdir(path_env);
 	}
 	if(directory)
 		perror("cd");
-	// mini_pwd();
+	printf("OLDPATH=================%s\n", path_env);
+	update_path("OLDPWD", path_env, env_lst);
 }
 
 // int	mini_pwd(void)

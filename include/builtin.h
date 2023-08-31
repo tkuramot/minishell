@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:48 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/30 23:00:15 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/08/31 12:52:54 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void mini_cd(t_token *lst, t_env *env_lst);
 void mini_handle_command(t_token *lst, t_env *env_lst);
 void mini_env(const t_env *env_lst);
 void mini_unset(const t_token *lst, t_env *env_lst);
-void	mini_export(t_token *lst, t_env *env_lst);
+void	mini_export(char *env_str, t_env *env_lst);
 void	mini_pwd(void);
 
 t_env *env_lst_init(void);
