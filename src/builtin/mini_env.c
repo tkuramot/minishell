@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:15:39 by tsishika          #+#    #+#             */
-/*   Updated: 2023/08/30 23:29:56 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/08/31 17:39:14 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_env *env_lst_init(void)
 		return (NULL);
 	while(environ[++i])
 	{
-		// printf("%s\n", environ[i]);
 		new = env_lst_node_new(environ[i]);
 		if(!new)
 		{
