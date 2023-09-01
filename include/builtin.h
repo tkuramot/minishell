@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:48 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/31 19:03:56 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/01 23:16:09 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include "libft.h"
 #include "lexer.h"
+# include "exec.h"
 
 
 // 環境変数の線形リスト
