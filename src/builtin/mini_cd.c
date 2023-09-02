@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 12:06:23 by tsishika          #+#    #+#             */
-/*   Updated: 2023/08/31 00:02:28 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/02 21:26:01 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,29 @@
 #include <errno.h>
 #include <stdio.h>
 
-int	update_path(char *env_name, char *path, t_env *env_lst)
+char	*get_pwd(void)
 {
-	printf("PATHPATH==============%s\n", path);
-	while(env_lst)
+	char	*pwd_path;
+
+	pwd_path = ft_calloc(sizeof(char), PATH_MAX);
+	if (!pwd_path)
+		return (NULL);
+	getcwd(pwd_path, PATH_MAX);
+	if (!pwd_path)
+		return (NULL);
+	return (pwd_path);
+}
+
+int	update_oldpwd(char *new_oldpwd, t_env *env_lst)
+{
+	while (env_lst)
 	{
-		if(ft_strcmp(env_name, env_lst->name) == 0)
+		if (ft_strcmp("OLDPWD", env_lst->name) == 0)
 		{
 			free(env_lst->value);
-			env_lst->value = ft_strdup(path);
-			if(env_lst->value == NULL)
-				return(0);
+			env_lst->value = ft_strdup(new_oldpwd);
+			if (!env_lst->value)
+				return (0);
 			return (1);
 		}
 		env_lst = env_lst->next;
@@ -38,39 +50,38 @@ int	update_path(char *env_name, char *path, t_env *env_lst)
 
 char	*get_environ_str(char *key, t_env *env_lst)
 {
-	while(env_lst)
+	while (env_lst)
 	{
-		if(ft_strcmp(key, env_lst->name) == 0)
+		if (ft_strcmp(key, env_lst->name) == 0)
 			return (env_lst->value);
 		env_lst = env_lst->next;
 	}
 	return (NULL);
 }
 
-void mini_cd(t_token *lst, t_env *env_lst)
+void	mini_cd(char *path, t_env *env_lst)
 {
-	int		directory = 0;
+	int		directory;
 	char	*path_env;
+	char	*new_oldpwd;
 
+	directory = 0;
 	path_env = NULL;
-	if(!lst || !ft_strcmp(lst->word, "~")){
+	new_oldpwd = get_pwd();
+	if (!path || !ft_strcmp(path, "~"))
 		path_env = get_environ_str("HOME", env_lst);
-		directory = chdir(path_env);
-	}
-	else if(!ft_strncmp(lst->word, "~", 1))
-		printf("~ のみのときはHOMEと挙動一緒\n~/のときはHOMEにstrjoinかなあ\n先に展開つくるわ。");
-	else if(!ft_strcmp(lst->word, "-")){
+	else if (!ft_strncmp(path, "~/", 2))
+		path_env = ft_strjoin(get_environ_str("HOME", env_lst), &path[1]);
+	else if (!ft_strcmp(path, "-"))
 		path_env = get_environ_str("OLDPWD", env_lst);
-		directory = chdir(path_env);
-	}
-	else{
-		path_env = lst->word;
-		directory = chdir(path_env);
-	}
-	if(directory)
+	else
+		path_env = path;
+	directory = chdir(path_env);
+	if (directory)
 		perror("cd");
-	printf("OLDPATH=================%s\n", path_env);
-	update_path("OLDPWD", path_env, env_lst);
+	else
+		update_oldpwd(new_oldpwd, env_lst);
+	free(new_oldpwd);
 }
 
 // int	mini_pwd(void)

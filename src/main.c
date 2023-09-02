@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/31 20:43:58 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/02 20:40:33 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,35 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 
+static void	print_minishell(void)
+{
+	printf("                                   __              ___    ___\n");
+	printf("           __          __         /\\ \\            /\\_ \\  /\\_ \\\n");
+	printf("  ___ ___ /\\_\\    ___ /\\_\\    ____\\ \\ \\___      __\\//\\ \\ \\//\\ \\\n");
+	printf("/' __` __`\\/\\ \\ /' _ `\\/\\ \\  /',__\\\\ \\  _ `\\  /'__`\\\\ \\ \\  \\ \\ \\\n");
+	printf("/\\ \\/\\ \\/\\ \\ \\ \\/\\ \\/\\ \\ \\ \\/\\__, `\\\\ \\ \\ \\ \\/\\  __/ \\_\\ \\_ \\_\\ \\_\n");
+	printf("\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\/\\____/ \\ \\_\\ \\_\\ \\____\\/\\____\\/\\____\\\n");
+	printf(" \\/_/\\/_/\\/_/\\/_/\\/_/\\/_/\\/_/\\/___/   \\/_/\\/_/\\/____/\\/____/\\/____/\n\n");
+}
+
+
+
+
+
+
+
+
+
+
 int	main(void)
 {
 	extern char	**environ;
-	char	*line;
-	t_token	*lst;
-	t_token	*buf;
-	t_env	*env_lst;
+	char		*line;
+	t_token		*lst;
+	t_token		*buf;
+	t_env		*env_lst;
 
+	print_minishell();
 	env_lst = env_lst_init();
 	while (true)
 	{
@@ -40,8 +61,8 @@ int	main(void)
 			printf("[%s]\n", lst->word);
 			lst = lst->next;
 		}
-		if(buf)
-			mini_handle_command(buf, env_lst); //exit処理(仮)
+		if (buf)
+			mini_handle_command(buf, env_lst);
 		free(line);
 	}
 	return (0);
@@ -56,7 +77,7 @@ int	main(void)
 // 	return (0);
 // }
 
-__attribute__((destructor)) static void destructor()
-{
-    system("leaks -q minishell");
-}
+// __attribute__((destructor)) static void destructor()
+// {
+//     system("leaks -q minishell");
+// }
