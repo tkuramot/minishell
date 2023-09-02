@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 12:06:23 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/02 23:25:34 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/02 23:35:34 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,30 @@ static char	*get_pwd(void)
 	return (pwd_path);
 }
 
+// static int	update_oldpwd(char *new_oldpwd, t_env *env_lst)
+// {
+// 	while (env_lst)
+// 	{
+// 		if (ft_strcmp("OLDPWD", env_lst->name) == 0)
+// 		{
+// 			free(env_lst->value);
+// 			env_lst->value = ft_strdup(new_oldpwd);
+// 			if (!env_lst->value)
+// 				return (0);
+// 			return (1);
+// 		}
+// 		env_lst = env_lst->next;
+// 	}
+// 	return (0);
+// }
+
 static int	update_oldpwd(char *new_oldpwd, t_env *env_lst)
 {
+	char	*new_oldpwd_str;
+	t_env	*new;
+	t_env	*head;
+
+	head = env_lst;
 	while (env_lst)
 	{
 		if (ft_strcmp("OLDPWD", env_lst->name) == 0)
@@ -47,6 +69,10 @@ static int	update_oldpwd(char *new_oldpwd, t_env *env_lst)
 		}
 		env_lst = env_lst->next;
 	}
+	new_oldpwd_str = ft_strjoin("OLDPWD=", new_oldpwd);
+	new = env_lst_node_new(new_oldpwd_str);
+	env_lst_add_back(head, new);
+	free(new_oldpwd_str);
 	return (0);
 }
 
