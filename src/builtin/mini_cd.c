@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 12:06:23 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/02 21:26:01 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/02 21:30:03 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 #include <errno.h>
 #include <stdio.h>
 
-char	*get_pwd(void)
+// bash起動後すぐに "cd -" を実行した際、"cd: Bad address" ではなく、"cd: OLDPWD not set"にする必要があるかも
+
+static char	*get_pwd(void)
 {
 	char	*pwd_path;
 
@@ -31,7 +33,7 @@ char	*get_pwd(void)
 	return (pwd_path);
 }
 
-int	update_oldpwd(char *new_oldpwd, t_env *env_lst)
+static int	update_oldpwd(char *new_oldpwd, t_env *env_lst)
 {
 	while (env_lst)
 	{
@@ -48,7 +50,7 @@ int	update_oldpwd(char *new_oldpwd, t_env *env_lst)
 	return (0);
 }
 
-char	*get_environ_str(char *key, t_env *env_lst)
+static char	*get_environ_str(char *key, t_env *env_lst)
 {
 	while (env_lst)
 	{
