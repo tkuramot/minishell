@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/03 18:21:24 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/03 18:43:07 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	execute_cmd(t_ast *ast)
 	if (!ast)
 		return ;
 	printf("=========\n");
+	printf("NODE TYPE is %d\n", ast->type);
 	lst = ast->lst;
 	while (lst)
 	{

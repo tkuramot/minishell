@@ -6,12 +6,19 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/03 18:27:07 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/03 18:42:20 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "utils.h"
+
+bool	expect_pipe(t_token *lst)
+{
+	if (!lst || !lst->next)
+		return (false);
+	return (ft_strcmp(lst->next->word, "|") == 0);
+}
 
 t_ast	*parse_cmd(t_token **lst)
 {
@@ -20,7 +27,7 @@ t_ast	*parse_cmd(t_token **lst)
 
 	cmd = *lst;
 	tmp = *lst;
-	while (tmp->next && ft_strcmp(tmp->word, "|") != 0)
+	while (tmp->next && !expect_pipe(tmp))
 	{
 		tmp = tmp->next;
 	}
@@ -42,7 +49,6 @@ t_ast	*parse_pipe(t_token *lst)
 		{
 			lst = lst->next;
 			node = ast_new_node(ND_PIPE, node, parse_cmd(&lst));
-			printf("ok [%s]\n", node->lst->word);
 		}
 		else
 			return (node);
