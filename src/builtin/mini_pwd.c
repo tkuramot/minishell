@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 17:23:23 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/30 23:17:41 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/03 10:38:15 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,10 @@
 
 void	mini_pwd(void)
 {
-	char pwd_path[PATH_MAX];
+	char	pwd_path[PATH_MAX];
 
-	getcwd(pwd_path, PATH_MAX);
-	if(pwd_path[0])
-		printf("%s\n", pwd_path);
+	if (!getcwd(pwd_path, PATH_MAX))
+		perror("pwd");
 	else
-		printf("エラー処理\n");  //えらーえらーえらーえらーえらー
+		printf("%s\n", pwd_path);
 }
