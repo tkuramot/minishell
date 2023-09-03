@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_pwd.c                                         :+:      :+:    :+:   */
+/*   mini_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 17:23:23 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/03 10:38:15 by tsishika         ###   ########.fr       */
+/*   Created: 2023/08/28 11:10:58 by tsishika          #+#    #+#             */
+/*   Updated: 2023/08/31 19:03:33 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
-#include <limits.h>
 #include "builtin.h"
 
-// アホみたいに長いpathのとき何も表示されない。対応ちょっと考えます。
-
-void	mini_pwd(void)
+void mini_exit(t_env *env_lst)
 {
-	char	pwd_path[PATH_MAX];
-
-	if (!getcwd(pwd_path, PATH_MAX))
-		perror("pwd");
-	else
-		printf("%s\n", pwd_path);
+	free_all_env_lst(env_lst);
+	exit(0);
 }
+
+// exit(status)みたいな形で終了すべき？
+// exit内でfreeする関数多そう

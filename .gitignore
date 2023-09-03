@@ -6,3 +6,5 @@ minishell
 echo
 pwd
 a.out
+.DS_STORE
+.vscode
