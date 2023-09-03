@@ -6,10 +6,11 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/03 18:43:07 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/03 18:53:35 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "executor.h"
 #include "minishell.h"
 #include "lexer.h"
 #include "parser.h"
@@ -17,24 +18,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <readline/readline.h>
-
-void	execute_cmd(t_ast *ast)
-{
-	t_token	*lst;
-
-	if (!ast)
-		return ;
-	printf("=========\n");
-	printf("NODE TYPE is %d\n", ast->type);
-	lst = ast->lst;
-	while (lst)
-	{
-		printf("[%s]\n", lst->word);
-		lst = lst->next;
-	}
-	execute_cmd(ast->left);
-	execute_cmd(ast->right);
-}
 
 int	main(void)
 {

@@ -6,11 +6,12 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/03 18:35:14 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/03 18:45:54 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+#include "utils.h"
 #include <stdio.h>
 
 static t_token	*token_init(char *word, t_token_type type)
@@ -18,10 +19,10 @@ static t_token	*token_init(char *word, t_token_type type)
 	t_token	*token;
 
 	if (!word)
-		return (NULL);
+		fatal_error(ERR_MALLOC);
 	token = ft_calloc(1, sizeof (t_token));
 	if (!token)
-		return (NULL);
+		fatal_error(ERR_MALLOC);
 	token->word = word;
 	token->type = type;
 	return (token);
