@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_pwd.c                                         :+:      :+:    :+:   */
+/*   decompress.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 17:23:23 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/03 10:38:15 by tsishika         ###   ########.fr       */
+/*   Created: 2023/08/29 01:09:00 by tsishika          #+#    #+#             */
+/*   Updated: 2023/08/31 13:44:34 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
 #include "builtin.h"
 
-// アホみたいに長いpathのとき何も表示されない。対応ちょっと考えます。
-
-void	mini_pwd(void)
+t_env	*decompress(char *env_name, t_env *env_lst)
 {
-	char	pwd_path[PATH_MAX];
+	char	*name;
 
-	if (!getcwd(pwd_path, PATH_MAX))
-		perror("pwd");
-	else
-		printf("%s\n", pwd_path);
+	name = &env_name[1];
+	while (env_lst)
+	{
+		if (ft_strcmp(name, env_lst->name) == 0)
+			return (env_lst);
+		env_lst = env_lst->next;
+	}
+	return (NULL);
 }
