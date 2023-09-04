@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 22:14:10 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/01 23:17:08 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/04 11:50:05 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include "libft.h"
+# include "builtin.h"
 
-int	test_exec(char *path);
+int	test_exec(char *path, char **env);
+char **env_list_to_array(t_env *env_lst);
 
 #endif

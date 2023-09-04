@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 22:15:00 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/01 23:17:41 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/04 11:49:48 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 int	is_exec(char *command)
 {
 	if (access(command, X_OK) == 0)
+		return (1);
+	return (0);
+}
+
+int	is_read(char *command)
+{
+	if (access(command, R_OK) == 0)
 		return (1);
 	return (0);
 }
@@ -59,6 +66,7 @@ char	*resolve_path(char *command, char *path_env)
 		path = ft_strjoin(paths[i], "/");
 		full_path = ft_strjoin(path, command);
 		free(path);
+		// printf("%d ==== %s\n", i, full_path);
 		if (is_exec(full_path))
 		{
 			// free_two_d_array(paths);
@@ -78,12 +86,15 @@ void	handle_command(char *raw_command, char **environ)
 	char	**path_env;
 
 	command = split_command(raw_command);
-	if (is_exec(command[0]))
-	{
-		execve(command[0], command, environ);
-		// exit_free_perror(command, NULL);
-		exit(0);
-	}
+	// if (is_read(command[0]) == -1)
+	//  if (is_exec(command[0]))
+	//  {
+	// 	if(execve(command[0], command, environ) == -1)
+	// 		perror("execve");
+	// 	// exit_free_perror(command, NULL);
+	// 	// printf("これ見える\n");
+	// 	exit(0);
+	//  }
 	path_env = get_environ_str1("PATH", environ);
 	command_full_path = resolve_path(command[0], path_env[1]);
 	// free_two_d_array(path_env);
@@ -91,17 +102,24 @@ void	handle_command(char *raw_command, char **environ)
 	// 	exit_free_strerror("command not found", command[0], command, NULL);
 	execve(command_full_path, command, environ);
 	// exit_free_perror(command, command_full_path);
+	if (is_exec(command[0]))
+	 {
+		if(execve(command[0], command, environ) == -1)
+			perror("execve");
+		// exit_free_perror(command, NULL);
+		// printf("これ見える\n");
+		exit(0);
+	 }
 }
 
-int	test_exec(char *path)
+int	test_exec(char *path, char **env)
 {
 	pid_t	pid;
 	int status;
-	extern char	**environ;
 
 	pid = fork();
 	if (pid == 0)
-		handle_command(path, environ);
+		handle_command(path, env);
 		// execve("/bin/ls", cmd1, environ);
 	waitpid(pid, &status, 0);
 	return (0);

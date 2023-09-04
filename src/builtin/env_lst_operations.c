@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:17:32 by tsishika          #+#    #+#             */
-/*   Updated: 2023/08/31 17:39:22 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/03 22:33:04 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,17 @@ void free_all_env_lst(t_env *lst)
 	free(lst->value);
 	free_all_env_lst(lst->next);
 	free(lst);
+}
+
+size_t	env_lst_size(t_env *lst)
+{
+	size_t	i;
+
+	i = 0;
+	while (lst)
+	{
+		i++;
+		lst = lst->next;
+	}
+	return (i);
 }
