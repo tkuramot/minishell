@@ -33,7 +33,7 @@ fclean: clean
 
 re: fclean all
 
-test:
+test: all
 	bash ./test/test.sh
 
 fname:
