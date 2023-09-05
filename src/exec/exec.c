@@ -6,13 +6,13 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:26:03 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/05 16:18:00 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:34:58 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-char	**get_environ_str1(char *key, char **environ)
+char	**get_environment_value(char *key, char **environ)
 {
 	int		i;
 	char	**value;
@@ -37,8 +37,8 @@ char	*resolve_path(char *command, char *path_env)
 	char	*full_path;
 	int		i;
 
-	paths = ft_split(path_env, ':');
 	i = 0;
+	paths = ft_split(path_env, ':');
 	while (paths[i] != NULL)
 	{
 		path = ft_strjoin(paths[i], "/");
@@ -57,8 +57,13 @@ void	handle_command(char **command, char **environ)
 	char	*command_full_path;
 	char	**path_env;
 
-	path_env = get_environ_str1("PATH", environ);
+	path_env = get_environment_value("PATH", environ);
 	command_full_path = resolve_path(command[0], path_env[1]);
+	if (strncmp("./", command[0], 2) == 0)
+	{
+		execve(command[0], command, environ);
+		exit(0);
+	}
 	execve(command_full_path, command, environ);
 	if (is_executable(command[0]))
 	{
