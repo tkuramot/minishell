@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:22:12 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/05 23:53:07 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/06 01:01:42 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void mini_handle_command(t_token *lst, t_env *env_lst)
 		mini_unset(lst->next, env_lst);
 	else if (ft_strcmp(lst->word, "export") == 0)
 		mini_export(lst->next, env_lst);
+	else if (ft_strcmp(lst->word, "echo") == 0)
+		mini_echo(lst->next);
 	else if (ft_strncmp(lst->word, "$", 1) == 0)
 	{
 		buf = decompress(lst->word, env_lst);
