@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:22:12 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/05 16:17:34 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/05 23:16:57 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void mini_handle_command(t_token *lst, t_env *env_lst)
 	else if (ft_strcmp(lst->word, "pwd") == 0)
 		mini_pwd();
 	else if (ft_strcmp(lst->word, "cd") == 0)
-		mini_cd(lst->next->word, env_lst);
+		mini_cd(lst->next, env_lst);
 	else if (ft_strcmp(lst->word, "env") == 0)
 		mini_env(env_lst);
 	else if (ft_strcmp(lst->word, "unset") == 0)
