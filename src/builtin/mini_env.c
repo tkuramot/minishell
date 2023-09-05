@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:15:39 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/04 12:10:58 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/05 23:51:27 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,11 @@ t_env *env_lst_init(void)
 
 void mini_env(const t_env *env_lst)
 {
-	int i = 0;
 	if(!env_lst)
 		return;
 	while(env_lst)
 	{
-		printf("%d %s=%s\n", i, env_lst->name, env_lst->value);
-		i++;
+		printf("%s=%s\n", env_lst->name, env_lst->value);
 		env_lst = env_lst->next;
 	}
 }
