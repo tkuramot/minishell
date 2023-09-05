@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:35:18 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/06 01:07:40 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/06 01:09:48 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,14 @@ static int	echo_without_option_n(t_token *lst)
 	return (0);
 }
 
-int mini_echo(t_token *lst)
+int	mini_echo(t_token *lst)
 {
-	if(!lst){
+	if (!lst)
+	{
 		printf("\n");
 		return (0);
 	}
-	if(is_valid_option(lst->word))
+	if (is_valid_option(lst->word))
 		return (echo_with_option_n(lst));
 	return (echo_without_option_n(lst));
 }

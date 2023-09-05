@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/27 15:55:00 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/06 01:17:10 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,18 @@ t_token	*tokenize(char *line)
 		}
 	}
 	return (head.next);
+}
+
+// リークが残って気になったので勝手に作りました。
+void	token_lst_free(t_token *lst)
+{
+	t_token	*buf;
+
+	while(lst)
+	{
+		buf = lst;
+		free(lst->word);
+		lst = lst->next;
+		free(buf);
+	}
 }
