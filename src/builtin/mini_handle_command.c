@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:22:12 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/04 11:55:14 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:57:44 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void mini_handle_command(t_token *lst, t_env *env_lst)
 	t_env *buf;
 	extern char	**environ;
 	char **env_array;
+	char **token_array;
 
 	if (ft_strcmp(lst->word, "exit") == 0){
 		free(lst);
@@ -46,22 +47,10 @@ void mini_handle_command(t_token *lst, t_env *env_lst)
 			return ;
 		}
 		printf("%s\n", buf->value);
-	} else if (ft_strncmp(lst->word, "print", 1) == 0){
-		env_array = env_list_to_array(env_lst);
-		int i = 0;
-		while(env_array[i])
-		{
-			printf("%s\n", env_array[i]);
-			i++;
-		}
 	} else{
 		env_array = env_list_to_array(env_lst);
-		// int i = 0;
-		// while(env_array[i])
-		// {
-		// 	printf("%s\n", env_array[i]);
-		// 	i++;
-		// }
-		test_exec(lst->word, env_array);
+		token_array = token_lst_to_array(lst);
+		exec(token_array, env_array);
+		free_env_array(env_array);
 	}
 }

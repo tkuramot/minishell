@@ -6,25 +6,11 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 22:15:00 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/04 11:49:48 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:36:25 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-int	is_exec(char *command)
-{
-	if (access(command, X_OK) == 0)
-		return (1);
-	return (0);
-}
-
-int	is_read(char *command)
-{
-	if (access(command, R_OK) == 0)
-		return (1);
-	return (0);
-}
 
 char	**get_environ_str1(char *key, char **environ)
 {
@@ -67,7 +53,7 @@ char	*resolve_path(char *command, char *path_env)
 		full_path = ft_strjoin(path, command);
 		free(path);
 		// printf("%d ==== %s\n", i, full_path);
-		if (is_exec(full_path))
+		if (is_executable(full_path))
 		{
 			// free_two_d_array(paths);
 			return (full_path);
@@ -86,8 +72,8 @@ void	handle_command(char *raw_command, char **environ)
 	char	**path_env;
 
 	command = split_command(raw_command);
-	// if (is_read(command[0]) == -1)
-	//  if (is_exec(command[0]))
+	// if (is_readable(command[0]) == -1)
+	//  if (is_executable(command[0]))
 	//  {
 	// 	if(execve(command[0], command, environ) == -1)
 	// 		perror("execve");
@@ -102,7 +88,7 @@ void	handle_command(char *raw_command, char **environ)
 	// 	exit_free_strerror("command not found", command[0], command, NULL);
 	execve(command_full_path, command, environ);
 	// exit_free_perror(command, command_full_path);
-	if (is_exec(command[0]))
+	if (is_executable(command[0]))
 	 {
 		if(execve(command[0], command, environ) == -1)
 			perror("execve");
