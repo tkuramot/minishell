@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 22:14:10 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/05 15:56:31 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:17:50 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	is_executable(char *command);
 int	is_readable(char *command);
 
 // int	exec(char *path, char **env);
-int	exec(char **command, char **env);
+int	exec(t_token *token_lst, t_env *env_lst);
 char **env_list_to_array(t_env *env_lst);
-void free_env_array(char **env_array);
+void	free_two_d_array(char **array);
 
 char **token_lst_to_array(const t_token *command_lst);
 

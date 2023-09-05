@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_list_to_array.c                                :+:      :+:    :+:   */
+/*   list_to_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 22:30:33 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/05 15:38:22 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:09:25 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,51 @@ char	**env_list_to_array(t_env *env_lst)
 	return (env_array);
 }
 
-void	free_env_array(char **env_array)
+static size_t	token_lst_size(const t_token *commond_lst)
 {
 	size_t	i;
 
 	i = 0;
-	while (env_array[i])
+	while (commond_lst)
 	{
-		free(env_array[i]);
+		i++;
+		commond_lst = commond_lst->next;
+	}
+	return (i);
+}
+
+char	**token_lst_to_array(const t_token *command_lst)
+{
+	size_t	i;
+	size_t	command_lst_size;
+	char	**command;
+
+	command_lst_size = token_lst_size(command_lst);
+	command = malloc(sizeof(char *) * (command_lst_size + 1));
+	if (!command)
+		return (NULL);
+	i = 0;
+	while (command_lst)
+	{
+		command[i] = ft_strdup(command_lst->word);
+		if (!command[i])
+			return (NULL);
+		command_lst = command_lst->next;
 		i++;
 	}
-	free(env_array);
+	command[i] = NULL;
+	return (command);
+}
+
+void	free_two_d_array(char **array)
+{
+	size_t	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 }
