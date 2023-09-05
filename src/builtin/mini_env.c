@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:15:39 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/06 02:05:56 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/06 02:08:49 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static bool	is_env_option(char *option)
 		return (true);
 	if(ft_strcmp("-", option) == 0)
 		return (false);
-	perror(option);  //errno使っていいのかなあ？ダメだったらきつい。
+	perror(option); //errno使わない場合どう表示させるんや。。。
 	return (false);
 }
 
