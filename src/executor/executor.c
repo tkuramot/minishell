@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/20 11:02:32 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/03 18:00:55 by tkuramot         ###   ########.fr       */
+/*   Created: 2023/09/03 18:51:37 by tkuramot          #+#    #+#             */
+/*   Updated: 2023/09/03 18:52:07 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "parser.h"
 
-# define ERR_MALLOC "Cannot acllocate enough memory\n"
+void	execute_cmd(t_ast *ast)
+{
+	t_token	*lst;
 
-void	fatal_error(char *err);
-
-#endif
+	if (!ast)
+		return ;
+	printf("=========\n");
+	printf("NODE TYPE is %d\n", ast->type);
+	lst = ast->lst;
+	while (lst)
+	{
+		printf("[%s]\n", lst->word);
+		lst = lst->next;
+	}
+	execute_cmd(ast->left);
+	execute_cmd(ast->right);
+}

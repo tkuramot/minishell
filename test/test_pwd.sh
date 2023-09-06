@@ -3,12 +3,12 @@
 func=$(find . -name "assert.sh")
 source $func
 
-assert_pwd ''
-assert_pwd 'aaaaaaa'
-assert_pwd 'aaa bbb ccc'
-assert_pwd '  aaa   bbb    ccc '
-#assert_pwd '-nnnnan'
-#assert_pwd '-a'
-#assert_pwd '---------n'
-assert_pwd '--'
-assert_pwd '-'
+assert pwd
+assert pwd aaaaaaa
+assert pwd aaa bbb ccc
+assert pwd   aaa   bbb    ccc
+#asserd pwd -nnnnan
+#asserd pwd -a
+#asserd pwd ---------n
+assert pwd --
+assert pwd -
