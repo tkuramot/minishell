@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:22:12 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/02 21:10:11 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:17:34 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,5 @@ void mini_handle_command(t_token *lst, t_env *env_lst)
 		}
 		printf("%s\n", buf->value);
 	} else
-		test_exec(lst->word);
+		exec(lst, env_lst);
 }

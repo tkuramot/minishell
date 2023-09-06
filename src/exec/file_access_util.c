@@ -1,19 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   file_access_util.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/20 10:55:41 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/03 22:41:46 by tsishika         ###   ########.fr       */
+/*   Created: 2023/09/04 14:29:56 by tsishika          #+#    #+#             */
+/*   Updated: 2023/09/04 16:35:22 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "exec.h"
 
-# include "builtin.h"
-# include "exec.h"
+int	is_executable(char *command)
+{
+	if (access(command, X_OK) == -1)
+		return (0);
+	return (1);
+}
 
-#endif
+int	is_readable(char *file)
+{
+	if (access(file, F_OK) == -1)
+		return (0);
+	if (access(file, R_OK) == -1)
+		return (0);
+	return (1);
+}
