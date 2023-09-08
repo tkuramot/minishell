@@ -6,13 +6,15 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:15:39 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/06 02:08:49 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/08 13:02:47 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include <errno.h>
 
+
+// env---
 t_env *env_lst_init(void)
 {
 	extern char	**environ;
@@ -32,7 +34,6 @@ t_env *env_lst_init(void)
 			// freeかくのだりいいいいいい
 			return (NULL);
 		}
-		// printf("%s\n", new->name);
 		env_lst_add_back(head, new);
 	}
 	return (head);
@@ -41,8 +42,12 @@ t_env *env_lst_init(void)
 static bool	is_env_option(char *option)
 {
 	errno = 2;
-	if(ft_strcmp("--", option) == 0)
-		return (true);
+	if(ft_strncmp("--", option, 2) == 0)
+	{
+		if(ft_strlen(option) == 2)
+			return (true);
+		return (false);
+	}
 	if(ft_strcmp("-", option) == 0)
 		return (false);
 	perror(option); //errno使わない場合どう表示させるんや。。。
