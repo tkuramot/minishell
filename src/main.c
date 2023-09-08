@@ -6,11 +6,10 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/05 16:35:34 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/08 21:00:32 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"
 #include "minishell.h"
 #include "lexer.h"
 #include "parser.h"
@@ -59,7 +58,7 @@ int	main(void)
 			lst = lst->next;
 		}
 		ast = parse_token(tmp);
-		execute_cmd(ast);
+		(void)ast;
 		if (buf)
 			mini_handle_command(buf, env_lst);
 		free(line);
