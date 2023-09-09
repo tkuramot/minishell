@@ -1,3 +1,3 @@
 #!/bin/bash
 
-find ./ -type f -name "test_*.sh" -exec bash "{}" \;
+find ./ -type f -name "*_test.sh" -exec bash "{}" \;

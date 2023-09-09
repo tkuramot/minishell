@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/09 12:45:42 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/09 13:25:58 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ int	main(void)
 {
 	char	*line;
 	t_token	*lst;
-	t_token	*tmp;
-	t_ast	*ast;
 	extern char	**environ;
 	t_token		*buf;
 	t_env		*env_lst;
@@ -51,15 +49,12 @@ int	main(void)
 		if (*line)
 			add_history(line);
 		lst = tokenize(line);
-		tmp = lst;
 		buf = lst;
 		while (lst)
 		{
 			//printf("[%s]\n", lst->word);
 			lst = lst->next;
 		}
-		ast = parse_token(tmp);
-		execute_cmd(ast);
 		if (buf)
 			mini_handle_command(buf, env_lst);
 		free(line);

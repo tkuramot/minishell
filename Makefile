@@ -31,10 +31,10 @@ fclean: clean
 
 re: fclean all
 
-test: all
+test:
 	bash ./test/test.sh
 
-fname:
+cfile:
 	find . -name "*.c" -not -path "./libft/*" | sed 's/\.\///g' | tr '\n' ' '
 
 -include $(DEPENDS)
