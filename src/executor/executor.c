@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:51:37 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/03 18:52:07 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/09 18:22:20 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	execute_cmd(t_ast *ast)
 
 	if (!ast)
 		return ;
-	printf("=========\n");
-	printf("NODE TYPE is %d\n", ast->type);
+ft_dprintf(STDOUT_FILENO, "=========\n");
+ft_dprintf(STDOUT_FILENO, "NODE TYPE is %d\n", ast->type);
 	lst = ast->lst;
 	while (lst)
 	{
-		printf("[%s]\n", lst->word);
+	ft_dprintf(STDOUT_FILENO, "[%s]\n", lst->word);
 		lst = lst->next;
 	}
 	execute_cmd(ast->left);

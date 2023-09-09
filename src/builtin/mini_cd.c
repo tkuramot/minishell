@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_cd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 12:06:23 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/05 23:31:32 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/09 18:21:22 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	mini_cd(t_token *token_lst, t_env *env_lst)
 
 // int	mini_pwd(void)
 // {
-// 	printf("%s\n", getenv("PWD"));
+// ft_dprintf("%s\n", getenv("PWD"));
 // 	return (0);
 // }
 

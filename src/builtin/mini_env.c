@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:15:39 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/08 13:02:47 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/09 18:23:56 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void mini_env(const t_token *lst, t_env *env_lst)
 		return ;
 	while(env_lst)
 	{
-		printf("%s=%s\n", env_lst->name, env_lst->value);
+	ft_dprintf(STDOUT_FILENO, "%s=%s\n", env_lst->name, env_lst->value);
 		env_lst = env_lst->next;
 	}
 }

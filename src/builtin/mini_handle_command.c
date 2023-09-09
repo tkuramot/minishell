@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_handle_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:22:12 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/06 01:42:15 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/09 18:23:21 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void mini_handle_command(t_token *lst, t_env *env_lst)
 	{
 		buf = decompress(lst->word, env_lst);
 		if(!buf){
-			printf("そんな環境変数ねーだろ。\n");
+		ft_dprintf(STDOUT_FILENO, "そんな環境変数ねーだろ。\n");
 			return ;
 		}
-		printf("%s\n", buf->value);
+	ft_dprintf(STDOUT_FILENO, "%s\n", buf->value);
 	} else
 		exec(lst, env_lst);
 }

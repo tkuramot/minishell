@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:35:18 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/09 12:30:22 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/09 18:22:55 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ static int	echo_with_option_n(t_token *lst)
 		lst = lst->next;
 	while (lst->next)
 	{
-		printf("%s ", lst->word);
+	ft_dprintf(STDOUT_FILENO, "%s ", lst->word);
 		lst = lst->next;
 	}
-	printf("%s", lst->word);
+ft_dprintf(STDOUT_FILENO, "%s", lst->word);
 	return (0);
 }
 
@@ -46,10 +46,10 @@ static int	echo_without_option_n(t_token *lst)
 {
 	while (lst->next)
 	{
-		printf("%s ", lst->word);
+	ft_dprintf(STDOUT_FILENO, "%s ", lst->word);
 		lst = lst->next;
 	}
-	printf("%s\n", lst->word);
+ft_dprintf(STDOUT_FILENO, "%s\n", lst->word);
 	return (0);
 }
 
@@ -57,7 +57,7 @@ int	mini_echo(t_token *lst)
 {
 	if (!lst)
 	{
-		printf("\n");
+	ft_dprintf(STDOUT_FILENO, "\n");
 		return (0);
 	}
 	if (is_valid_option(lst->word))
