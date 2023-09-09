@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:48 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/04 18:17:32 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/06 01:26:06 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,15 @@ void	env_lst_add_back(t_env *lst, t_env *new);
 void	env_lst_node_delete(t_env *lst, t_env *delete_node);
 void	free_all_env_lst(t_env *lst);
 size_t	env_lst_size(t_env *lst);
+char *env_strjoin(char *name, char *value);
 
-int		mini_echo(int argc, char **argv);
-void	mini_exit(t_env *env_lst);
-void	mini_cd(char *path, t_env *env_lst);
+int		mini_echo(t_token *lst);
+void	mini_exit(t_token *lst, t_env *env_lst);
+void	mini_cd(t_token *token_lst, t_env *env_lst);
 void	mini_handle_command(t_token *lst, t_env *env_lst);
-void	mini_env(const t_env *env_lst);
-void	mini_unset(const char *env_name, t_env *env_lst);
-void	mini_export(char *env_str, t_env *env_lst);
+void mini_env(const t_token *lst, t_env *env_lst);
+void	mini_unset(const t_token *token_lst, t_env *env_lst);
+void	mini_export(t_token *token_lst, t_env *env_lst);
 void	mini_pwd(void);
 
 t_env	*env_lst_init(void);

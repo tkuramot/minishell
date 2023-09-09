@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:17:32 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/03 22:33:04 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/05 23:28:22 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,21 @@ size_t	env_lst_size(t_env *lst)
 		lst = lst->next;
 	}
 	return (i);
+}
+//nameとvalueを後からくっつける用
+char	*env_strjoin(char *name, char *value)
+{
+	char	*name_equal;
+	char	*env_str;
+
+	if (!name || !value)
+		return (NULL);
+	name_equal = ft_strjoin(name, "=");
+	if (!name_equal)
+		return (NULL);
+	env_str = ft_strjoin(name_equal, value);
+	free(name_equal);
+	if (!env_str)
+		return (NULL);
+	return (env_str);
 }

@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 17:23:23 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/03 10:38:15 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/06 01:10:34 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <stdlib.h>
 #include <limits.h>
 #include "builtin.h"
-
-// アホみたいに長いpathのとき何も表示されない。対応ちょっと考えます。
 
 void	mini_pwd(void)
 {

@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_exit.c                                        :+:      :+:    :+:   */
+/*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/28 11:10:58 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/06 01:20:33 by tsishika         ###   ########.fr       */
+/*   Created: 2023/09/08 13:15:38 by tsishika          #+#    #+#             */
+/*   Updated: 2023/09/08 15:06:26 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#ifndef HEREDOC_H
+# define HEREDOC_H
+
+# include <sys/types.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <errno.h>
+# include <string.h>
+# include <sys/wait.h>
+# include <stdlib.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <stdbool.h>
 #include "builtin.h"
+#include "exec.h"
+#include "parser.h"
 
-void	mini_exit(t_token *lst, t_env *env_lst)
-{
-	token_lst_free(lst);
-	free_all_env_lst(env_lst);
-	exit(0);
-}
-
-// exit(status)みたいな形で終了すべき？
-// exit内でfreeする関数多そう
+#endif

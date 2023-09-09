@@ -6,17 +6,12 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:22:12 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/05 16:17:34 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/06 01:42:15 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include "lexer.h"
-
-// 条件式が長すぎ。strncmpだと"exito" とかが弾けない。strcmp作るべきだろうなあって感じ。
-// mini_echoの引数が現状だとどう扱っていいかわからない。私的にはchar **strで受け取っておいてあげたいがどうしよっかなあって感じ。
-// lstごともらって内部で次の文字調べてもいいけどこのへんは構文解析でなんとかできるのでは。わかんねえ
-// 現状はexitできるようにしたからこのまま放置
 
 void mini_handle_command(t_token *lst, t_env *env_lst)
 {
@@ -24,19 +19,20 @@ void mini_handle_command(t_token *lst, t_env *env_lst)
 	extern char	**environ;
 
 	if (ft_strcmp(lst->word, "exit") == 0){
-		free(lst);
-		mini_exit(env_lst);
+		mini_exit(lst, env_lst);
 	}
 	else if (ft_strcmp(lst->word, "pwd") == 0)
 		mini_pwd();
 	else if (ft_strcmp(lst->word, "cd") == 0)
-		mini_cd(lst->next->word, env_lst);
+		mini_cd(lst->next, env_lst);
 	else if (ft_strcmp(lst->word, "env") == 0)
-		mini_env(env_lst);
+		mini_env(lst->next, env_lst);
 	else if (ft_strcmp(lst->word, "unset") == 0)
-		mini_unset(lst->next->word, env_lst);
+		mini_unset(lst->next, env_lst);
 	else if (ft_strcmp(lst->word, "export") == 0)
-		mini_export(lst->next->word, env_lst);
+		mini_export(lst->next, env_lst);
+	else if (ft_strcmp(lst->word, "echo") == 0)
+		mini_echo(lst->next);
 	else if (ft_strncmp(lst->word, "$", 1) == 0)
 	{
 		buf = decompress(lst->word, env_lst);
