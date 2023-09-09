@@ -10,8 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "executor.h"
 #include "minishell.h"
 #include "lexer.h"
+#include "parser.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,25 +21,28 @@
 
 static void	print_minishell(void)
 {
-	printf("                                   __              ___    ___\n");
-	printf("           __          __         /\\ \\            /\\_ \\  /\\_ \\\n");
-	printf("  ___ ___ /\\_\\    ___ /\\_\\    ____\\ \\ \\___      __\\//\\ \\ \\//\\ \\\n");
-	printf("/' __` __`\\/\\ \\ /' _ `\\/\\ \\  /',__\\\\ \\  _ `\\  /'__`\\\\ \\ \\  \\ \\ \\\n");
-	printf("/\\ \\/\\ \\/\\ \\ \\ \\/\\ \\/\\ \\ \\ \\/\\__, `\\\\ \\ \\ \\ \\/\\  __/ \\_\\ \\_ \\_\\ \\_\n");
-	printf("\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\/\\____/ \\ \\_\\ \\_\\ \\____\\/\\____\\/\\____\\\n");
-	printf(" \\/_/\\/_/\\/_/\\/_/\\/_/\\/_/\\/_/\\/___/   \\/_/\\/_/\\/____/\\/____/\\/____/\n\n");
+	ft_dprintf(STDERR_FILENO, "                                   __              ___    ___\n");
+	ft_dprintf(STDERR_FILENO, "           __          __         /\\ \\            /\\_ \\  /\\_ \\\n");
+	ft_dprintf(STDERR_FILENO, "  ___ ___ /\\_\\    ___ /\\_\\    ____\\ \\ \\___      __\\//\\ \\ \\//\\ \\\n");
+	ft_dprintf(STDERR_FILENO, "/' __` __`\\/\\ \\ /' _ `\\/\\ \\  /',__\\\\ \\  _ `\\  /'__`\\\\ \\ \\  \\ \\ \\\n");
+	ft_dprintf(STDERR_FILENO, "/\\ \\/\\ \\/\\ \\ \\ \\/\\ \\/\\ \\ \\ \\/\\__, `\\\\ \\ \\ \\ \\/\\  __/ \\_\\ \\_ \\_\\ \\_\n");
+	ft_dprintf(STDERR_FILENO, "\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\/\\____/ \\ \\_\\ \\_\\ \\____\\/\\____\\/\\____\\\n");
+	ft_dprintf(STDERR_FILENO, " \\/_/\\/_/\\/_/\\/_/\\/_/\\/_/\\/_/\\/___/   \\/_/\\/_/\\/____/\\/____/\\/____/\n\n");
 }
 
 int	main(void)
 {
+	char	*line;
+	t_token	*lst;
+	t_token	*tmp;
+	t_ast	*ast;
 	extern char	**environ;
-	char		*line;
-	t_token		*lst;
 	t_token		*buf;
 	t_env		*env_lst;
 
 	print_minishell();
 	env_lst = env_lst_init();
+	rl_outstream = stderr;
 	while (true)
 	{
 		line = readline("\x1b[32mminishell$ \x1b[0m");
@@ -46,12 +51,15 @@ int	main(void)
 		if (*line)
 			add_history(line);
 		lst = tokenize(line);
+		tmp = lst;
 		buf = lst;
 		while (lst)
 		{
-			printf("[%s]\n", lst->word);
+			//printf("[%s]\n", lst->word);
 			lst = lst->next;
 		}
+		ast = parse_token(tmp);
+		execute_cmd(ast);
 		if (buf)
 			mini_handle_command(buf, env_lst);
 		free(line);

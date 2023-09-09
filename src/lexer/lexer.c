@@ -6,22 +6,23 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/06 01:17:10 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/03 18:45:54 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+#include "utils.h"
 #include <stdio.h>
 
-static t_token	*init_token(char *word, t_token_type type)
+static t_token	*token_init(char *word, t_token_type type)
 {
 	t_token	*token;
 
 	if (!word)
-		return (NULL);
+		fatal_error(ERR_MALLOC);
 	token = ft_calloc(1, sizeof (t_token));
 	if (!token)
-		return (NULL);
+		fatal_error(ERR_MALLOC);
 	token->word = word;
 	token->type = type;
 	return (token);
@@ -37,7 +38,7 @@ static t_token	*extract_word(char **line)
 	i = 0;
 	while (tmp[i] && is_word(tmp[i]))
 		i++;
-	token = init_token(ft_substr(tmp, 0, i), TK_WORD);
+	token = token_init(ft_substr(tmp, 0, i), TK_WORD);
 	*line += i;
 	return (token);
 }
@@ -60,7 +61,7 @@ static t_token	*extract_metacharacter(char **line)
 		}
 		i++;
 	}
-	token = init_token(word, TK_OP);
+	token = token_init(word, TK_OP);
 	*line += ft_strlen(ops[i]);
 	return (token);
 }

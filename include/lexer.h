@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:19:08 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/06 01:15:10 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/03 18:29:07 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ struct s_token
 	char			*word;
 	t_token_type	type;
 	t_token			*next;
+	t_token			*prev;
 };
 
 t_token	*tokenize(char *line);
