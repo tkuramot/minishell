@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:15:16 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/08 16:52:03 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/09 12:45:19 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ void handle_heredoc(char *end_of_file)
 	exit(0);
 }
 
-int main(int argc, char **argv)
-{
-	// int status;
-	if(argc == 2){
-		handle_heredoc(argv[1]);
-	}
-	// return (status);
-}
+// int main(int argc, char **argv)
+// {
+// 	// int status;
+// 	if(argc == 2){
+// 		handle_heredoc(argv[1]);
+// 	}
+// 	// return (status);
+// }
