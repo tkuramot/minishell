@@ -6,15 +6,15 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 22:14:10 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/10 17:13:23 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/10 20:39:04 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
 
-# define P_WRITE 1
-# define P_READ 1
+# define PIPE_READ 0
+# define PIPE_WRITE 1
 
 # include <sys/types.h>
 # include <unistd.h>
@@ -30,6 +30,7 @@
 # include "builtin.h"
 # include "parser.h"
 
+void	execute_pipe(t_ast *ast, t_env *env_lst, int in_fd);
 void	execute(t_ast *ast, t_env *env_lst);
 
 // file_access_util.c
