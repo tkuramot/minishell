@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:48 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/04 18:17:32 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/10 17:02:27 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ struct s_env
 	char	*value;
 	t_env	*next;
 };
-
-#include "exec.h"
 
 // env_lst_operations.c
 t_env	*env_lst_node_new(char *new_env);

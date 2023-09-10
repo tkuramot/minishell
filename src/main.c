@@ -6,13 +6,14 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/08 21:00:32 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/10 17:19:45 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "lexer.h"
 #include "parser.h"
+#include "exec.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,10 +34,8 @@ int	main(void)
 {
 	char	*line;
 	t_token	*lst;
-	t_token	*tmp;
 	t_ast	*ast;
 	extern char	**environ;
-	t_token		*buf;
 	t_env		*env_lst;
 
 	print_minishell();
@@ -50,17 +49,14 @@ int	main(void)
 		if (*line)
 			add_history(line);
 		lst = tokenize(line);
-		tmp = lst;
+		/*
+		t_token		*buf;
 		buf = lst;
-		while (lst)
-		{
-			//printf("[%s]\n", lst->word);
-			lst = lst->next;
-		}
-		ast = parse_token(tmp);
-		(void)ast;
 		if (buf)
 			mini_handle_command(buf, env_lst);
+		*/
+		ast = parse_token(lst);
+		execute(ast, env_lst);
 		free(line);
 	}
 	return (0);

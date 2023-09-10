@@ -6,12 +6,13 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:22:12 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/05 16:17:34 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/10 17:05:45 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include "lexer.h"
+#include "exec.h"
 
 // 条件式が長すぎ。strncmpだと"exito" とかが弾けない。strcmp作るべきだろうなあって感じ。
 // mini_echoの引数が現状だとどう扱っていいかわからない。私的にはchar **strで受け取っておいてあげたいがどうしよっかなあって感じ。
