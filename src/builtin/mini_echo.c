@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:35:18 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/09 18:22:55 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/11 00:36:18 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@ static int	echo_with_option_n(t_token *lst)
 {
 	while (lst && is_valid_option(lst->word))
 		lst = lst->next;
+	if (!lst)
+		return (0);
 	while (lst->next)
 	{
-	ft_dprintf(STDOUT_FILENO, "%s ", lst->word);
+		ft_dprintf(STDOUT_FILENO, "%s ", lst->word);
 		lst = lst->next;
 	}
-ft_dprintf(STDOUT_FILENO, "%s", lst->word);
+	ft_dprintf(STDOUT_FILENO, "%s", lst->word);
 	return (0);
 }
 
@@ -46,10 +48,10 @@ static int	echo_without_option_n(t_token *lst)
 {
 	while (lst->next)
 	{
-	ft_dprintf(STDOUT_FILENO, "%s ", lst->word);
+		ft_dprintf(STDOUT_FILENO, "%s ", lst->word);
 		lst = lst->next;
 	}
-ft_dprintf(STDOUT_FILENO, "%s\n", lst->word);
+	ft_dprintf(STDOUT_FILENO, "%s\n", lst->word);
 	return (0);
 }
 
@@ -57,7 +59,7 @@ int	mini_echo(t_token *lst)
 {
 	if (!lst)
 	{
-	ft_dprintf(STDOUT_FILENO, "\n");
+		ft_dprintf(STDOUT_FILENO, "\n");
 		return (0);
 	}
 	if (is_valid_option(lst->word))
