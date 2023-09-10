@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/11 00:37:21 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/11 00:45:40 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void	print_minishell(void)
 
 int	main(void)
 {
-	char	*line;
-	t_token	*lst;
+	char		*line;
+	t_token		*lst;
 	extern char	**environ;
 	t_token		*buf;
 	t_env		*env_lst;
