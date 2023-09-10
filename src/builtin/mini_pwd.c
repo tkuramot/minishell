@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 17:23:23 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/09 18:24:16 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/11 00:33:42 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ void	mini_pwd(void)
 	if (!getcwd(pwd_path, PATH_MAX))
 		perror("pwd");
 	else
-	ft_dprintf(STDOUT_FILENO, "%s\n", pwd_path);
+		ft_dprintf(STDOUT_FILENO, "%s\n", pwd_path);
 }
