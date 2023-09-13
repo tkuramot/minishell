@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/14 00:58:52 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/14 01:33:56 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	execute_pipe(t_ast *ast, t_env *env_lst)
 void	execute(t_ast *ast, t_env *env_lst)
 {
 	int	pid;
+	int	status;
 
 	if (!ast)
 		return;
@@ -63,6 +64,7 @@ void	execute(t_ast *ast, t_env *env_lst)
 		pid = fork();
 		if (pid == 0)
 			execute_pipe(ast, env_lst);
+		wait(&status);
 	}
 	if (ast->type == ND_CMD)
 		mini_handle_command(ast->lst, env_lst);
