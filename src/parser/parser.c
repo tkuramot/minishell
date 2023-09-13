@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/03 18:42:20 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/10 21:04:55 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_ast	*parse_cmd(t_token **lst)
 	t_token	*cmd;
 	t_token	*tmp;
 
+	if (!lst || !*lst)
+		return (NULL);
 	cmd = *lst;
 	tmp = *lst;
 	while (tmp->next && !expect_pipe(tmp))
@@ -42,7 +44,7 @@ t_ast	*parse_pipe(t_token *lst)
 
 	node = parse_cmd(&lst);
 	if (!node)
-		fatal_error(ERR_MALLOC);
+		fatal_error("malloc");
 	while (true)
 	{
 		if (lst && ft_strcmp(lst->word, "|") == 0)
