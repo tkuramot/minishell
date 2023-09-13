@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/10 20:25:19 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/14 01:10:56 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,12 @@ int	main(void)
 		if (!line)
 			return (1);
 		if (*line)
+		{
 			add_history(line);
-		lst = tokenize(line);
-		/*
-		t_token		*buf;
-		buf = lst;
-		if (buf)
-			mini_handle_command(buf, env_lst);
-		*/
-		ast = parse_token(lst);
-		execute(ast, env_lst);
+			lst = tokenize(line);
+			ast = parse_token(lst);
+			execute(ast, env_lst);
+		}
 		free(line);
 	}
 	return (0);
