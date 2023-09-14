@@ -6,12 +6,13 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:22:12 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/11 00:35:40 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:29:47 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include "lexer.h"
+#include "exec.h"
 
 void	mini_handle_command(t_token *lst, t_env *env_lst)
 {
