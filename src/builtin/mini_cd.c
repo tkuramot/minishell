@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_cd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 12:06:23 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/02 23:35:34 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/09 18:21:22 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 #include <stdio.h>
 
 // bash起動後すぐに "cd -" を実行した際、"cd: Bad address" ではなく、"cd: OLDPWD not set"にするひつようがあるかも
-
 static char	*get_pwd(void)
 {
 	char	*pwd_path;
@@ -33,33 +32,16 @@ static char	*get_pwd(void)
 	return (pwd_path);
 }
 
-// static int	update_oldpwd(char *new_oldpwd, t_env *env_lst)
-// {
-// 	while (env_lst)
-// 	{
-// 		if (ft_strcmp("OLDPWD", env_lst->name) == 0)
-// 		{
-// 			free(env_lst->value);
-// 			env_lst->value = ft_strdup(new_oldpwd);
-// 			if (!env_lst->value)
-// 				return (0);
-// 			return (1);
-// 		}
-// 		env_lst = env_lst->next;
-// 	}
-// 	return (0);
-// }
-
-static int	update_oldpwd(char *new_oldpwd, t_env *env_lst)
+static int	update_env(char *key, char *new_oldpwd, t_env *env_lst)
 {
-	char	*new_oldpwd_str;
+	char	*new_env_str;
 	t_env	*new;
 	t_env	*head;
 
 	head = env_lst;
 	while (env_lst)
 	{
-		if (ft_strcmp("OLDPWD", env_lst->name) == 0)
+		if (ft_strcmp(key, env_lst->name) == 0)
 		{
 			free(env_lst->value);
 			env_lst->value = ft_strdup(new_oldpwd);
@@ -69,11 +51,13 @@ static int	update_oldpwd(char *new_oldpwd, t_env *env_lst)
 		}
 		env_lst = env_lst->next;
 	}
-	new_oldpwd_str = ft_strjoin("OLDPWD=", new_oldpwd);
-	new = env_lst_node_new(new_oldpwd_str);
+	new_env_str = env_strjoin(key, new_oldpwd);
+	if (!new_env_str)
+		return (0);
+	new = env_lst_node_new(new_env_str);
 	env_lst_add_back(head, new);
-	free(new_oldpwd_str);
-	return (0);
+	free(new_env_str);
+	return (1);
 }
 
 char	*get_environ_str(char *key, t_env *env_lst)
@@ -87,34 +71,37 @@ char	*get_environ_str(char *key, t_env *env_lst)
 	return (NULL);
 }
 
-void	mini_cd(char *path, t_env *env_lst)
+void	mini_cd(t_token *token_lst, t_env *env_lst)
 {
-	int		directory;
 	char	*path_env;
-	char	*new_oldpwd;
+	char	*env_oldpwd;
+	char	*env_pwd;
 
-	directory = 0;
-	path_env = NULL;
-	new_oldpwd = get_pwd();
-	if (!path || !ft_strcmp(path, "~"))
+	env_oldpwd = get_pwd();
+	if (!token_lst || !ft_strcmp(token_lst->word, "~"))
 		path_env = get_environ_str("HOME", env_lst);
-	else if (!ft_strncmp(path, "~/", 2))
-		path_env = ft_strjoin(get_environ_str("HOME", env_lst), &path[1]);
-	else if (!ft_strcmp(path, "-"))
+	else if (!ft_strncmp(token_lst->word, "~/", 2))
+		path_env = ft_strjoin(get_environ_str("HOME", env_lst), \
+												&token_lst->word[1]);
+	else if (!ft_strcmp(token_lst->word, "-"))
 		path_env = get_environ_str("OLDPWD", env_lst);
 	else
-		path_env = path;
-	directory = chdir(path_env);
-	if (directory)
+		path_env = token_lst->word;
+	if (chdir(path_env))
 		perror("cd");
 	else
-		update_oldpwd(new_oldpwd, env_lst);
-	free(new_oldpwd);
+	{
+		update_env("OLDPWD", env_oldpwd, env_lst);
+		env_pwd = get_pwd();
+		update_env("PWD", env_pwd, env_lst);
+		free(env_pwd);
+	}
+	free(env_oldpwd);
 }
 
 // int	mini_pwd(void)
 // {
-// 	printf("%s\n", getenv("PWD"));
+// ft_dprintf("%s\n", getenv("PWD"));
 // 	return (0);
 // }
 

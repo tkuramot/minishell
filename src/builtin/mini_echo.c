@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:35:18 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/08/23 19:12:05 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/14 13:34:11 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,47 +29,40 @@ static bool	is_valid_option(char *option)
 	return (true);
 }
 
-static int	echo_with_option_n(int argc, char **argv)
+static int	echo_with_option_n(t_token *lst)
 {
-	int64_t	i;
-
-	i = 1;
-	while (i < argc && is_valid_option(argv[i]))
-		i++;
-	while (i < argc)
+	while (lst && is_valid_option(lst->word))
+		lst = lst->next;
+	if (!lst)
+		return (0);
+	while (lst->next)
 	{
-		ft_putstr_fd(argv[i], STDOUT_FILENO);
-		if (i < argc - 1)
-			ft_putstr_fd(" ", STDOUT_FILENO);
-		i++;
+	ft_dprintf(STDOUT_FILENO, "%s ", lst->word);
+		lst = lst->next;
 	}
+ft_dprintf(STDOUT_FILENO, "%s", lst->word);
 	return (0);
 }
 
-static int	echo_without_option_n(int argc, char **argv)
+static int	echo_without_option_n(t_token *lst)
 {
-	int64_t	i;
-
-	i = 1;
-	while (i < argc)
+	while (lst->next)
 	{
-		ft_putstr_fd(argv[i], STDOUT_FILENO);
-		if (i < argc - 1)
-			ft_putstr_fd(" ", STDOUT_FILENO);
-		i++;
+	ft_dprintf(STDOUT_FILENO, "%s ", lst->word);
+		lst = lst->next;
 	}
-	ft_putstr_fd("\n", STDOUT_FILENO);
+ft_dprintf(STDOUT_FILENO, "%s\n", lst->word);
 	return (0);
 }
 
-int	mini_echo(int argc, char **argv)
+int	mini_echo(t_token *lst)
 {
-	if (argc == 1)
+	if (!lst)
 	{
-		ft_putstr_fd("\n", STDOUT_FILENO);
+	ft_dprintf(STDOUT_FILENO, "\n");
 		return (0);
 	}
-	if (is_valid_option(argv[1]))
-		return (echo_with_option_n(argc, argv));
-	return (echo_without_option_n(argc, argv));
+	if (is_valid_option(lst->word))
+		return (echo_with_option_n(lst));
+	return (echo_without_option_n(lst));
 }
