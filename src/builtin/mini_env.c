@@ -3,33 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   mini_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:15:39 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/09 18:23:56 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/11 00:38:18 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include <errno.h>
 
-
-// env---
-t_env *env_lst_init(void)
+// envの順番はソートしたほうが多分いい.後でやる
+t_env	*env_lst_init(void)
 {
 	extern char	**environ;
-	t_env	*head;
-	t_env	*new;
-	size_t i;
+	t_env		*head;
+	t_env		*new;
+	size_t		i;
 
 	i = 0;
 	head = env_lst_node_new(environ[i]);
-	if(!head)
+	if (!head)
 		return (NULL);
-	while(environ[++i])
+	while (environ[++i])
 	{
 		new = env_lst_node_new(environ[i]);
-		if(!new)
+		if (!new)
 		{
 			// freeかくのだりいいいいいい
 			return (NULL);
@@ -39,30 +38,34 @@ t_env *env_lst_init(void)
 	return (head);
 }
 
-static bool	is_env_option(char *option)
+static bool	is_env_option(const t_token *lst)
 {
 	errno = 2;
-	if(ft_strncmp("--", option, 2) == 0)
+	while (lst && ft_strcmp("env", lst->word) == 0)
+		lst = lst->next;
+	if (!lst)
+		return (true);
+	if (ft_strncmp("--", lst->word, 2) == 0)
 	{
-		if(ft_strlen(option) == 2)
+		if (ft_strlen(lst->word) == 2)
 			return (true);
 		return (false);
 	}
-	if(ft_strcmp("-", option) == 0)
+	if (ft_strcmp("-", lst->word) == 0)
 		return (false);
-	perror(option); //errno使わない場合どう表示させるんや。。。
+	perror(lst->word);
 	return (false);
 }
 
-void mini_env(const t_token *lst, t_env *env_lst)
+void	mini_env(const t_token *lst, t_env *env_lst)
 {
-	if(!env_lst)
-		return;
-	if(lst && !is_env_option(lst->word))
+	if (!env_lst)
 		return ;
-	while(env_lst)
+	if (lst && !is_env_option(lst))
+		return ;
+	while (env_lst)
 	{
-	ft_dprintf(STDOUT_FILENO, "%s=%s\n", env_lst->name, env_lst->value);
+		ft_dprintf(STDOUT_FILENO, "%s=%s\n", env_lst->name, env_lst->value);
 		env_lst = env_lst->next;
 	}
 }

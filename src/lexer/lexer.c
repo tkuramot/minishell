@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/10 21:03:58 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:30:01 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	token_lst_free(t_token *lst)
 {
 	t_token	*buf;
 
-	while(lst)
+	while (lst)
 	{
 		buf = lst;
 		free(lst->word);

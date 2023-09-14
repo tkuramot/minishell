@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:17:32 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/05 23:28:22 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/11 00:36:57 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_env	*env_lst_node_new(char *new_env)
 		return (NULL);
 	new->next = NULL;
 	env_value = ft_split(new_env, '=');
-	// env_value = NULL;
 	if (!env_value)
 	{
 		free(new);
@@ -76,9 +75,9 @@ void	env_lst_node_delete(t_env *lst, t_env *delete_node)
 	lst = head;
 }
 
-void free_all_env_lst(t_env *lst)
+void	free_all_env_lst(t_env *lst)
 {
-	if(!lst)
+	if (!lst)
 		return ;
 	free(lst->name);
 	free(lst->value);
