@@ -3,6 +3,9 @@
 func=$(find . -name "assert.sh")
 source $func
 
+echo
+echo ECHO TEST
+
 # without option
 assert echo
 assert echo aaaaaaa

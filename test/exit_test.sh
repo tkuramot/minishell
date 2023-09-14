@@ -3,6 +3,9 @@
 func=$(find . -name "assert.sh")
 source $func
 
+echo
+echo EXIT TEST
+
 assert exit
 assert exit 0
 assert exit 0a
