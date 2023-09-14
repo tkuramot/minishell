@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/14 20:30:01 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/14 23:22:12 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static t_token	*extract_word(char **line)
 
 static t_token	*extract_metacharacter(char **line)
 {
-	const char	*ops[] = {"|", "<", ">"};
+	const char	*ops[] = {"|", "<<", ">>", "<", ">"};
 	char		*word;
 	size_t		i;
 	t_token		*token;
