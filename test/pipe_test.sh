@@ -3,6 +3,9 @@
 func=$(find . -name "assert.sh")
 source $func
 
+echo
+echo PIPE TEST
+
 assert "cat Makefile | grep SRC"
 assert "cat Makefile | grep SRC | wc"
 assert "cat Makefile | grep SRC | wc"
