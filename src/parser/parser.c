@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/14 22:18:55 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/14 22:27:34 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static bool	exepect_next_simple_token(t_token *lst)
 	if (!lst || !lst->next)
 		return (false);
 	return (!exepect_next(lst, STR_PIPE)
-		&& !exepect_next(lst, STR_REDIRECT_IN)
-		&& !exepect_next(lst, STR_REDIRECT_OUT));
+		&& !exepect_next(lst, STR_REDIR_IN)
+		&& !exepect_next(lst, STR_REDIR_OUT));
 }
 
 static t_ast	*extract_cmd(t_token **lst)
@@ -58,6 +58,16 @@ t_ast	*parse_token(t_token *lst)
 		{
 			lst = lst->next;
 			node = ast_new_node(ND_PIPE, node, extract_cmd(&lst));
+		}
+		else if (lst && ft_strcmp(lst->word, STR_REDIR_IN) == 0)
+		{
+			lst = lst->next;
+			node = ast_new_node(ND_REDIR_IN, node, extract_cmd(&lst));
+		}
+		else if (lst && ft_strcmp(lst->word, STR_REDIR_OUT) == 0)
+		{
+			lst = lst->next;
+			node = ast_new_node(ND_REDIR_OUT, node, extract_cmd(&lst));
 		}
 		else
 			return (node);

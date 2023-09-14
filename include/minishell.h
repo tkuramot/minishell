@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:41 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/03 22:41:46 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/14 22:49:35 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,7 @@
 
 # include "builtin.h"
 # include "exec.h"
+
+# define DEBUG 0
 
 #endif

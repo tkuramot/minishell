@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/14 20:30:19 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/14 22:49:58 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "lexer.h"
 #include "parser.h"
 #include "exec.h"
+#include "utils.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -51,10 +52,15 @@ int	main(void)
 			add_history(line);
 			lst = tokenize(line);
 			ast = parse_token(lst);
-			execute(ast, env_lst);
+			#if DEBUG == 1
+				print_ast(ast);
+				(void)env_lst;
+			#else
+				execute(ast, env_lst);
+			#endif
+			free(line);
+			token_lst_free(lst);
 		}
-		free(line);
-		token_lst_free(lst);
 	}
 	return (0);
 }
