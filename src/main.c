@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/14 20:30:19 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/17 13:25:55 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int	main(void)
 			lst = tokenize(line);
 			ast = parse_token(lst);
 			execute(ast, env_lst);
+			free(line);
+			token_lst_free(lst);
 		}
-		free(line);
-		token_lst_free(lst);
 	}
 	return (0);
 }
