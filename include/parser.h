@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:19:42 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/18 22:38:05 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/18 22:58:21 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ struct s_ast
 	t_token		*argv;
 	t_list		*red_in;
 	t_list		*red_out;
+	t_list		*red_heredoc;
+	t_list		*red_append;
 	t_ast		*left;
 	t_ast		*right;
 	t_token		*lst;

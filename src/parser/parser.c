@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/18 22:56:29 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/18 23:16:56 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@ static bool	expect_pipe(t_token *lst)
 	if (!lst || !lst->next)
 		return (false);
 	return (ft_strcmp(lst->next->word, "|") == 0);
+}
+
+static bool		add_redirect(t_list **redirect, t_token **lst)
+{
+	if (!lst || !*lst || !(*lst)->next)
+		return (false);
+	ft_lstadd_back(redirect, ft_lstnew((*lst)->next->word));
+	*lst = (*lst)->next->next;
+	return (true);
 }
 
 static void		arrange_node(t_ast *ast)
@@ -35,16 +44,14 @@ static void		arrange_node(t_ast *ast)
 	cur = &head;
 	while (tmp)
 	{
-		if (tmp && tmp->type == TK_REDIR_IN)
-		{
-			ft_lstadd_back(&ast->red_in, ft_lstnew(tmp->word));
-			tmp = tmp->next;
-		}
-		if (tmp && tmp->type == TK_REDIR_OUT)
-		{
-			ft_lstadd_back(&ast->red_out, ft_lstnew(tmp->word));
-			tmp = tmp->next;
-		}
+		if (tmp->type == TK_REDIR_IN && add_redirect(&ast->red_in, &tmp))
+			continue;
+		else if (tmp->type == TK_REDIR_OUT && add_redirect(&ast->red_out, &tmp))
+			continue;
+		else if (tmp->type == TK_REDIR_HEREDOC && add_redirect(&ast->red_heredoc, &tmp))
+			continue;
+		else if (tmp->type == TK_REDIR_APPEND && add_redirect(&ast->red_append, &tmp))
+			continue;
 		cur->next = tmp;
 		cur = cur->next;
 		tmp = tmp->next;
