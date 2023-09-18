@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:19:08 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/18 22:44:22 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/18 23:24:28 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool	is_metacharacter(char c);
 bool	start_with(char *s, const char *prefix);
 bool	is_word(char c);
 void	consume_blank(char **line);
-
+t_token	*token_copy(t_token *token);
 void	token_lst_free(t_token *lst);
 
 #endif

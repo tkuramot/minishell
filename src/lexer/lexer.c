@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/18 22:47:44 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/18 23:24:43 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ static t_token	*token_init(char *word, t_token_type type)
 	token->word = word;
 	token->type = type;
 	return (token);
+}
+
+t_token	*token_copy(t_token *token)
+{
+	return (token_init(token->word, token->type));
 }
 
 static t_token	*extract_word(char **line)

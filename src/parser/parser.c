@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/18 23:16:56 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/18 23:24:51 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,16 @@ static void		arrange_node(t_ast *ast)
 	while (tmp)
 	{
 		if (tmp->type == TK_REDIR_IN && add_redirect(&ast->red_in, &tmp))
+		{
 			continue;
+		}
 		else if (tmp->type == TK_REDIR_OUT && add_redirect(&ast->red_out, &tmp))
 			continue;
 		else if (tmp->type == TK_REDIR_HEREDOC && add_redirect(&ast->red_heredoc, &tmp))
 			continue;
 		else if (tmp->type == TK_REDIR_APPEND && add_redirect(&ast->red_append, &tmp))
 			continue;
-		cur->next = tmp;
+		cur->next = token_copy(tmp);
 		cur = cur->next;
 		tmp = tmp->next;
 	}
