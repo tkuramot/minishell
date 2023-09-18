@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:19:42 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/18 22:29:15 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/18 22:38:05 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ typedef struct s_ast t_ast;
 struct s_ast
 {
 	t_node_type	type;
-	char		*exe;
-	char		*cmd;
+	t_token		*argv;
 	t_list		*red_in;
 	t_list		*red_out;
 	t_ast		*left;
