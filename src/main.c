@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/18 23:06:49 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/19 21:30:47 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,33 +54,21 @@ int	main(void)
 			# if DEBUG == 1
 			(void)env_lst;
 			printf("REDIRECT IN >\n");
-			while (ast->red_in)
+			while (ast->redir_lst)
 			{
-				printf("[%s]\n", (char *)ast->red_in->content);
-				ast->red_in = ast->red_in->next;
+				int red_type = (int)((t_redirect *)(ast->redir_lst->content))->type;
+				printf("file [%s]",
+						(char *)((t_redirect *)(ast->redir_lst->content))->file);
+				if (red_type == TK_REDIR_IN)
+					printf(" / type [IN]\n");
+				if (red_type == TK_REDIR_OUT)
+					printf(" / type [OUT]\n");
+				if (red_type == TK_REDIR_APPEND)
+					printf(" / type [APPEND]\n");
+				if (red_type == TK_REDIR_HEREDOC)
+					printf(" / type [HEREDOC]\n");
+				ast->redir_lst = ast->redir_lst->next;
 			}
-
-			printf("REDIRECT OUT >\n");
-			while (ast->red_out)
-			{
-				printf("[%s]\n", (char *)ast->red_out->content);
-				ast->red_out = ast->red_out->next;
-			}
-
-			printf("REDIRECT HEREDOC >\n");
-			while (ast->red_heredoc)
-			{
-				printf("[%s]\n", (char *)ast->red_heredoc->content);
-				ast->red_heredoc = ast->red_heredoc->next;
-			}
-
-			printf("REDIRECT APPEND >\n");
-			while (ast->red_append)
-			{
-				printf("[%s]\n", (char *)ast->red_append->content);
-				ast->red_append = ast->red_append->next;
-			}
-
 			printf("ARGV >\n");
 			while (ast->argv)
 			{
