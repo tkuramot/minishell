@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:19:08 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/19 21:19:23 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/19 21:32:58 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 
 typedef enum e_token_type
 {
-	TK_REDIR_IN = 1,
-	TK_REDIR_OUT = 2,
-	TK_REDIR_APPEND = 4,
-	TK_REDIR_HEREDOC = 8,
+	TK_REDIR_IN = 0,
+	TK_REDIR_OUT = 1,
+	TK_REDIR_APPEND = 2,
+	TK_REDIR_HEREDOC = 3,
 	TK_REDIR_HEREDOC_SQ,
 	TK_REDIR_HEREDOC_DQ,
 	TK_WORD,
