@@ -6,40 +6,45 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/20 00:00:19 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/20 01:12:09 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+#include "ft_list.h"
 #include "utils.h"
 #include <stdio.h>
+
+static bool	is_quote(char c)
+{
+	return (c == SINGLE_QUOTE || c == DOUBLE_QUOTE);
+}
 
 static t_token	*extract_word(char **line)
 {
 	char	*tmp;
-	int64_t	i;
 	t_token	*token;
+	t_list	*stack;
+	t_list	*top;
 
 	tmp = *line;
-	i = 0;
-	while (tmp[i] && is_word(tmp[i]))
+	stack = NULL;
+	while (*tmp && is_word(*tmp))
 	{
-		if (tmp[i] == SINGLE_QUOTE)
+		if (!is_quote(*tmp++))
+			continue;
+		ft_lstadd_back(&stack, ft_lstnew(ft_chrdup(*tmp)));
+		while (*tmp && ft_lstsize(stack))
 		{
-			while (tmp[++i] && tmp[i] != SINGLE_QUOTE)
-				i++;
+			top = ft_lstlast(stack);
+			if (*(char *)top->content == *tmp)
+				ft_lstdelone(ft_lstpop_back(&stack), free);
+			else
+				ft_lstadd_back(&stack, ft_lstnew(tmp));
 		}
-		else if (tmp[i] == DOUBLE_QUOTE)
-		{
-			while (tmp[++i] && tmp[i] != DOUBLE_QUOTE)
-			{
-				i++;
-			}
-		}
-		i++;
 	}
-	token = token_init(ft_substr(tmp, 0, i), TK_WORD);
-	*line += i;
+	token = token_init(ft_substr(*line, 0, tmp - *line), TK_WORD);
+	*line = tmp;
 	return (token);
 }
 
