@@ -6,11 +6,12 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/18 23:24:51 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/19 22:06:01 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "ft_string.h"
 #include "lexer.h"
 #include "utils.h"
 
@@ -21,11 +22,40 @@ static bool	expect_pipe(t_token *lst)
 	return (ft_strcmp(lst->next->word, "|") == 0);
 }
 
+static t_redirect	*init_redir(char *file, t_token_type type)
+{
+	t_redirect	*red;
+
+	red = ft_calloc(1, sizeof (t_redirect));
+	if (!red)
+		fatal_error("malloc");
+	red->file = file;
+	red->type = type;
+	return (red);
+}
+
 static bool		add_redirect(t_list **redirect, t_token **lst)
 {
+	char	*file;
+
 	if (!lst || !*lst || !(*lst)->next)
 		return (false);
-	ft_lstadd_back(redirect, ft_lstnew((*lst)->next->word));
+	file = (*lst)->next->word;
+	if ((*lst)->type == TK_REDIR_IN)
+		ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_IN)));
+	if ((*lst)->type == TK_REDIR_OUT)
+		ft_lstadd_back(redirect, ft_lstnew(
+				init_redir(file, TK_REDIR_OUT)));
+	if ((*lst)->type == TK_REDIR_HEREDOC)
+	{
+		if (ft_strchr(file, '\'') || ft_strchr(file, '\"'))
+			ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_HEREDOC_Q)));
+		else
+			ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_HEREDOC)));
+	}
+	if ((*lst)->type == TK_REDIR_APPEND)
+		ft_lstadd_back(redirect, ft_lstnew(
+				init_redir((*lst)->next->word, TK_REDIR_APPEND)));
 	*lst = (*lst)->next->next;
 	return (true);
 }
@@ -44,16 +74,11 @@ static void		arrange_node(t_ast *ast)
 	cur = &head;
 	while (tmp)
 	{
-		if (tmp->type == TK_REDIR_IN && add_redirect(&ast->red_in, &tmp))
+		if ((1 << tmp->type) & 0b1111)
 		{
+			add_redirect(&ast->redir_lst, &tmp);
 			continue;
 		}
-		else if (tmp->type == TK_REDIR_OUT && add_redirect(&ast->red_out, &tmp))
-			continue;
-		else if (tmp->type == TK_REDIR_HEREDOC && add_redirect(&ast->red_heredoc, &tmp))
-			continue;
-		else if (tmp->type == TK_REDIR_APPEND && add_redirect(&ast->red_append, &tmp))
-			continue;
 		cur->next = token_copy(tmp);
 		cur = cur->next;
 		tmp = tmp->next;
