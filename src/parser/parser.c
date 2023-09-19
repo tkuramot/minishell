@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/19 22:00:39 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/19 22:06:01 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,8 @@ static bool		add_redirect(t_list **redirect, t_token **lst)
 				init_redir(file, TK_REDIR_OUT)));
 	if ((*lst)->type == TK_REDIR_HEREDOC)
 	{
-		if (ft_strchr(file, '\''))
-			ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_HEREDOC_SQ)));
-		else if (ft_strchr(file, '\"'))
-			ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_HEREDOC_DQ)));
+		if (ft_strchr(file, '\'') || ft_strchr(file, '\"'))
+			ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_HEREDOC_Q)));
 		else
 			ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_HEREDOC)));
 	}

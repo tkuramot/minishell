@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/19 22:01:36 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/19 22:06:42 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,8 @@ int	main(void)
 					printf(" / type [APPEND]\n");
 				if (red_type == TK_REDIR_HEREDOC)
 					printf(" / type [HEREDOC]\n");
-				if (red_type == TK_REDIR_HEREDOC_SQ)
-					printf(" / type [HEREDOC_SQ]\n");
-				if (red_type == TK_REDIR_HEREDOC_DQ)
-					printf(" / type [HEREDOC_DQ]\n");
+				if (red_type == TK_REDIR_HEREDOC_Q)
+					printf(" / type [HEREDOC_Q]\n");
 				ast->redir_lst = ast->redir_lst->next;
 			}
 			printf("ARGV >\n");
