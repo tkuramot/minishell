@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:19:08 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/03 18:29:07 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/18 23:24:28 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@
 typedef enum e_token_type
 {
 	TK_WORD,
-	TK_OP,
-	TK_EOF
+	TK_PIPE,
+	TK_REDIR_IN,
+	TK_REDIR_OUT,
+	TK_REDIR_APPEND,
+	TK_REDIR_HEREDOC,
+	TK_EOF,
 }	t_token_type;
 
 typedef struct s_token	t_token;
@@ -39,7 +43,7 @@ bool	is_metacharacter(char c);
 bool	start_with(char *s, const char *prefix);
 bool	is_word(char c);
 void	consume_blank(char **line);
-
+t_token	*token_copy(t_token *token);
 void	token_lst_free(t_token *lst);
 
 #endif

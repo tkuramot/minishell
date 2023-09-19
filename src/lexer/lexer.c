@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/14 20:30:01 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/18 23:24:43 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ static t_token	*token_init(char *word, t_token_type type)
 	return (token);
 }
 
+t_token	*token_copy(t_token *token)
+{
+	return (token_init(token->word, token->type));
+}
+
 static t_token	*extract_word(char **line)
 {
 	char	*tmp;
@@ -45,10 +50,11 @@ static t_token	*extract_word(char **line)
 
 static t_token	*extract_metacharacter(char **line)
 {
-	const char	*ops[] = {"|", "<", ">"};
+	const char	*ops[] = {"|", "<<", ">>", "<", ">"};
+	const int	token_type[] = {TK_PIPE, TK_REDIR_HEREDOC, TK_REDIR_APPEND,
+			TK_REDIR_IN, TK_REDIR_OUT};
 	char		*word;
 	size_t		i;
-	t_token		*token;
 
 	i = 0;
 	word = NULL;
@@ -61,9 +67,8 @@ static t_token	*extract_metacharacter(char **line)
 		}
 		i++;
 	}
-	token = token_init(word, TK_OP);
 	*line += ft_strlen(ops[i]);
-	return (token);
+	return (token_init(word, token_type[i]));
 }
 
 t_token	*tokenize(char *line)
