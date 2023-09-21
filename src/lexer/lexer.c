@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/20 01:12:09 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/20 21:31:28 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ static t_token	*extract_word(char **line)
 	stack = NULL;
 	while (*tmp && is_word(*tmp))
 	{
-		if (!is_quote(*tmp++))
+		if (!is_quote(*tmp) && *tmp++)
 			continue;
 		ft_lstadd_back(&stack, ft_lstnew(ft_chrdup(*tmp)));
-		while (*tmp && ft_lstsize(stack))
+		while (*++tmp && ft_lstsize(stack))
 		{
 			top = ft_lstlast(stack);
 			if (*(char *)top->content == *tmp)
 				ft_lstdelone(ft_lstpop_back(&stack), free);
-			else
+			else if (is_quote(*tmp))
 				ft_lstadd_back(&stack, ft_lstnew(tmp));
 		}
 	}
