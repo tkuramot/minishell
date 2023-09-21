@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/14 01:33:56 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/21 23:51:48 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@ void	execute_pipe(t_ast *ast, t_env *env_lst)
 		pid = fork();
 		if (pid == 0)
 		{
-			close(pipe_fd[PIPE_READ]);
-			dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
-			execute_pipe(ast->left, env_lst);
-		}
-		else
-		{
 			close(pipe_fd[PIPE_WRITE]);
 			dup2(pipe_fd[PIPE_READ], STDIN_FILENO);
 			close(pipe_fd[PIPE_READ]);
 			command = token_lst_to_array(ast->right->lst);
 			env = env_list_to_array(env_lst);
 			handle_command(command, env);
+		}
+		else
+		{
+			close(pipe_fd[PIPE_READ]);
+			dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
+			execute_pipe(ast->left, env_lst);
 		}
 	}
 	else if (ast->type == ND_CMD)
