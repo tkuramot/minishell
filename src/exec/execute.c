@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/23 18:56:44 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/23 22:40:37 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 #include "parser.h"
 #include "utils.h"
 
-void	execute_pipe(t_ast *ast, t_env *env_lst)
+void	traverse_pipe(t_ast *ast, t_env *env_lst)
 {
 	int	pipe_fd[2];
 	int	pid;
+	int	out_fd;
+	int	status;
 
 	if (!ast)
 		return;
@@ -35,28 +37,31 @@ void	execute_pipe(t_ast *ast, t_env *env_lst)
 		}
 		else
 		{
+			out_fd = dup(STDOUT_FILENO);
 			close(pipe_fd[PIPE_READ]);
 			dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
-			execute_pipe(ast->left, env_lst);
+			close(pipe_fd[PIPE_WRITE]);
+			traverse_pipe(ast->left, env_lst);
+			wait(&status);
+			dup2(out_fd, STDOUT_FILENO);
 		}
 	}
 	else if (ast->type == ND_CMD)
-		run_cmd_parent(ast->lst, env_lst);
+	{
+		close(pipe_fd[PIPE_READ]);
+		close(pipe_fd[PIPE_WRITE]);
+		run_cmd_child(ast->lst, env_lst);
+		wait(&status);
+	}
 }
 
 void	execute(t_ast *ast, t_env *env_lst)
 {
-	int	pid;
-	int	status;
-
 	if (!ast)
 		return;
 	if (ast->type == ND_PIPE)
 	{
-		pid = fork();
-		if (pid == 0)
-			execute_pipe(ast, env_lst);
-		wait(&status);
+		traverse_pipe(ast, env_lst);
 	}
 	if (ast->type == ND_CMD)
 		run_simple_cmd(ast->lst, env_lst);
