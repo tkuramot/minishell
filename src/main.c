@@ -51,6 +51,9 @@ int	main(void)
 		{
 			add_history(line);
 			lst = tokenize(line);
+			// TODO free before continue
+			if (!lst)
+				continue;
 			ast = parse_token(lst);
 			name(ast);
 			// str_expander(&ast->argv->word);
