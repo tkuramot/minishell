@@ -4,7 +4,7 @@ LIBS    = libft/libft.a
 INCLUDE = -I./include -I./libft/include -I $(brew --prefix readline)/include
 NAME    = minishell
 SRCDIR  = src
-SRCS    = src/builtin/decompress.c src/builtin/env_lst_operations.c src/builtin/mini_cd.c src/builtin/mini_echo.c src/builtin/mini_env.c src/builtin/mini_exit.c src/builtin/mini_export.c src/builtin/mini_handle_command.c src/builtin/mini_pwd.c src/builtin/mini_unset.c src/exec/execute.c src/exec/execute_cmd.c src/exec/file_access_util.c src/exec/list_to_array.c src/exec/resolve_path.c src/heredoc/heredoc.c src/lexer/lexer.c src/lexer/lexer_helper.c src/lexer/token.c src/main.c src/parser/ast.c src/parser/parser.c src/utils/error.c
+SRCS    = src/builtin/decompress.c src/builtin/env_lst_operations.c src/builtin/mini_cd.c src/builtin/mini_echo.c src/builtin/mini_env.c src/builtin/mini_exit.c src/builtin/mini_export.c src/builtin/mini_pwd.c src/builtin/mini_unset.c src/exec/execute.c src/exec/execute_cmd.c src/exec/file_access_util.c src/exec/list_to_array.c src/exec/resolve_path.c src/exec/run_simple_cmd.c src/heredoc/heredoc.c src/lexer/lexer.c src/lexer/lexer_helper.c src/lexer/token.c src/main.c src/parser/ast.c src/parser/parser.c src/utils/error.c
 OBJDIR  = obj
 OBJS    = $(subst $(SRCDIR), $(OBJDIR), $(SRCS:.c=.o))
 DEPENDS = $(OBJS:.o=.d)
