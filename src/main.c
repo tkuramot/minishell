@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/20 01:12:41 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/23 21:08:02 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "lexer.h"
 #include "parser.h"
 #include "exec.h"
+#include "expander.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -51,6 +52,8 @@ int	main(void)
 			add_history(line);
 			lst = tokenize(line);
 			ast = parse_token(lst);
+			name(ast);
+			// str_expander(&ast->argv->word);
 			# if DEBUG == 1
 			(void)env_lst;
 			printf("REDIRECT >\n");

@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/20 10:55:41 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/23 21:09:29 by tsishika         ###   ########.fr       */
+/*   Created: 2023/09/23 15:41:27 by tsishika          #+#    #+#             */
+/*   Updated: 2023/09/23 20:49:46 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef EXPANDER_H
+# define EXPANDER_H
 
-# define DEBUG 0
+#include "parser.h"
 
-# include "builtin.h"
-# include "exec.h"
+void	str_expander(char **str);
+void	name(t_ast *ast);
 
 #endif
