@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/20 21:31:28 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/23 16:40:12 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,22 @@ static t_token	*extract_word(char **line)
 {
 	char	*tmp;
 	t_token	*token;
-	t_list	*stack;
-	t_list	*top;
+	char	quote;
 
 	tmp = *line;
-	stack = NULL;
 	while (*tmp && is_word(*tmp))
 	{
-		if (!is_quote(*tmp) && *tmp++)
-			continue;
-		ft_lstadd_back(&stack, ft_lstnew(ft_chrdup(*tmp)));
-		while (*++tmp && ft_lstsize(stack))
+		if (is_quote(*tmp))
 		{
-			top = ft_lstlast(stack);
-			if (*(char *)top->content == *tmp)
-				ft_lstdelone(ft_lstpop_back(&stack), free);
-			else if (is_quote(*tmp))
-				ft_lstadd_back(&stack, ft_lstnew(tmp));
+			quote = *tmp++;
+			while (*tmp && *tmp != quote)
+				tmp++;
+			if (!*tmp)
+			{
+				syntax_error("unclosed quote");
+			}
 		}
+		tmp++;
 	}
 	token = token_init(ft_substr(*line, 0, tmp - *line), TK_WORD);
 	*line = tmp;
@@ -85,11 +83,15 @@ t_token	*tokenize(char *line)
 		else if (is_word(*line))
 		{
 			cur->next = extract_word(&line);
+			if (!cur->next)
+				return (NULL);
 			cur = cur->next;
 		}
 		else if (is_metacharacter(*line))
 		{
 			cur->next = extract_metacharacter(&line);
+				if (!cur->next)
+					return (NULL);
 			cur = cur->next;
 		}
 	}
