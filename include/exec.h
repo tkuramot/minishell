@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 22:14:10 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/11 22:31:10 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/23 18:10:05 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,17 @@
 # include "builtin.h"
 # include "parser.h"
 
-void	execute_pipe(t_ast *ast, t_env *env_lst);
 void	execute(t_ast *ast, t_env *env_lst);
-int		exec(t_token *token_lst, t_env *env_lst);
-
-// file_access_util.c
-int	is_executable(char *command);
-int	is_readable(char *command);
-
-// int	exec(char *path, char **env);
-int	exec(t_token *token_lst, t_env *env_lst);
-char **env_list_to_array(t_env *env_lst);
+void	execute_pipe(t_ast *ast, t_env *env_lst);
+void	run_simple_cmd(t_token *token_lst, t_env *env_lst);
+int		run_cmd_child(t_token *token_lst, t_env *env_lst);
+void	run_cmd_parent(t_token *lst, t_env *env_lst);
+void	run_cmd(char **command, char **environ);
+char	*resolve_path(char *cmd, char *path_env);
+int		is_executable(char *command);
+int		is_readable(char *command);
+char	**env_list_to_array(t_env *env_lst);
 void	free_two_d_array(char **array);
-void	handle_command(char **command, char **environ);
 
 char **token_lst_to_array(const t_token *command_lst);
 
