@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/20 01:12:41 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/23 16:44:28 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ int	main(void)
 		{
 			add_history(line);
 			lst = tokenize(line);
+			// TODO free before continue
+			if (!lst)
+				continue;
 			ast = parse_token(lst);
 			# if DEBUG == 1
 			(void)env_lst;

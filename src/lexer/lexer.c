@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/23 16:40:12 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/23 16:43:13 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static t_token	*extract_word(char **line)
 			if (!*tmp)
 			{
 				syntax_error("unclosed quote");
+				return (NULL);
 			}
 		}
 		tmp++;
