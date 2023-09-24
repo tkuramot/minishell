@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/24 12:15:02 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/24 13:37:06 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	traverse_pipe(t_ast *ast, t_env *env_lst, t_list **proc_lst)
 		}
 		else
 		{
+			dprintf(STDERR_FILENO, "pid for cmd [%s] [%d]\n", ast->right->lst->word, pid);
 			ft_lstadd_front(proc_lst, ft_lstnew(ft_itoa(pid)));
 			out_fd = dup(STDOUT_FILENO);
 			close(pipe_fd[PIPE_READ]);
@@ -47,9 +48,12 @@ void	traverse_pipe(t_ast *ast, t_env *env_lst, t_list **proc_lst)
 	}
 	else if (ast->type == ND_CMD)
 	{
+		close(pipe_fd[PIPE_READ]);
+		close(pipe_fd[PIPE_WRITE]);
 		pid = fork();
 		if (pid == 0)
 			run_cmd_parent(ast->lst, env_lst);
+		dprintf(STDERR_FILENO, "pid for cmd [%s] %d\n", ast->lst->word, pid);
 		ft_lstadd_front(proc_lst, ft_lstnew(ft_itoa(pid)));
 	}
 }
@@ -67,8 +71,8 @@ static int	wait_all_children(t_list *proc_lst)
 		waitpid(pid, &status, 0);
 		tmp = tmp->next;
 	}
+	pid = ft_atoi(tmp->content);
 	waitpid(pid, &status, 0);
-	status = 0;
 	return (status);
 }
 
