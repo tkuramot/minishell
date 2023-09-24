@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 22:47:24 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/05 23:44:31 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/24 11:12:38 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,17 @@ int	duplication(char *env_str, t_env *env_lst)
 	return (0);
 }
 
-void	mini_export(t_token *token_lst, t_env *env_lst)
+int	mini_export(t_token *token_lst, t_env *env_lst)
 {
 	t_env	*new;
 
 	if (!token_lst)
-		return ;
+		return (1);
 	if (!is_env(token_lst->word))
-		return ;
+		return (1);
 	if (duplication(token_lst->word, env_lst))
-		return ;
+		return (1);
 	new = env_lst_node_new(token_lst->word);
 	env_lst_add_back(env_lst, new);
+	return (0);
 }

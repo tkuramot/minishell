@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 22:48:31 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/11 00:57:34 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/24 11:12:17 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ static t_env	*search_env(const char *env_name, t_env *env_lst)
 	return (NULL);
 }
 
-void	mini_unset(const t_token *token_lst, t_env *env_lst)
+int	mini_unset(const t_token *token_lst, t_env *env_lst)
 {
 	t_env	*delete_env;
 
 	if (!token_lst || !env_lst)
-		return ;
+		return (1);
 	delete_env = search_env(token_lst->word, env_lst);
 	env_lst_node_delete(env_lst, delete_env);
+	return (0);
 }

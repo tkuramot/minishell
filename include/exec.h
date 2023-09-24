@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 22:14:10 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/23 18:10:05 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/24 11:14:26 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@
 # include "builtin.h"
 # include "parser.h"
 
-void	execute(t_ast *ast, t_env *env_lst);
-void	execute_pipe(t_ast *ast, t_env *env_lst);
-void	run_simple_cmd(t_token *token_lst, t_env *env_lst);
+int		execute(t_ast *ast, t_env *env_lst);
+int		run_simple_cmd(t_token *token_lst, t_env *env_lst);
 int		run_cmd_child(t_token *token_lst, t_env *env_lst);
 void	run_cmd_parent(t_token *lst, t_env *env_lst);
 void	run_cmd(char **command, char **environ);

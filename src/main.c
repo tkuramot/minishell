@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/23 16:44:28 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/24 11:13:50 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(void)
 	t_ast	*ast;
 	extern char	**environ;
 	t_env		*env_lst;
+	int		status;
 
 	print_minishell();
 	env_lst = env_lst_init();
@@ -82,7 +83,7 @@ int	main(void)
 			}
 
 			# else
-			execute(ast, env_lst);
+			status = execute(ast, env_lst);
 			free(line);
 			token_lst_free(lst);
 			# endif

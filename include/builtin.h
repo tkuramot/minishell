@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:48 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/14 13:28:08 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/24 11:09:32 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ void	free_all_env_lst(t_env *lst);
 size_t	env_lst_size(t_env *lst);
 char *env_strjoin(char *name, char *value);
 
-int		mini_echo(t_token *lst);
-void	mini_exit(t_token *lst, t_env *env_lst);
-void	mini_cd(t_token *token_lst, t_env *env_lst);
-void	mini_handle_command(t_token *lst, t_env *env_lst);
-void mini_env(const t_token *lst, t_env *env_lst);
-void	mini_unset(const t_token *token_lst, t_env *env_lst);
-void	mini_export(t_token *token_lst, t_env *env_lst);
-void	mini_pwd(void);
+int	mini_echo(t_token *lst);
+int	mini_exit(t_token *lst, t_env *env_lst);
+int	mini_cd(t_token *token_lst, t_env *env_lst);
+int	mini_handle_command(t_token *lst, t_env *env_lst);
+int mini_env(const t_token *lst, t_env *env_lst);
+int	mini_unset(const t_token *token_lst, t_env *env_lst);
+int	mini_export(t_token *token_lst, t_env *env_lst);
+int	mini_pwd(void);
 
 t_env	*env_lst_init(void);
 char	*get_environ_str(char *key, t_env *env_lst);
