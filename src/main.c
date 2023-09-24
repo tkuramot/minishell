@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/23 21:08:02 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/24 18:38:41 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ int	main(void)
 			add_history(line);
 			lst = tokenize(line);
 			ast = parse_token(lst);
-			name(ast);
-			// str_expander(&ast->argv->word);
+			env_var_expander(ast, env_lst);
 			# if DEBUG == 1
 			(void)env_lst;
 			printf("REDIRECT >\n");
