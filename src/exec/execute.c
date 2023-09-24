@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/23 22:40:37 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/24 09:53:52 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	traverse_pipe(t_ast *ast, t_env *env_lst)
 	int	pipe_fd[2];
 	int	pid;
 	int	out_fd;
-	int	status;
+	//int	status;
 
 	if (!ast)
 		return;
@@ -42,16 +42,12 @@ void	traverse_pipe(t_ast *ast, t_env *env_lst)
 			dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
 			close(pipe_fd[PIPE_WRITE]);
 			traverse_pipe(ast->left, env_lst);
-			wait(&status);
 			dup2(out_fd, STDOUT_FILENO);
 		}
 	}
 	else if (ast->type == ND_CMD)
 	{
-		close(pipe_fd[PIPE_READ]);
-		close(pipe_fd[PIPE_WRITE]);
 		run_cmd_child(ast->lst, env_lst);
-		wait(&status);
 	}
 }
 
