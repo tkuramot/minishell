@@ -14,6 +14,7 @@
 #include "lexer.h"
 #include "parser.h"
 #include "exec.h"
+#include "expander.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -54,6 +55,8 @@ int	main(void)
 			if (!lst)
 				continue;
 			ast = parse_token(lst);
+			name(ast);
+			// str_expander(&ast->argv->word);
 			# if DEBUG == 1
 			(void)env_lst;
 			printf("REDIRECT >\n");
