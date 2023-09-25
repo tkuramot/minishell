@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:26:03 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/25 11:51:46 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/25 23:03:36 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,23 @@ static char	*get_env_value(char *key, char **environ)
 	return (NULL);
 }
 
+int get_path_type(char *cmd)
+{
+	size_t i;
+
+	i = 0;
+	if(cmd[i] == '/')
+		return (ABSOLUTE);
+	i++;
+	while(cmd[i])
+	{
+		if(cmd[i] == '/')
+			return (RELATIVE);
+		i++;
+	}
+	return (OTHER);
+}
+
 static void	execve_cmd(char **cmd, char **environ)
 {
 	char	*cmd_full_path;
@@ -34,19 +51,15 @@ static void	execve_cmd(char **cmd, char **environ)
 
 	path_env = get_env_value("PATH", environ);
 	cmd_full_path = resolve_path(cmd[0], path_env);
-	if (strncmp("./", cmd[0], 2) == 0)
+	if (get_path_type(cmd[0]) == RELATIVE || get_path_type(cmd[0]) == ABSOLUTE)
 	{
-		execve(cmd[0], cmd, environ);
-		exit(0);
-	}
-	execve(cmd_full_path, cmd, environ);
-	if (is_executable(cmd[0]))
-	{
+		if (!is_executable(cmd[0]))
+			print_perror(cmd[0]);
 		if (execve(cmd[0], cmd, environ) == -1)
-			perror("execve");
-		exit(0);
+			cmd_not_found_error(cmd[0]);
 	}
-	exit(0);
+	if (execve(cmd_full_path, cmd, environ) == -1)
+		cmd_not_found_error(cmd[0]);
 }
 
 int	run_cmd_child(t_token *lst, t_env *env_lst)

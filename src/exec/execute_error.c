@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file_access_util.c                                 :+:      :+:    :+:   */
+/*   execute_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 14:29:56 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/25 13:35:29 by tsishika         ###   ########.fr       */
+/*   Created: 2023/09/25 22:48:41 by tsishika          #+#    #+#             */
+/*   Updated: 2023/09/25 23:04:12 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	is_executable(char *command)
+void	print_perror(char *cmd)
 {
-	if(access(command, F_OK) == -1)
-		return (0);
-	if (access(command, X_OK) == -1)
-		return (0);
-	return (1);
+	ft_dprintf(STDERR_FILENO, "minishell: ");
+	perror(cmd);
+	exit(0);
 }
 
-int	is_readable(char *file)
+void	cmd_not_found_error(char *cmd)
 {
-	if (access(file, F_OK | R_OK) == -1)
-		return (0);
-	if (access(file, R_OK) == -1)
-		return (0);
-	return (1);
+	ft_dprintf(STDERR_FILENO, "minishell: %s: command not found\n", cmd);
+	exit(0);
 }
