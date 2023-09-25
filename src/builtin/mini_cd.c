@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 12:06:23 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/09 18:21:22 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/24 11:10:26 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*get_environ_str(char *key, t_env *env_lst)
 	return (NULL);
 }
 
-void	mini_cd(t_token *token_lst, t_env *env_lst)
+int	mini_cd(t_token *token_lst, t_env *env_lst)
 {
 	char	*path_env;
 	char	*env_oldpwd;
@@ -97,6 +97,7 @@ void	mini_cd(t_token *token_lst, t_env *env_lst)
 		free(env_pwd);
 	}
 	free(env_oldpwd);
+	return (0);
 }
 
 // int	mini_pwd(void)

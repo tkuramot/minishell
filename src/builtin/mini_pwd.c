@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 17:23:23 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/11 00:33:42 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/24 11:10:39 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <limits.h>
 #include "builtin.h"
 
-void	mini_pwd(void)
+int	mini_pwd(void)
 {
 	char	pwd_path[PATH_MAX];
 
@@ -23,4 +23,5 @@ void	mini_pwd(void)
 		perror("pwd");
 	else
 		ft_dprintf(STDOUT_FILENO, "%s\n", pwd_path);
+	return (0);
 }

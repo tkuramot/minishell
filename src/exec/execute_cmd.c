@@ -3,69 +3,76 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/21 23:51:48 by tkuramot         ###   ########.fr       */
+/*   Created: 2023/09/04 14:26:03 by tsishika          #+#    #+#             */
+/*   Updated: 2023/09/23 18:09:51 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-#include "parser.h"
-#include "utils.h"
 
-void	execute_pipe(t_ast *ast, t_env *env_lst)
+static char	*get_env_value(char *key, char **environ)
 {
-	int	pipe_fd[2];
-	int	pid;
-	char	**command;
-	char	**env;
+	size_t	i;
 
-	if (!ast)
-		return;
-	if (ast->type == ND_PIPE)
+	i = 0;
+	while (environ[i] != NULL)
 	{
-		if (pipe(pipe_fd) == -1)
-			fatal_error("pipe");
-		pid = fork();
-		if (pid == 0)
-		{
-			close(pipe_fd[PIPE_WRITE]);
-			dup2(pipe_fd[PIPE_READ], STDIN_FILENO);
-			close(pipe_fd[PIPE_READ]);
-			command = token_lst_to_array(ast->right->lst);
-			env = env_list_to_array(env_lst);
-			handle_command(command, env);
-		}
-		else
-		{
-			close(pipe_fd[PIPE_READ]);
-			dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
-			execute_pipe(ast->left, env_lst);
-		}
+		if (ft_strncmp(environ[i], key, ft_strlen(key)) == 0)
+			return (ft_substr(ft_strchr(environ[i], '='),
+					0, ft_strlen(environ[i])));;
+		i++;
 	}
-	else if (ast->type == ND_CMD)
-	{
-		command = token_lst_to_array(ast->lst);
-		env = env_list_to_array(env_lst);
-		handle_command(command, env);
-	}
+	return (NULL);
 }
 
-void	execute(t_ast *ast, t_env *env_lst)
+static void	execve_cmd(char **cmd, char **environ)
 {
-	int	pid;
-	int	status;
+	char	*cmd_full_path;
+	char	*path_env;
 
-	if (!ast)
-		return;
-	if (ast->type == ND_PIPE)
+	path_env = get_env_value("PATH", environ);
+	cmd_full_path = resolve_path(cmd[0], path_env);
+	if (strncmp("./", cmd[0], 2) == 0)
 	{
-		pid = fork();
-		if (pid == 0)
-			execute_pipe(ast, env_lst);
-		wait(&status);
+		execve(cmd[0], cmd, environ);
+		exit(0);
 	}
-	if (ast->type == ND_CMD)
-		mini_handle_command(ast->lst, env_lst);
+	execve(cmd_full_path, cmd, environ);
+	if (is_executable(cmd[0]))
+	{
+		if (execve(cmd[0], cmd, environ) == -1)
+			perror("execve");
+		exit(0);
+	}
+	exit(0);
+}
+
+int	run_cmd_child(t_token *lst, t_env *env_lst)
+{
+	pid_t	pid;
+	int		status;
+	char	**cmd;
+	char	**env;
+
+	cmd = token_lst_to_array(lst);
+	env = env_list_to_array(env_lst);
+	pid = fork();
+	if (pid == 0)
+		execve_cmd(cmd, env);
+	waitpid(pid, &status, 0);
+	free_two_d_array(env);
+	free_two_d_array(cmd);
+	return (status);
+}
+
+void	run_cmd_parent(t_token *lst, t_env *env_lst)
+{
+	char	**cmd;
+	char	**env;
+
+	cmd = token_lst_to_array(lst);
+	env = env_list_to_array(env_lst);
+		execve_cmd(cmd, env);
 }
