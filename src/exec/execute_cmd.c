@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:26:03 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/25 23:03:36 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/25 23:16:34 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,21 @@ static char	*get_env_value(char *key, char **environ)
 	return (NULL);
 }
 
-int get_path_type(char *cmd)
+int	get_path_type(char *cmd)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
-	if(cmd[i] == '/')
-		return (ABSOLUTE);
+	if (cmd[i] == '/')
+		return (1);
 	i++;
-	while(cmd[i])
+	while (cmd[i])
 	{
-		if(cmd[i] == '/')
-			return (RELATIVE);
+		if (cmd[i] == '/')
+			return (1);
 		i++;
 	}
-	return (OTHER);
+	return (0);
 }
 
 static void	execve_cmd(char **cmd, char **environ)
@@ -51,7 +51,7 @@ static void	execve_cmd(char **cmd, char **environ)
 
 	path_env = get_env_value("PATH", environ);
 	cmd_full_path = resolve_path(cmd[0], path_env);
-	if (get_path_type(cmd[0]) == RELATIVE || get_path_type(cmd[0]) == ABSOLUTE)
+	if (get_path_type(cmd[0]))
 	{
 		if (!is_executable(cmd[0]))
 			print_perror(cmd[0]);

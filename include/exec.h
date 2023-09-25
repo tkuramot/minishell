@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 22:14:10 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/25 23:02:20 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/25 23:15:58 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 
 # define PIPE_READ 0
 # define PIPE_WRITE 1
-// command path
-# define ABSOLUTE 1
-# define RELATIVE 2
-# define OTHER 3
 
 # include <sys/types.h>
 # include <unistd.h>
