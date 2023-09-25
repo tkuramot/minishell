@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:42:36 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/24 19:11:23 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/25 11:02:33 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,10 +158,7 @@ char	*no_quote_expander(char *str, size_t *i, t_env *env_lst)
 		if(str[j] == '$')
 			sub = get_env_value(str, &j, env_lst);
 		else
-		{
 			sub = ft_substr(str, j, 1);
-			ft_dprintf(1, "B\n");
-		}
 		ans = ft_strjoin(first, sub);
 		free(first);
 		free(sub);
