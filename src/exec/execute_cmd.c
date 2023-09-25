@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:26:03 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/23 18:09:51 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/25 11:51:46 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*get_env_value(char *key, char **environ)
 	{
 		if (ft_strncmp(environ[i], key, ft_strlen(key)) == 0)
 			return (ft_substr(ft_strchr(environ[i], '='),
-					0, ft_strlen(environ[i])));;
+					0, ft_strlen(environ[i])));
 		i++;
 	}
 	return (NULL);
@@ -74,5 +74,5 @@ void	run_cmd_parent(t_token *lst, t_env *env_lst)
 
 	cmd = token_lst_to_array(lst);
 	env = env_list_to_array(env_lst);
-		execve_cmd(cmd, env);
+	execve_cmd(cmd, env);
 }

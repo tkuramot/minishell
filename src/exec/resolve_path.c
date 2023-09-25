@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resolve_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:52:08 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/23 17:52:33 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/25 11:07:18 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,3 @@ char	*resolve_path(char *cmd, char *path_env)
 	free_two_d_array(paths);
 	return (NULL);
 }
-
