@@ -55,8 +55,7 @@ int	main(void)
 			if (!lst)
 				continue;
 			ast = parse_token(lst);
-			name(ast);
-			// str_expander(&ast->argv->word);
+			env_var_expander(ast, env_lst);
 			# if DEBUG == 1
 			(void)env_lst;
 			printf("REDIRECT >\n");
