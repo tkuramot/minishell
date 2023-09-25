@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_error.c                                    :+:      :+:    :+:   */
+/*   redirect.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 22:48:41 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/25 23:04:12 by tsishika         ###   ########.fr       */
+/*   Created: 2023/09/25 23:32:42 by tsishika          #+#    #+#             */
+/*   Updated: 2023/09/25 23:32:58 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef REDIRECT_H
+# define REDIRECT_H
+
+#include "parser.h"
+#include "libft.h"
 #include "exec.h"
 
-void	print_perror(char *cmd)
-{
-	ft_dprintf(STDERR_FILENO, "minishell: ");
-	perror(cmd);
-	exit(0);
-}
+// input.c
+void	redirect_in_file(char *file);
 
-void	cmd_not_found_error(char *cmd)
-{
-	ft_dprintf(STDERR_FILENO, "minishell: %s: command not found\n", cmd);
-	exit(0);
-}
+// output.c
+void	redirect_out_file(char *file);
+void	redirect_out_apend_file(char *file);
+
+void	redirect(t_ast *ast);
+
+#endif
