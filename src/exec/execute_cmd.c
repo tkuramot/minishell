@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:26:03 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/23 18:09:51 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/25 23:16:34 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,27 @@ static char	*get_env_value(char *key, char **environ)
 	{
 		if (ft_strncmp(environ[i], key, ft_strlen(key)) == 0)
 			return (ft_substr(ft_strchr(environ[i], '='),
-					0, ft_strlen(environ[i])));;
+					0, ft_strlen(environ[i])));
 		i++;
 	}
 	return (NULL);
+}
+
+int	get_path_type(char *cmd)
+{
+	size_t	i;
+
+	i = 0;
+	if (cmd[i] == '/')
+		return (1);
+	i++;
+	while (cmd[i])
+	{
+		if (cmd[i] == '/')
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 static void	execve_cmd(char **cmd, char **environ)
@@ -34,19 +51,15 @@ static void	execve_cmd(char **cmd, char **environ)
 
 	path_env = get_env_value("PATH", environ);
 	cmd_full_path = resolve_path(cmd[0], path_env);
-	if (strncmp("./", cmd[0], 2) == 0)
+	if (get_path_type(cmd[0]))
 	{
-		execve(cmd[0], cmd, environ);
-		exit(0);
-	}
-	execve(cmd_full_path, cmd, environ);
-	if (is_executable(cmd[0]))
-	{
+		if (!is_executable(cmd[0]))
+			print_perror(cmd[0]);
 		if (execve(cmd[0], cmd, environ) == -1)
-			perror("execve");
-		exit(0);
+			cmd_not_found_error(cmd[0]);
 	}
-	exit(0);
+	if (execve(cmd_full_path, cmd, environ) == -1)
+		cmd_not_found_error(cmd[0]);
 }
 
 int	run_cmd_child(t_token *lst, t_env *env_lst)
@@ -74,5 +87,5 @@ void	run_cmd_parent(t_token *lst, t_env *env_lst)
 
 	cmd = token_lst_to_array(lst);
 	env = env_list_to_array(env_lst);
-		execve_cmd(cmd, env);
+	execve_cmd(cmd, env);
 }

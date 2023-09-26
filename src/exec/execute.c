@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/25 00:24:12 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/25 11:58:26 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	traverse_pipe(int std[2], t_list *fd, t_ast *ast, t_env *env_lst, t_list **
 	int		tmp;
 
 	if (!ast)
-		return;
+		return ;
 	if (ast->type == ND_PIPE)
 	{
 		if (pipe(pp) == -1)
@@ -54,7 +54,7 @@ void	traverse_pipe(int std[2], t_list *fd, t_ast *ast, t_env *env_lst, t_list **
 			dup2(std[0], STDIN_FILENO);
 			dup2(std[1], STDOUT_FILENO);
 			ft_lstclear(&fd, clear_fd);
-			run_cmd_parent(ast->lst, env_lst);
+			run_cmd_parent(ast->argv, env_lst);
 		}
 		ft_lstadd_front(proc_lst, ft_lstnew(ft_itoa(pid)));
 	}
@@ -67,7 +67,7 @@ static int	wait_all_children(t_list *proc_lst)
 	int		status;
 
 	tmp = proc_lst;
-	while(ft_lstsize(tmp) > 1)
+	while (ft_lstsize(tmp) > 1)
 	{
 		pid = ft_atoi(tmp->content);
 		waitpid(pid, &status, 0);
@@ -80,8 +80,8 @@ static int	wait_all_children(t_list *proc_lst)
 
 int	execute(t_ast *ast, t_env *env_lst)
 {
-	t_list *proc_lst;
-	t_list *fd;
+	t_list	*proc_lst;
+	t_list	*fd;
 	int		status;
 	int		std[2];
 
@@ -98,6 +98,6 @@ int	execute(t_ast *ast, t_env *env_lst)
 		return (status);
 	}
 	if (ast->type == ND_CMD)
-		return (run_simple_cmd(ast->lst, env_lst));
+		return (run_simple_cmd(ast->argv, env_lst));
 	return (0);
 }

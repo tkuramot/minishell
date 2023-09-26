@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   resolve_path.c                                     :+:      :+:    :+:   */
+/*   redirect.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/23 17:52:08 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/25 11:07:18 by tsishika         ###   ########.fr       */
+/*   Created: 2023/09/25 23:32:42 by tsishika          #+#    #+#             */
+/*   Updated: 2023/09/25 23:32:58 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef REDIRECT_H
+# define REDIRECT_H
+
+#include "parser.h"
+#include "libft.h"
 #include "exec.h"
 
-char	*resolve_path(char *cmd, char *path_env)
-{
-	char	**paths;
-	char	*path;
-	char	*full_path;
-	int		i;
+// input.c
+void	redirect_in_file(char *file);
 
-	i = 0;
-	paths = ft_split(path_env, ':');
-	while (paths[i] != NULL)
-	{
-		path = ft_strjoin(paths[i], "/");
-		full_path = ft_strjoin(path, cmd);
-		free(path);
-		if (is_executable(full_path))
-			return (full_path);
-		free(full_path);
-		i++;
-	}
-	free_two_d_array(paths);
-	return (NULL);
-}
+// output.c
+void	redirect_out_file(char *file);
+void	redirect_out_apend_file(char *file);
+
+void	redirect(t_ast *ast);
+
+#endif

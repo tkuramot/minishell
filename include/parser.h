@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:19:42 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/23 16:04:44 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/25 22:58:05 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ typedef enum e_node_type
 {
 	ND_CMD,
 	ND_PIPE
-} t_node_type;
+}	t_node_type;
 
-typedef struct	s_redirect
+typedef struct s_redirect
 {
 	char			*file;
 	t_token_type	type;
-} t_redirect;
+}	t_redirect;
 
-typedef struct s_ast t_ast;
+typedef struct s_ast	t_ast;
 struct s_ast
 {
 	t_node_type	type;

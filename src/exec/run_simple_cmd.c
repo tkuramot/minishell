@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:22:12 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/24 12:24:08 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/25 11:44:43 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@
 int	run_simple_cmd(t_token *lst, t_env *env_lst)
 {
 	if (ft_strcmp(lst->word, "exit") == 0)
-		return mini_exit(lst, env_lst);
+		return (mini_exit(lst, env_lst));
 	else if (ft_strcmp(lst->word, "pwd") == 0)
-		return mini_pwd();
+		return (mini_pwd());
 	else if (ft_strcmp(lst->word, "cd") == 0)
-		return mini_cd(lst->next, env_lst);
+		return (mini_cd(lst->next, env_lst));
 	else if (ft_strcmp(lst->word, "env") == 0)
-		return mini_env(lst->next, env_lst);
+		return (mini_env(lst->next, env_lst));
 	else if (ft_strcmp(lst->word, "unset") == 0)
-		return mini_unset(lst->next, env_lst);
+		return (mini_unset(lst->next, env_lst));
 	else if (ft_strcmp(lst->word, "export") == 0)
-		return mini_export(lst->next, env_lst);
+		return (mini_export(lst->next, env_lst));
 	else if (ft_strcmp(lst->word, "echo") == 0)
-		return mini_echo(lst->next);
+		return (mini_echo(lst->next));
 	else
-		return run_cmd_child(lst, env_lst);
+		return (run_cmd_child(lst, env_lst));
 }
 
 // Run all commands including builtins in child procs
