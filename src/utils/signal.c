@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 21:11:22 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/27 15:45:46 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:59:31 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,28 @@ static void	sigint_handler(int sig)
 	rl_redisplay();
 }
 
-void	set_signal_handler(void)
+void	set_default_sig_handler(void)
 {
 	struct sigaction	sa;
 
 	ft_bzero(&sa, sizeof(struct sigaction));
 	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_SIGINFO;
 	sa.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa, NULL);
 	sa.sa_handler = sigint_handler;
+	sigaction(SIGINT, &sa, NULL);
+}
+
+void	set_child_sig_handler(void)
+{
+	struct sigaction	sa;
+
+	ft_bzero(&sa, sizeof(struct sigaction));
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_handler = SIG_DFL;
+	sigaction(SIGQUIT, &sa, NULL);
+	sa.sa_handler = SIG_DFL;
 	sigaction(SIGINT, &sa, NULL);
 }
