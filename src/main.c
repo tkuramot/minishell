@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/25 00:13:41 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/27 13:21:04 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "parser.h"
 #include "exec.h"
 #include "expander.h"
+#include "utils.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -40,6 +41,7 @@ int	main(void)
 	t_env		*env_lst;
 
 	print_minishell();
+	set_signal();
 	env_lst = env_lst_init();
 	rl_outstream = stderr;
 	while (true)
