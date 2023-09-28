@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 21:05:51 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/29 01:55:00 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/29 02:13:45 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,15 @@ bool	is_identifier_char(char c)
 {
 	return (c == '_' || ('A' <= c && c <= 'Z')
 		|| ('a' <= c && c <= 'z') || ('0' <= c && c <= '9'));
+}
+
+char	*extend_str(char *left, char *right)
+{
+	char	*buf;
+
+	buf = left;
+	left = ft_strjoin(buf, right);
+	free(buf);
+	free(right);
+	return (left);
 }

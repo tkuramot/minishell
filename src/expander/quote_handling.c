@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:43:42 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/29 01:59:38 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/29 02:15:52 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,67 +34,57 @@ char	*single_quote_expander(char *str, size_t *i)
 char	*no_quote_expander(char *str, size_t *i, t_env *env_lst)
 {
 	size_t	end;
-	char	*buf1;
-	char	*buf2;
-	char	*join;
+	char	*left;
+	char	*right;
 
 	end = *i;
-	buf1 = ft_strdup("");
+	left = ft_strdup("");
 	while (str[end] && str[end] != SINGLE_QUOTE && str[end] != DOUBLE_QUOTE)
 	{
 		if (str[end] == '$')
-			buf2 = expand_env_string(str, &end, env_lst);
+			right = expand_env_string(str, &end, env_lst);
 		else
-			buf2 = ft_substr(str, end, 1);
-		if (!buf2)
+			right = ft_substr(str, end, 1);
+		if (!right)
 		{
-			free(buf1);
+			free(left);
 			return (NULL);
 		}
-		join = ft_strjoin(buf1, buf2);
-		free(buf1);
-		free(buf2);
-		if(!join)
+		left = extend_str(left, right);
+		if (!left)
 			return (NULL);
-		buf1 = join;
 		end++;
 	}
 	*i = end - 1;
-	return (buf1);
+	return (left);
 }
-
-
 
 char	*double_quote_expander(char *str, size_t *i, t_env *env_lst)
 {
 	size_t	end;
-	char	*buf1;
-	char	*buf2;
-	char	*join;
+	char	*left;
+	char	*right;
 
 	end = *i + 1;
-	buf1 = ft_strdup("");
+	left = ft_strdup("");
 	while (str[end] && str[end] != DOUBLE_QUOTE)
 	{
 		if (str[end] == '$')
-			buf2 = expand_env_string(str, &end, env_lst);
+			right = expand_env_string(str, &end, env_lst);
 		else
-			buf2 = ft_substr(str, end, 1);
-		if (!buf2)
+			right = ft_substr(str, end, 1);
+		if (!right)
 		{
-			free(buf1);
+			free(left);
 			return (NULL);
 		}
-		join = ft_strjoin(buf1, buf2);
-		free(buf1);
-		free(buf2);
-		if(!join)
+		left = extend_str(left, right);
+		if (!left)
 			return (NULL);
-		buf1 = join;
 		end++;
 	}
 	*i = end;
-	return (buf1);
+	return (left);
 }
 
 // int main(void)
