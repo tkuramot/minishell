@@ -6,15 +6,11 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:42:36 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/29 02:13:21 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/29 02:27:06 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
-#include "parser.h"
-#include "exec.h"
-#include "libft.h"
-#include <libc.h>
 
 void	str_expander(char **str, t_env *env_lst)
 {

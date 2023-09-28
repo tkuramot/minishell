@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:41:27 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/29 02:14:00 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/29 02:27:57 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 # include "parser.h"
 # include "builtin.h"
 # include "lexer.h"
-
+# include "exec.h"
+# include "libft.h"
+# include <stdlib.h>
 
 // expander_handling.c
 char	*expand_env_string(char	*str, size_t *i, t_env *env_lst);
