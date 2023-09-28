@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   single_quote_expander.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/20 10:55:41 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/28 20:07:38 by tsishika         ###   ########.fr       */
+/*   Created: 2023/09/28 20:43:42 by tsishika          #+#    #+#             */
+/*   Updated: 2023/09/28 22:20:16 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "expander.h"
 
-# define DEBUG 1
+char	*single_quote_expander(char *str, size_t *i)
+{
+	size_t	start;
+	size_t	end;
+	char	*ans;
 
-# include "builtin.h"
-# include "exec.h"
-
-#endif
+	start = *i + 1;
+	end = start;
+	while (str[end] != SINGLE_QUOTE && str)
+		end++;
+	if (str[end] != SINGLE_QUOTE)
+		return (NULL);
+	ans = ft_substr(str, start, end - start);
+	if (!ans)
+		return (NULL);
+	*i = end;
+	return (ans);
+}

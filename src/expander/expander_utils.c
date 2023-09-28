@@ -1,21 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/20 10:55:41 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/28 20:07:38 by tsishika         ###   ########.fr       */
+/*   Created: 2023/09/28 21:05:51 by tsishika          #+#    #+#             */
+/*   Updated: 2023/09/28 22:48:31 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "expander.h"
 
-# define DEBUG 1
+bool	is_expandable(char *str, size_t *i)
+{
+	size_t	end;
+	size_t	cnt;
 
-# include "builtin.h"
-# include "exec.h"
+	cnt = 0;
+	end = *i;
+	while (str[end] == '$')
+	{
+		end++;
+		cnt++;
+	}
+	if (str[end] == '\0')
+		return (false);
+	*i = end - 1;
+	if (cnt % 2 == 0)
+		return (false);
+	return (true);
+}
 
-#endif
+bool	is_identifier_char(char c)
+{
+	return (c == '_' || ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z') || ('0' <= c && c <= '9'));
+}
