@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:42:36 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/29 01:56:07 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/29 02:01:36 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ void	env_var_expander(t_ast *ast, t_env *env_lst)
 {
 	t_token	*tmp;
 
+	if(!ast)
+		return ;
+	env_var_expander(ast->right, env_lst);
+	env_var_expander(ast->left, env_lst);
 	tmp = ast->argv;
 	while (tmp)
 	{
