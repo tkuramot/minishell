@@ -15,10 +15,12 @@
 #include "parser.h"
 #include "exec.h"
 #include "expander.h"
+#include "utils.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <readline/readline.h>
+#include <readline/history.h>
 
 static void	print_minishell(void)
 {
@@ -40,6 +42,7 @@ int	main(void)
 	t_env		*env_lst;
 
 	print_minishell();
+	set_sig_handler();
 	env_lst = env_lst_init();
 	rl_outstream = stderr;
 	while (true)
@@ -84,7 +87,9 @@ int	main(void)
 			}
 
 			# else
+			set_ign_sig_handler();
 			execute(ast, env_lst);
+			set_sig_handler();
 			free(line);
 			token_lst_free(lst);
 			# endif
