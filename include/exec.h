@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 22:14:10 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/25 23:15:58 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/28 10:38:34 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@
 
 int		execute(t_ast *ast, t_env *env_lst);
 int		run_simple_cmd(t_token *token_lst, t_env *env_lst);
-int		run_simple_cmd_child(t_token *token_lst, t_env *env_lst);
-int		run_cmd_child(t_token *token_lst, t_env *env_lst);
-void	run_cmd_parent(t_token *lst, t_env *env_lst);
-void	run_cmd(char **command, char **environ);
+void	run_simple_cmd_parent(t_token *token_lst, t_env *env_lst);
+void	run_non_builtin_parent(t_token *lst, t_env *env_lst);
+int		run_non_builtin_child(t_token *lst, t_env *env_lst);
 char	*resolve_path(char *cmd, char *path_env);
 int		is_executable(char *command);
 int		is_readable(char *command);
