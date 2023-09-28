@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   no_quote_expander.c                                :+:      :+:    :+:   */
+/*   expander_handling.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:42:43 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/28 23:31:53 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/29 01:52:05 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 
-char	*find_env_value(char *name, t_env *env_lst)
+static char	*find_env_value(char *name, t_env *env_lst)
 {
 	char	*ans;
 
@@ -29,7 +29,7 @@ char	*find_env_value(char *name, t_env *env_lst)
 	return(ans);
 }
 
-char	*get_env_value(char *str, size_t *i, t_env *env_lst)
+static char	*get_env_value(char *str, size_t *i, t_env *env_lst)
 {
 	size_t	start;
 	size_t	end;
@@ -51,7 +51,7 @@ char	*get_env_value(char *str, size_t *i, t_env *env_lst)
 	return (ans);
 }
 
-char	*concatenate_env(char *str, size_t start, size_t *i, t_env *env_lst)
+static char	*concatenate_env(char *str, size_t start, size_t *i, t_env *env_lst)
 {
 	char	*buf1;
 	char	*buf2;
@@ -59,7 +59,7 @@ char	*concatenate_env(char *str, size_t start, size_t *i, t_env *env_lst)
 	size_t	end;
 
 	end = *i + 1;
-	buf1 = ft_substr(str, start, end - 1);
+	buf1 = ft_substr(str, start, end - start - 1);
 	if (!buf1)
 		return (NULL);
 	buf2 = get_env_value(str, &end, env_lst);
@@ -89,29 +89,4 @@ char	*expand_env_string(char	*str, size_t *i, t_env *env_lst)
 		ans = ft_substr(str, *i, end - *i + 1);
 	*i = end;
 	return (ans);
-}
-
-char	*no_quote_expander(char *str, size_t *i, t_env *env_lst)
-{
-	size_t	end;
-	char	*buf1;
-	char	*buf2;
-	char	*join;
-
-	end = *i;
-	buf1 = ft_strdup("");
-	while (str[end] && str[end] != SINGLE_QUOTE && str[end] != DOUBLE_QUOTE)
-	{
-		if (str[end] == '$')
-			buf2 = expand_env_string(str, &end, env_lst);
-		else
-			buf2 = ft_substr(str, end, 1);
-		join = ft_strjoin(buf1, buf2);
-		free(buf1);
-		free(buf2);
-		buf1 = join;
-		end++;
-	}
-	*i = end;
-	return (buf1);
 }
