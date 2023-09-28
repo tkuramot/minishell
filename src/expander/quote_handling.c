@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:43:42 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/29 01:50:55 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/29 01:59:38 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*no_quote_expander(char *str, size_t *i, t_env *env_lst)
 			buf2 = expand_env_string(str, &end, env_lst);
 		else
 			buf2 = ft_substr(str, end, 1);
-		if(!buf2)
+		if (!buf2)
 		{
 			free(buf1);
 			return (NULL);
@@ -54,12 +54,16 @@ char	*no_quote_expander(char *str, size_t *i, t_env *env_lst)
 		join = ft_strjoin(buf1, buf2);
 		free(buf1);
 		free(buf2);
+		if(!join)
+			return (NULL);
 		buf1 = join;
 		end++;
 	}
 	*i = end - 1;
 	return (buf1);
 }
+
+
 
 char	*double_quote_expander(char *str, size_t *i, t_env *env_lst)
 {
@@ -76,7 +80,7 @@ char	*double_quote_expander(char *str, size_t *i, t_env *env_lst)
 			buf2 = expand_env_string(str, &end, env_lst);
 		else
 			buf2 = ft_substr(str, end, 1);
-		if(!buf2)
+		if (!buf2)
 		{
 			free(buf1);
 			return (NULL);
@@ -84,6 +88,8 @@ char	*double_quote_expander(char *str, size_t *i, t_env *env_lst)
 		join = ft_strjoin(buf1, buf2);
 		free(buf1);
 		free(buf2);
+		if(!join)
+			return (NULL);
 		buf1 = join;
 		end++;
 	}

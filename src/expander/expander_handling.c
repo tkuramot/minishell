@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:42:43 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/29 01:52:05 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/29 01:54:33 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*find_env_value(char *name, t_env *env_lst)
 		env_lst = env_lst->next;
 	}
 	ans = ft_strdup("");
-	return(ans);
+	return (ans);
 }
 
 static char	*get_env_value(char *str, size_t *i, t_env *env_lst)

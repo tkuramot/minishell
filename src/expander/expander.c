@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:42:36 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/29 01:41:44 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/29 01:56:07 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,15 @@ void	str_expander(char **str, t_env *env_lst)
 		first = ans;
 		i++;
 	}
-	// free(*str);
 	*str = first;
 }
 
-void env_var_expander(t_ast *ast, t_env *env_lst)
+void	env_var_expander(t_ast *ast, t_env *env_lst)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = ast->argv;
-	while(tmp)
+	while (tmp)
 	{
 		str_expander(&tmp->word, env_lst);
 		tmp = tmp->next;
