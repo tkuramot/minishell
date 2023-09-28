@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:26:03 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/25 23:16:34 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/28 10:24:10 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	get_path_type(char *cmd)
 	return (0);
 }
 
-static void	execve_cmd(char **cmd, char **environ)
+static void	run_non_builtin_helper(char **cmd, char **environ)
 {
 	char	*cmd_full_path;
 	char	*path_env;
@@ -62,7 +62,7 @@ static void	execve_cmd(char **cmd, char **environ)
 		cmd_not_found_error(cmd[0]);
 }
 
-int	run_cmd_child(t_token *lst, t_env *env_lst)
+int	run_non_builtin_child(t_token *lst, t_env *env_lst)
 {
 	pid_t	pid;
 	int		status;
@@ -73,19 +73,19 @@ int	run_cmd_child(t_token *lst, t_env *env_lst)
 	env = env_list_to_array(env_lst);
 	pid = fork();
 	if (pid == 0)
-		execve_cmd(cmd, env);
+		run_non_builtin_helper(cmd, env);
 	waitpid(pid, &status, 0);
 	free_two_d_array(env);
 	free_two_d_array(cmd);
 	return (status);
 }
 
-void	run_cmd_parent(t_token *lst, t_env *env_lst)
+void	run_non_builtin_parent(t_token *lst, t_env *env_lst)
 {
 	char	**cmd;
 	char	**env;
 
 	cmd = token_lst_to_array(lst);
 	env = env_list_to_array(env_lst);
-	execve_cmd(cmd, env);
+	run_non_builtin_helper(cmd, env);
 }
