@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/28 10:19:02 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:47:14 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(void)
 	t_env		*env_lst;
 
 	print_minishell();
-	set_default_sig_handler();
+	set_sig_handler();
 	env_lst = env_lst_init();
 	rl_outstream = stderr;
 	while (true)
@@ -87,7 +87,9 @@ int	main(void)
 			}
 
 			# else
+			set_ign_sig_handler();
 			execute(ast, env_lst);
+			set_sig_handler();
 			free(line);
 			token_lst_free(lst);
 			# endif

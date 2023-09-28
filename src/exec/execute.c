@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/28 10:38:26 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:47:33 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	traverse_pipe(int std[2], t_list *fd, t_ast *ast, t_env *env_lst, t_list **
 		pid = fork();
 		if (pid == 0)
 		{
-			set_child_sig_handler();
 			dup2(std[0], STDIN_FILENO);
 			dup2(std[1], STDOUT_FILENO);
 			ft_lstclear(&fd, clear_fd);

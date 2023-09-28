@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_cmd.c                                      :+:      :+:    :+:   */
+/*   run_non_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:26:03 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/28 10:24:10 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:44:31 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "utils.h"
 
 static char	*get_env_value(char *key, char **environ)
 {
@@ -49,6 +50,7 @@ static void	run_non_builtin_helper(char **cmd, char **environ)
 	char	*cmd_full_path;
 	char	*path_env;
 
+	set_default_sig_handler();
 	path_env = get_env_value("PATH", environ);
 	cmd_full_path = resolve_path(cmd[0], path_env);
 	if (get_path_type(cmd[0]))
