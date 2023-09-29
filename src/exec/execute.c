@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/29 13:14:33 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 08:12:53 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ void	execute(t_context *ctx)
 
 	proc_lst = NULL;
 	fd = NULL;
-	if (!ctx->ast && ctx->status++)
-		return;
 	if (ctx->ast->type == ND_PIPE)
 	{
 		std[0] = 0;
@@ -99,5 +97,5 @@ void	execute(t_context *ctx)
 		ctx->status = wait_all_children(proc_lst);
 	}
 	if (ctx->ast->type == ND_CMD)
-		run_simple_cmd(ctx->ast->argv, ctx->env);
+		ctx->status = run_simple_cmd(ctx->ast->argv, ctx->env);
 }
