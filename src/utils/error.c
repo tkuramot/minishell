@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:59:15 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/26 00:49:57 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:32:38 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	fatal_error(char *err)
 	exit(1);
 }
 
-void	syntax_error(char *location)
+void	syntax_error(void)
 {
-	ft_dprintf(STDERR_FILENO, "minishell: syntax error near %s\n", location);
+	ft_dprintf(STDERR_FILENO, "minishell: syntax error\n");
 }
 
 void	print_perror(char *cmd)

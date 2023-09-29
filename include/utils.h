@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 11:02:32 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/28 14:46:40 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:32:12 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define UTILS_H
 
 void	fatal_error(char *err);
-void	syntax_error(char *location);
+void	syntax_error(void);
 void	print_perror(char *cmd);
 void	cmd_not_found_error(char *cmd);
 void	set_sig_handler(void);
