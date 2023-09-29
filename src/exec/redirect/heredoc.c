@@ -6,13 +6,70 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:15:16 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/29 09:54:30 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:00:57 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "heredoc.h"
+#include "expander.h"
 #include <readline/readline.h>
 #include <readline/history.h>
+
+char	*heredoc_expander(char *str, size_t i, t_env *env_lst)
+{
+	size_t	end;
+	char	*left;
+	char	*right;
+
+	end = i;
+	left = ft_strdup("");
+	while (str[end])
+	{
+		if (str[end] == '$')
+			right = expand_env_string(str, &end, env_lst);
+		else
+			right = ft_substr(str, end, 1);
+		if (!right)
+		{
+			free(left);
+			return (NULL);
+		}
+		left = extend_str(left, right);
+		if (!left)
+			return (NULL);
+		end++;
+	}
+	return (left);
+}
+
+int	create_file_name(void)
+{
+	char	*number;
+	char	*name;
+	int		i;
+	int		fd;
+
+	i = 0;
+	while (1)
+	{
+		number = ft_itoa(i);
+		if (!number)
+			return (-1);
+		name = ft_strjoin(HEREDOC, number);
+		free(number);
+		if (!name)
+			return (-1);
+		if (access(name, F_OK | R_OK) == -1)
+		{
+			fd = open(name, O_WRONLY | O_CREAT | O_TRUNC,
+					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+			free(name);
+			return (fd);
+		}
+		free(name);
+		i++;
+	}
+}
 
 void	handle_heredoc(char *end_of_file)
 {
@@ -24,10 +81,10 @@ void	handle_heredoc(char *end_of_file)
 	pid = fork();
 	if (pid == 0)
 	{
-		fd = open("HEREDOC", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		fd = create_file_name();
 		while (1)
 		{
-			line = readline(">");
+			line = readline("> ");
 			if (ft_strcmp(line, end_of_file) == 0)
 			{
 				free(line);
@@ -43,6 +100,44 @@ void	handle_heredoc(char *end_of_file)
 	exit(0);
 }
 
+void	write_expanded(char *line, int fd, t_env *env)
+{
+	char	*expand;
+
+	expand = heredoc_expander(line, 0, env);
+	ft_putendl_fd(expand, fd);
+	free(expand);
+	free(line);
+}
+
+void	quote_handle_heredoc(char *end_of_file, t_env *env)
+{
+	pid_t	pid;
+	char	*line;
+	int		fd;
+	int		status;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		fd = create_file_name();
+		while (1)
+		{
+			line = readline("> ");
+			if (ft_strcmp(line, end_of_file) == 0)
+			{
+				free(line);
+				break ;
+			}
+			write_expanded(line, fd, env);
+		}
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+	}
+	waitpid(pid, &status, 0);
+	exit(0);
+}
+
 // int main(int argc, char **argv)
 // {
 // 	// int status;
@@ -50,4 +145,15 @@ void	handle_heredoc(char *end_of_file)
 // 		handle_heredoc(argv[1]);
 // 	}
 // 	// return (status);
+// }
+
+// int main(int argc, char **argv)
+// {
+// 	t_env *env_lst;
+
+// 	env_lst = env_lst_init();
+// 	if(argc == 2)
+// 	{
+// 		quote_handle_heredoc(argv[1], env_lst);
+// 	}
 // }
