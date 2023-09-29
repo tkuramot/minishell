@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/29 11:21:35 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:10:03 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ static void	print_minishell(void)
 
 int	main(void)
 {
-	char	*line;
+	char		*line;
 	t_context	ctx;
 
 	print_minishell();
 	set_sig_handler();
-	ctx.env = env_lst_init();
+	env_init(&ctx);
 	rl_outstream = stderr;
 	while (true)
 	{
@@ -49,14 +49,14 @@ int	main(void)
 		if (*line)
 		{
 			add_history(line);
-			ctx.token = tokenize(line);
+			tokenize(&ctx, line);
 			// TODO free before continue
 			if (!ctx.token)
 				continue;
-			ctx.ast = parse_token(&ctx);
+			parse_token(&ctx);
 			env_var_expander(ctx.ast, ctx.env);
 			set_ign_sig_handler();
-			execute(ctx.ast, ctx.env);
+			execute(&ctx);
 			set_sig_handler();
 			free(line);
 			token_lst_free(ctx.token);

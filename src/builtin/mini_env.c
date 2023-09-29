@@ -6,17 +6,17 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:15:39 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/24 11:14:54 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:40:54 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
+#include "utils.h"
 #include <errno.h>
 
 // envの順番はソートしたほうが多分いい.後でやる
-t_env	*env_lst_init(void)
+void	env_init(t_context *ctx)
 {
-	extern char	**environ;
 	t_env		*head;
 	t_env		*new;
 	size_t		i;
@@ -24,18 +24,15 @@ t_env	*env_lst_init(void)
 	i = 0;
 	head = env_lst_node_new(environ[i]);
 	if (!head)
-		return (NULL);
+		fatal_error("malloc");
 	while (environ[++i])
 	{
 		new = env_lst_node_new(environ[i]);
 		if (!new)
-		{
-			// freeかくのだりいいいいいい
-			return (NULL);
-		}
+			fatal_error("malloc");
 		env_lst_add_back(head, new);
 	}
-	return (head);
+	ctx->env = head;
 }
 
 static bool	is_env_option(const t_token *lst)

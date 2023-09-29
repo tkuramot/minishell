@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:19:08 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/29 11:19:21 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:44:03 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <stdbool.h>
 # include <stdio.h>
 
-t_token	*tokenize(char *line);
+void	tokenize(t_context *ctx, char *line);
 bool	is_blank(char c);
 bool	is_metacharacter(char c);
 bool	start_with(char *s, const char *prefix);

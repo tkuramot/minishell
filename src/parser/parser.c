@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/29 10:22:09 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:57:48 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static t_ast	*parse_cmd(t_token **lst)
 	return (node);
 }
 
-t_ast	*parse_token(t_context *ctx)
+void	parse_token(t_context *ctx)
 {
 	t_token	*lst;
 	t_ast	*node;
@@ -122,6 +122,9 @@ t_ast	*parse_token(t_context *ctx)
 			node = ast_new_node(ND_PIPE, node, parse_cmd(&lst));
 		}
 		else
-			return (node);
+		{
+			ctx->ast = node;
+			return;
+		}
 	}
 }

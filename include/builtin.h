@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:48 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/29 11:20:13 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:40:57 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include "libft.h"
 # include "lexer.h"
 
-// env_lst_operations.c
+extern char	**environ;
+
 t_env	*env_lst_node_new(char *new_env);
 void	env_lst_add_back(t_env *lst, t_env *new);
 void	env_lst_node_delete(t_env *lst, t_env *delete_node);
@@ -35,7 +36,7 @@ int		mini_unset(const t_token *token_lst, t_env *env_lst);
 int		mini_export(t_token *token_lst, t_env *env_lst);
 int		mini_pwd(void);
 
-t_env	*env_lst_init(void);
+void	env_init(t_context *ctx);
 char	*get_environ_str(char *key, t_env *env_lst);
 
 t_env	*decompress(char *env_name, t_env *env_lst);

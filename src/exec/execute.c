@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/28 14:47:33 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:14:33 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	clear_fd(void *content)
 	free(content);
 }
 
-void	traverse_pipe(int std[2], t_list *fd, t_ast *ast, t_env *env_lst, t_list **proc_lst)
+void	traverse_pipe(int std[2], t_list *fd, t_ast *ast, t_env *env, t_list **proc_lst)
 {
 	pid_t	pid;
 	int		pp[2];
@@ -39,11 +39,11 @@ void	traverse_pipe(int std[2], t_list *fd, t_ast *ast, t_env *env_lst, t_list **
 		ft_lstadd_back(&fd, ft_lstnew(ft_itoa(pp[1])));
 		tmp = std[0];
 		std[0] = pp[0];
-		traverse_pipe(std, fd, ast->right, env_lst, proc_lst);
+		traverse_pipe(std, fd, ast->right, env, proc_lst);
 		close(pp[0]);
 		std[0] = tmp;
 		std[1] = pp[1];
-		traverse_pipe(std, fd, ast->left, env_lst, proc_lst);
+		traverse_pipe(std, fd, ast->left, env, proc_lst);
 		close(pp[1]);
 	}
 	else if (ast->type == ND_CMD)
@@ -54,7 +54,7 @@ void	traverse_pipe(int std[2], t_list *fd, t_ast *ast, t_env *env_lst, t_list **
 			dup2(std[0], STDIN_FILENO);
 			dup2(std[1], STDOUT_FILENO);
 			ft_lstclear(&fd, clear_fd);
-			run_simple_cmd_parent(ast->argv, env_lst);
+			run_simple_cmd_parent(ast->argv, env);
 		}
 		ft_lstadd_front(proc_lst, ft_lstnew(ft_itoa(pid)));
 	}
@@ -78,26 +78,26 @@ static int	wait_all_children(t_list *proc_lst)
 	return (status);
 }
 
-int	execute(t_ast *ast, t_env *env_lst)
+void	execute(t_context *ctx)
 {
 	t_list	*proc_lst;
 	t_list	*fd;
-	int		status;
+	t_ast	*tmp;
 	int		std[2];
 
 	proc_lst = NULL;
 	fd = NULL;
-	if (!ast)
-		return (1);
-	if (ast->type == ND_PIPE)
+	if (!ctx->ast && ctx->status++)
+		return;
+	if (ctx->ast->type == ND_PIPE)
 	{
 		std[0] = 0;
 		std[1] = 1;
-		traverse_pipe(std, fd, ast, env_lst, &proc_lst);
-		status = wait_all_children(proc_lst);
-		return (status);
+		tmp = ctx->ast;
+		traverse_pipe(std, fd, ctx->ast, ctx->env, &proc_lst);
+		ctx->ast = tmp;
+		ctx->status = wait_all_children(proc_lst);
 	}
-	if (ast->type == ND_CMD)
-		return (run_simple_cmd(ast->argv, env_lst));
-	return (0);
+	if (ctx->ast->type == ND_CMD)
+		run_simple_cmd(ctx->ast->argv, ctx->env);
 }
