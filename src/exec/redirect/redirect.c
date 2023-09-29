@@ -6,8 +6,14 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 17:10:58 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/29 09:56:24 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:22:25 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+/*
+void	redirect(t_ast *node)
+{
+}
+*/
