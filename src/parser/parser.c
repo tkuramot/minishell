@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/29 17:15:13 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:12:17 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,16 @@ static t_ast	*parse_cmd(t_token **lst)
 
 	if (!lst || !*lst)
 		return (NULL);
-	cmd = *lst;
 	tmp = *lst;
 	while (true)
 	{
 		if (is_redirect(tmp) && !expect(tmp->next, TK_WORD))
-		{
-			if (tmp->next)
-				syntax_error(tmp->next->word);
-			else
-				syntax_error("`newline'");
-		}
+			syntax_error();
 		if (!tmp->next || expect(tmp->next, TK_PIPE))
 			break;
 		tmp = tmp->next;
 	}
+	cmd = *lst;
 	*lst = tmp->next;
 	tmp->next = NULL;
 	return (arrange_node(ast_new_node_cmd(cmd)));
@@ -58,6 +53,11 @@ void	parse_token(t_context *ctx)
 		{
 			lst = lst->next;
 			right = parse_cmd(&lst);
+			if (!right)
+			{
+				syntax_error();
+				ctx->status = 1;
+			}
 			left = ast_new_node(ND_PIPE, left, right);
 		}
 		else
