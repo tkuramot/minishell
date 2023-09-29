@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:12:17 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/29 16:43:52 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:15:01 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ static void		add_redirect(t_list **redirect, t_token **lst)
 	*lst = (*lst)->next->next;
 }
 
-void	arrange_node(t_ast *node)
+t_ast	*arrange_node(t_ast *node)
 {
 	t_token	*lst = node->lst;
 	t_token	head;
 	t_token	*cur;
 
 	if (!lst)
-		return;
+		return (NULL);
 	head.next = NULL;
 	cur = &head;
 	while (lst)
@@ -73,6 +73,7 @@ void	arrange_node(t_ast *node)
 		lst = lst->next;
 	}
 	node->argv = head.next;
+	return (node);
 }
 
 bool	is_redirect(t_token *lst)
