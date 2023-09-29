@@ -6,12 +6,13 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:17:36 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/29 11:21:05 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:15:17 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPE_H
 # define TYPE_H
+
 # include "libft.h"
 
 typedef enum e_token_type
@@ -73,6 +74,6 @@ typedef struct s_context
 	t_ast	*ast;
 	t_env	*env;
 	int		status;
-} t_context;
+}	t_context;
 
-# endif
+#endif
