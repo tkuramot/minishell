@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:15:38 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/29 11:31:06 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:03:02 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,8 @@
 # include "parser.h"
 
 # define HEREDOC "/tmp/.HEREDOC"
+
+void	quote_handle_heredoc(char *end_of_file, t_env *env);
+void	handle_heredoc(char *end_of_file);
 
 #endif
