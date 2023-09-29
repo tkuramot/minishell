@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:48 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/25 22:56:24 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:40:57 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,8 @@
 # include "libft.h"
 # include "lexer.h"
 
-// 環境変数の線形リスト
-typedef struct s_env	t_env;
-struct s_env
-{
-	char	*name;
-	char	*value;
-	t_env	*next;
-};
+extern char	**environ;
 
-// env_lst_operations.c
 t_env	*env_lst_node_new(char *new_env);
 void	env_lst_add_back(t_env *lst, t_env *new);
 void	env_lst_node_delete(t_env *lst, t_env *delete_node);
@@ -44,7 +36,7 @@ int		mini_unset(const t_token *token_lst, t_env *env_lst);
 int		mini_export(t_token *token_lst, t_env *env_lst);
 int		mini_pwd(void);
 
-t_env	*env_lst_init(void);
+void	env_init(t_context *ctx);
 char	*get_environ_str(char *key, t_env *env_lst);
 
 t_env	*decompress(char *env_name, t_env *env_lst);

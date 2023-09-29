@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/23 16:43:13 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:50:34 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static t_token	*extract_metacharacter(char **line)
 	return (token_init(word, token_type[i]));
 }
 
-t_token	*tokenize(char *line)
+void	tokenize(t_context *ctx, char *line)
 {
 	t_token	head;
 	t_token	*cur;
@@ -84,17 +84,17 @@ t_token	*tokenize(char *line)
 		else if (is_word(*line))
 		{
 			cur->next = extract_word(&line);
-			if (!cur->next)
-				return (NULL);
+			if (!cur->next && ctx->status++)
+				return;
 			cur = cur->next;
 		}
 		else if (is_metacharacter(*line))
 		{
 			cur->next = extract_metacharacter(&line);
-				if (!cur->next)
-					return (NULL);
+			if (!cur->next && ctx->status++)
+				return;
 			cur = cur->next;
 		}
 	}
-	return (head.next);
+	ctx->token = head.next;
 }
