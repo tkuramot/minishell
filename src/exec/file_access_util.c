@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:56 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/25 13:35:29 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/29 11:37:23 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_executable(char *command)
 
 int	is_readable(char *file)
 {
-	if (access(file, F_OK | R_OK) == -1)
+	if (access(file, F_OK) == -1)
 		return (0);
 	if (access(file, R_OK) == -1)
 		return (0);
