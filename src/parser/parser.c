@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/19 22:06:01 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/29 10:22:09 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,12 @@ static t_ast	*parse_cmd(t_token **lst)
 	return (node);
 }
 
-t_ast	*parse_token(t_token *lst)
+t_ast	*parse_token(t_context *ctx)
 {
+	t_token	*lst;
 	t_ast	*node;
 
+	lst = ctx->token;
 	node = parse_cmd(&lst);
 	if (!node)
 		fatal_error("malloc");
@@ -122,5 +124,4 @@ t_ast	*parse_token(t_token *lst)
 		else
 			return (node);
 	}
-	return (parse_token(lst));
 }

@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:48 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/25 22:56:24 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/29 11:20:13 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,6 @@
 # include <stdlib.h>
 # include "libft.h"
 # include "lexer.h"
-
-// 環境変数の線形リスト
-typedef struct s_env	t_env;
-struct s_env
-{
-	char	*name;
-	char	*value;
-	t_env	*next;
-};
 
 // env_lst_operations.c
 t_env	*env_lst_node_new(char *new_env);

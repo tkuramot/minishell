@@ -6,11 +6,10 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/29 01:38:22 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/29 11:21:35 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "lexer.h"
 #include "parser.h"
 #include "exec.h"
@@ -36,14 +35,11 @@ static void	print_minishell(void)
 int	main(void)
 {
 	char	*line;
-	t_token	*lst;
-	t_ast	*ast;
-	extern char	**environ;
-	t_env		*env_lst;
+	t_context	ctx;
 
 	print_minishell();
 	set_sig_handler();
-	env_lst = env_lst_init();
+	ctx.env = env_lst_init();
 	rl_outstream = stderr;
 	while (true)
 	{
@@ -53,46 +49,17 @@ int	main(void)
 		if (*line)
 		{
 			add_history(line);
-			lst = tokenize(line);
+			ctx.token = tokenize(line);
 			// TODO free before continue
-			if (!lst)
+			if (!ctx.token)
 				continue;
-			ast = parse_token(lst);
-			env_var_expander(ast, env_lst);
-			# if DEBUG == 1
-			(void)env_lst;
-			printf("REDIRECT >\n");
-			while (ast->redir_lst)
-			{
-				int red_type = (int)((t_redirect *)(ast->redir_lst->content))->type;
-				printf("file [%s]",
-						(char *)((t_redirect *)(ast->redir_lst->content))->file);
-				if (red_type == TK_REDIR_IN)
-					printf(" / type [IN]\n");
-				if (red_type == TK_REDIR_OUT)
-					printf(" / type [OUT]\n");
-				if (red_type == TK_REDIR_APPEND)
-					printf(" / type [APPEND]\n");
-				if (red_type == TK_REDIR_HEREDOC)
-					printf(" / type [HEREDOC]\n");
-				if (red_type == TK_REDIR_HEREDOC_Q)
-					printf(" / type [HEREDOC_Q]\n");
-				ast->redir_lst = ast->redir_lst->next;
-			}
-			printf("ARGV >\n");
-			while (ast->argv)
-			{
-				printf("[%s]\n", ast->argv->word);
-				ast->argv = ast->argv->next;
-			}
-
-			# else
+			ctx.ast = parse_token(&ctx);
+			env_var_expander(ctx.ast, ctx.env);
 			set_ign_sig_handler();
-			execute(ast, env_lst);
+			execute(ctx.ast, ctx.env);
 			set_sig_handler();
 			free(line);
-			token_lst_free(lst);
-			# endif
+			token_lst_free(ctx.token);
 		}
 	}
 	return (0);

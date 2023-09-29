@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:19:08 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/20 00:13:50 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/29 11:19:21 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,9 @@
 # define DOUBLE_QUOTE '\"'
 
 # include "libft.h"
+# include "type.h"
 # include <stdbool.h>
 # include <stdio.h>
-
-typedef enum e_token_type
-{
-	TK_REDIR_IN = 0,
-	TK_REDIR_OUT = 1,
-	TK_REDIR_APPEND = 2,
-	TK_REDIR_HEREDOC = 3,
-	TK_REDIR_HEREDOC_Q,
-	TK_WORD,
-	TK_PIPE,
-	TK_EOF,
-}	t_token_type;
-
-typedef struct s_token	t_token;
-struct s_token
-{
-	char			*word;
-	t_token_type	type;
-	t_token			*next;
-	t_token			*prev;
-};
 
 t_token	*tokenize(char *line);
 bool	is_blank(char c);
