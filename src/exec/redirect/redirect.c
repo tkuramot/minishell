@@ -6,14 +6,14 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 17:10:58 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/30 09:07:32 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 09:18:16 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "utils.h"
 
-bool	redir_in(t_list *node)
+static bool	redir_in(t_list *node)
 {
 	int	fd;
 	char	*tmp;
@@ -30,13 +30,29 @@ bool	redir_in(t_list *node)
 	return (true);
 }
 
-bool	redir_out(t_list *node)
+static bool	redir_out(t_list *node)
 {
 	int	fd;
 	char	*tmp;
 
-	printf("ok\n");
 	fd = open_or_create_file(((t_redirect *)node->content)->file);
+	if (fd == -1)
+	{
+		tmp = ft_strjoin("minishell: ", ((t_redirect *)node->content)->file);
+		perror(tmp);
+		free(tmp);
+		return (false);
+	}
+	dup2(fd, STDOUT_FILENO);
+	return (true);
+}
+
+static bool	redir_append(t_list *node)
+{
+	int	fd;
+	char	*tmp;
+
+	fd = open_append_file(((t_redirect *)node->content)->file);
 	if (fd == -1)
 	{
 		tmp = ft_strjoin("minishell: ", ((t_redirect *)node->content)->file);
@@ -60,6 +76,9 @@ bool	redirect(t_ast *node)
 				return (false);
 		if (((t_redirect *)cur->content)->type == TK_REDIR_OUT)
 			if (!redir_out(cur))
+				return (false);
+		if (((t_redirect *)cur->content)->type == TK_REDIR_APPEND)
+			if (!redir_append(cur))
 				return (false);
 		cur = cur->next;
 	}
