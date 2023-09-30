@@ -6,11 +6,12 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:42:43 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/30 19:30:14 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/30 19:43:21 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
+#include "utils.h"
 
 static char	*find_env_value(char *name, t_context *ctx)
 {
@@ -26,6 +27,18 @@ static char	*find_env_value(char *name, t_context *ctx)
 			return (ans);
 		}
 		env = env->next;
+	}
+	if(ft_strcmp(name, "?"))
+	{
+		if(g_signal == SIGINT)
+			ans = ft_itoa(128 + SIGINT);
+		else if(g_signal == 1)
+			ans = ft_itoa(1);
+		else
+			ans = ft_itoa(ctx->status);
+		ctx->status = g_signal;
+		g_signal = 0;
+		return(ans);
 	}
 	ans = ft_strdup("");
 	return (ans);
@@ -49,7 +62,7 @@ static char	*get_env_value(char *str, size_t *i, t_context *ctx)
 	free(search_name);
 	if (!ans)
 		return (NULL);
-	*i = end - 1;
+	*i = end;
 	return (ans);
 }
 
