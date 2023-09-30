@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/30 08:12:53 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 09:14:07 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ void	traverse_pipe(int std[2], t_list *fd, t_ast *ast, t_env *env, t_list **proc
 		{
 			dup2(std[0], STDIN_FILENO);
 			dup2(std[1], STDOUT_FILENO);
+			if (!redirect(ast))
+			{
+				//TODO ctx->status = 1
+				return;
+			}
 			ft_lstclear(&fd, clear_fd);
 			run_simple_cmd_parent(ast->argv, env);
 		}
