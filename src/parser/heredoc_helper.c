@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:15:16 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/30 14:47:44 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 15:03:54 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	handle_heredoc(int fd, char *end_of_file)
 			free(line);
 		}
 		close(fd);
+		exit(0);
 	}
 	waitpid(pid, &status, 0);
 }
@@ -121,6 +122,7 @@ void	quote_handle_heredoc(int fd, char *end_of_file, t_env *env)
 			write_expanded(line, fd, env);
 		}
 		close(fd);
+		exit(0);
 	}
 	waitpid(pid, &status, 0);
 }
