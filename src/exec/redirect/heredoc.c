@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:15:16 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/29 13:00:57 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/30 11:26:54 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-char	*heredoc_expander(char *str, size_t i, t_env *env_lst)
+static char	*heredoc_expander(char *str, size_t i, t_env *env_lst)
 {
 	size_t	end;
 	char	*left;
@@ -42,7 +42,7 @@ char	*heredoc_expander(char *str, size_t i, t_env *env_lst)
 	return (left);
 }
 
-int	create_file_name(void)
+int	create_heredoc_file(void)
 {
 	char	*number;
 	char	*name;
@@ -71,17 +71,15 @@ int	create_file_name(void)
 	}
 }
 
-void	handle_heredoc(char *end_of_file)
+void	handle_heredoc(int fd, char *end_of_file)
 {
 	pid_t	pid;
 	char	*line;
-	int		fd;
 	int		status;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		fd = create_file_name();
 		while (1)
 		{
 			line = readline("> ");
@@ -93,14 +91,12 @@ void	handle_heredoc(char *end_of_file)
 			ft_putendl_fd(line, fd);
 			free(line);
 		}
-		dup2(fd, STDIN_FILENO);
 		close(fd);
 	}
 	waitpid(pid, &status, 0);
-	exit(0);
 }
 
-void	write_expanded(char *line, int fd, t_env *env)
+static void	write_expanded(char *line, int fd, t_env *env)
 {
 	char	*expand;
 
@@ -110,17 +106,15 @@ void	write_expanded(char *line, int fd, t_env *env)
 	free(line);
 }
 
-void	quote_handle_heredoc(char *end_of_file, t_env *env)
+void	quote_handle_heredoc(int fd, char *end_of_file, t_env *env)
 {
 	pid_t	pid;
 	char	*line;
-	int		fd;
 	int		status;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		fd = create_file_name();
 		while (1)
 		{
 			line = readline("> ");
@@ -131,11 +125,9 @@ void	quote_handle_heredoc(char *end_of_file, t_env *env)
 			}
 			write_expanded(line, fd, env);
 		}
-		dup2(fd, STDIN_FILENO);
 		close(fd);
 	}
 	waitpid(pid, &status, 0);
-	exit(0);
 }
 
 // int main(int argc, char **argv)

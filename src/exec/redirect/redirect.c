@@ -6,11 +6,12 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 17:10:58 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/30 09:18:16 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 11:31:11 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "heredoc.h"
 #include "utils.h"
 
 static bool	redir_in(t_list *node)
@@ -64,6 +65,24 @@ static bool	redir_append(t_list *node)
 	return (true);
 }
 
+static bool	redir_heredoc(t_list *node)
+{
+	int	fd;
+	char	*tmp;
+
+	fd = create_heredoc_file();
+	if (fd == -1)
+	{
+		tmp = ft_strjoin("minishell: ", ((t_redirect *)node->content)->file);
+		perror(tmp);
+		free(tmp);
+		return (false);
+	}
+	handle_heredoc(fd, ((t_redirect *)node->content)->file);
+	dup2(fd, STDIN_FILENO);
+	return (true);
+}
+
 bool	redirect(t_ast *node)
 {
 	t_list	*cur;
@@ -79,6 +98,9 @@ bool	redirect(t_ast *node)
 				return (false);
 		if (((t_redirect *)cur->content)->type == TK_REDIR_APPEND)
 			if (!redir_append(cur))
+				return (false);
+		if (((t_redirect *)cur->content)->type == TK_REDIR_HEREDOC)
+			if (!redir_heredoc(cur))
 				return (false);
 		cur = cur->next;
 	}
