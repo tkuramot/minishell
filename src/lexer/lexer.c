@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/29 17:31:57 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 08:03:55 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,21 @@ void	tokenize(t_context *ctx, char *line)
 		else if (is_word(*line))
 		{
 			cur->next = extract_word(&line);
-			if (!cur->next && ctx->status++)
+			if (!cur->next)
+			{
+				ctx->status = 1;
 				return;
+			}
 			cur = cur->next;
 		}
 		else if (is_metacharacter(*line))
 		{
 			cur->next = extract_metacharacter(&line);
-			if (!cur->next && ctx->status++)
+			if (!cur->next)
+			{
+				ctx->status = 1;
 				return;
+			}
 			cur = cur->next;
 		}
 	}

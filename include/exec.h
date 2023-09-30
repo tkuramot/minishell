@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 22:14:10 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/29 13:10:22 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 09:02:15 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # define PIPE_READ 0
 # define PIPE_WRITE 1
 
+# include "builtin.h"
+# include "libft.h"
+# include "parser.h"
+# include "redirect.h"
 # include <sys/types.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -26,9 +30,6 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdbool.h>
-# include "libft.h"
-# include "builtin.h"
-# include "parser.h"
 
 void	execute(t_context *ctx);
 int		run_simple_cmd(t_token *token_lst, t_env *env_lst);
@@ -40,11 +41,6 @@ int		is_executable(char *command);
 int		is_readable(char *command);
 char	**env_list_to_array(t_env *env_lst);
 void	free_two_d_array(char **array);
-
 char	**token_lst_to_array(const t_token *command_lst);
-
-// エラーでまとめる？
-void	print_perror(char *cmd);
-void	cmd_not_found_error(char *cmd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/29 13:14:33 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 11:40:44 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ void	traverse_pipe(int std[2], t_list *fd, t_ast *ast, t_env *env, t_list **proc
 		{
 			dup2(std[0], STDIN_FILENO);
 			dup2(std[1], STDOUT_FILENO);
+			if (!redirect(ast))
+			{
+				//TODO ctx->status = 1
+				return;
+			}
 			ft_lstclear(&fd, clear_fd);
 			run_simple_cmd_parent(ast->argv, env);
 		}
@@ -87,8 +92,6 @@ void	execute(t_context *ctx)
 
 	proc_lst = NULL;
 	fd = NULL;
-	if (!ctx->ast && ctx->status++)
-		return;
 	if (ctx->ast->type == ND_PIPE)
 	{
 		std[0] = 0;
@@ -97,7 +100,19 @@ void	execute(t_context *ctx)
 		traverse_pipe(std, fd, ctx->ast, ctx->env, &proc_lst);
 		ctx->ast = tmp;
 		ctx->status = wait_all_children(proc_lst);
+		dprintf(2, "ok\n");
 	}
 	if (ctx->ast->type == ND_CMD)
-		run_simple_cmd(ctx->ast->argv, ctx->env);
+	{
+		std[0] = dup(STDIN_FILENO);
+		std[1] = dup(STDOUT_FILENO);
+		if (!redirect(ctx->ast))
+		{
+			//TODO ctx->status = 1
+			return;
+		}
+		ctx->status = run_simple_cmd(ctx->ast->argv, ctx->env);
+		dup2(std[0], STDIN_FILENO);
+		dup2(std[1], STDOUT_FILENO);
+	}
 }

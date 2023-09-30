@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/29 15:22:58 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 11:38:59 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	main(void)
 	print_minishell();
 	set_sig_handler();
 	env_init(&ctx);
+	ctx.status = 0;
 	rl_outstream = stderr;
 	while (true)
 	{
@@ -54,6 +55,9 @@ int	main(void)
 			if (!ctx.token)
 				continue;
 			parse_token(&ctx);
+			// TODO free
+			if (ctx.status != 0)
+				continue;
 			env_var_expander(ctx.ast, ctx.env);
 			set_ign_sig_handler();
 			execute(&ctx);
