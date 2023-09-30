@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:15:38 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/30 09:28:05 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 14:45:38 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 void	quote_handle_heredoc(int fd, char *end_of_file, t_env *env);
 void	handle_heredoc(int fd, char *end_of_file);
-int		create_heredoc_file(void);
+char	*create_heredoc_file(void);
+char	*read_heredoc(t_context *ctx, char *del, t_list **redirect);
 
 #endif

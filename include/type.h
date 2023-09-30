@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:17:36 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/29 15:15:17 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 14:50:46 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ typedef enum e_token_type
 	TK_REDIR_OUT = 1,
 	TK_REDIR_APPEND = 2,
 	TK_REDIR_HEREDOC = 3,
-	TK_REDIR_HEREDOC_Q,
 	TK_WORD,
 	TK_PIPE,
 	TK_EOF,

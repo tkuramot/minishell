@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/30 07:14:09 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 14:43:24 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "lexer.h"
 #include "utils.h"
 
-static t_ast	*parse_cmd(t_token **lst)
+static t_ast	*parse_cmd(t_context *ctx, t_token **lst)
 {
 	t_token	*cmd;
 	t_token	*tmp;
@@ -34,7 +34,7 @@ static t_ast	*parse_cmd(t_token **lst)
 	cmd = *lst;
 	*lst = tmp->next;
 	tmp->next = NULL;
-	return (arrange_node(ast_new_node_cmd(cmd)));
+	return (arrange_node(ctx, ast_new_node_cmd(cmd)));
 }
 
 void	parse_token(t_context *ctx)
@@ -43,7 +43,7 @@ void	parse_token(t_context *ctx)
 	t_ast	*right;
 
 	lst = ctx->token;
-	ctx->ast = parse_cmd(&lst);
+	ctx->ast = parse_cmd(ctx, &lst);
 	if (!ctx->ast)
 		fatal_error("malloc");
 	while (true)
@@ -51,7 +51,7 @@ void	parse_token(t_context *ctx)
 		if (lst && expect(lst, TK_PIPE))
 		{
 			lst = lst->next;
-			right = parse_cmd(&lst);
+			right = parse_cmd(ctx, &lst);
 			if (!right)
 				fatal_error("malloc");
 			ctx->ast = ast_new_node(ND_PIPE, ctx->ast, right);
