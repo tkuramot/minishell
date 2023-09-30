@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:59:15 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/29 17:32:38 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 19:54:07 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	print_perror(char *cmd)
 {
 	ft_dprintf(STDERR_FILENO, "minishell: ");
 	perror(cmd);
-	exit(0);
+	exit(1);
 }
 
 void	cmd_not_found_error(char *cmd)
 {
 	ft_dprintf(STDERR_FILENO, "minishell: %s: command not found\n", cmd);
-	exit(0);
+	exit(127);
 }

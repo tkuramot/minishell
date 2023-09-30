@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:43:42 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/29 02:15:52 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/30 19:26:05 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*single_quote_expander(char *str, size_t *i)
 	return (ans);
 }
 
-char	*no_quote_expander(char *str, size_t *i, t_env *env_lst)
+char	*no_quote_expander(char *str, size_t *i, t_context *ctx)
 {
 	size_t	end;
 	char	*left;
@@ -42,7 +42,7 @@ char	*no_quote_expander(char *str, size_t *i, t_env *env_lst)
 	while (str[end] && str[end] != SINGLE_QUOTE && str[end] != DOUBLE_QUOTE)
 	{
 		if (str[end] == '$')
-			right = expand_env_string(str, &end, env_lst);
+			right = expand_env_string(str, &end, ctx);
 		else
 			right = ft_substr(str, end, 1);
 		if (!right)
@@ -59,7 +59,7 @@ char	*no_quote_expander(char *str, size_t *i, t_env *env_lst)
 	return (left);
 }
 
-char	*double_quote_expander(char *str, size_t *i, t_env *env_lst)
+char	*double_quote_expander(char *str, size_t *i, t_context *ctx)
 {
 	size_t	end;
 	char	*left;
@@ -70,7 +70,7 @@ char	*double_quote_expander(char *str, size_t *i, t_env *env_lst)
 	while (str[end] && str[end] != DOUBLE_QUOTE)
 	{
 		if (str[end] == '$')
-			right = expand_env_string(str, &end, env_lst);
+			right = expand_env_string(str, &end, ctx);
 		else
 			right = ft_substr(str, end, 1);
 		if (!right)

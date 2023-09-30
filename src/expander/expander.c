@@ -6,13 +6,13 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:42:36 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/29 02:27:06 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/30 19:24:01 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 
-void	str_expander(char **str, t_env *env_lst)
+static void	str_expander(char **str, t_context *ctx)
 {
 	char	*buf_str;
 	char	*sub;
@@ -28,9 +28,9 @@ void	str_expander(char **str, t_env *env_lst)
 		if (buf_str[i] == SINGLE_QUOTE)
 			sub = single_quote_expander(*str, &i);
 		else if (buf_str[i] == DOUBLE_QUOTE)
-			sub = double_quote_expander(*str, &i, env_lst);
+			sub = double_quote_expander(*str, &i, ctx);
 		else
-			sub = no_quote_expander(*str, &i, env_lst);
+			sub = no_quote_expander(*str, &i, ctx);
 		ans = ft_strjoin(first, sub);
 		free(first);
 		free(sub);
@@ -40,18 +40,26 @@ void	str_expander(char **str, t_env *env_lst)
 	*str = first;
 }
 
-void	env_var_expander(t_ast *ast, t_env *env_lst)
+void	expand_environ(t_context *ctx)
+{
+	t_ast *ast;
+
+	ast = ctx->ast;
+	env_var_expander(ast, ctx);
+}
+
+void	env_var_expander(t_ast *ast, t_context *ctx)
 {
 	t_token	*tmp;
 
 	if (!ast)
 		return ;
-	env_var_expander(ast->right, env_lst);
-	env_var_expander(ast->left, env_lst);
+	env_var_expander(ast->right, ctx);
+	env_var_expander(ast->left, ctx);
 	tmp = ast->argv;
 	while (tmp)
 	{
-		str_expander(&tmp->word, env_lst);
+		str_expander(&tmp->word, ctx);
 		tmp = tmp->next;
 	}
 }
