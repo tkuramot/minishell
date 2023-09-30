@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:42:43 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/30 19:43:21 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/01 00:42:56 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ static char	*find_env_value(char *name, t_context *ctx)
 		}
 		env = env->next;
 	}
-	if(ft_strcmp(name, "?"))
+	if(ft_strcmp(name, "\?"))
 	{
-		if(g_signal == SIGINT)
-			ans = ft_itoa(128 + SIGINT);
-		else if(g_signal == 1)
-			ans = ft_itoa(1);
+		if(g_signal == SIGINT || g_signal == SIGQUIT)
+			ans = ft_itoa(128 + g_signal);
+		else if(g_signal != 0)
+			ans = ft_itoa(g_signal);
 		else
 			ans = ft_itoa(ctx->status);
 		ctx->status = g_signal;

@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:26:03 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/28 14:44:31 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 19:56:02 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	run_non_builtin_child(t_token *lst, t_env *env_lst)
 	waitpid(pid, &status, 0);
 	free_two_d_array(env);
 	free_two_d_array(cmd);
-	return (status);
+	return (WEXITSTATUS(status));
 }
 
 void	run_non_builtin_parent(t_token *lst, t_env *env_lst)

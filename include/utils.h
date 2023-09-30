@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 11:02:32 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/30 19:41:13 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/01 00:41:43 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void	set_ign_sig_handler(void);
 void	sigint_handler(int sig);
 void	sigint_heredoc_handler(int sig);
 void	sigint_handler_no_prompt(int sig);
+void	sigint_quit_handler(int sig);
 int		open_or_create_file(char *file);
 int		open_append_file(char *file);
+
 
 #endif
