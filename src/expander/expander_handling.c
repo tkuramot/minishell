@@ -6,30 +6,32 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:42:43 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/29 01:54:33 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/09/30 19:30:14 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 
-static char	*find_env_value(char *name, t_env *env_lst)
+static char	*find_env_value(char *name, t_context *ctx)
 {
 	char	*ans;
+	t_env	*env;
 
-	while (env_lst)
+	env = ctx->env;
+	while (env)
 	{
-		if (ft_strcmp(name, env_lst->name) == 0)
+		if (ft_strcmp(name, env->name) == 0)
 		{
-			ans = ft_strdup(env_lst->value);
+			ans = ft_strdup(env->value);
 			return (ans);
 		}
-		env_lst = env_lst->next;
+		env = env->next;
 	}
 	ans = ft_strdup("");
 	return (ans);
 }
 
-static char	*get_env_value(char *str, size_t *i, t_env *env_lst)
+static char	*get_env_value(char *str, size_t *i, t_context *ctx)
 {
 	size_t	start;
 	size_t	end;
@@ -43,7 +45,7 @@ static char	*get_env_value(char *str, size_t *i, t_env *env_lst)
 	search_name = ft_substr(str, start, end - start);
 	if (!search_name)
 		return (NULL);
-	ans = find_env_value(search_name, env_lst);
+	ans = find_env_value(search_name, ctx);
 	free(search_name);
 	if (!ans)
 		return (NULL);
@@ -51,7 +53,7 @@ static char	*get_env_value(char *str, size_t *i, t_env *env_lst)
 	return (ans);
 }
 
-static char	*concatenate_env(char *str, size_t start, size_t *i, t_env *env_lst)
+static char	*concatenate_env(char *str, size_t start, size_t *i, t_context *ctx)
 {
 	char	*buf1;
 	char	*buf2;
@@ -62,7 +64,7 @@ static char	*concatenate_env(char *str, size_t start, size_t *i, t_env *env_lst)
 	buf1 = ft_substr(str, start, end - start - 1);
 	if (!buf1)
 		return (NULL);
-	buf2 = get_env_value(str, &end, env_lst);
+	buf2 = get_env_value(str, &end, ctx);
 	if (!buf2)
 	{
 		free(buf1);
@@ -77,14 +79,14 @@ static char	*concatenate_env(char *str, size_t start, size_t *i, t_env *env_lst)
 	return (join);
 }
 
-char	*expand_env_string(char	*str, size_t *i, t_env *env_lst)
+char	*expand_env_string(char	*str, size_t *i, t_context *ctx)
 {
 	size_t	end;
 	char	*ans;
 
 	end = *i;
 	if (is_expandable(str, &end))
-		ans = concatenate_env(str, *i, &end, env_lst);
+		ans = concatenate_env(str, *i, &end, ctx);
 	else
 		ans = ft_substr(str, *i, end - *i + 1);
 	*i = end;

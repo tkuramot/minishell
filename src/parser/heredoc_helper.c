@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:15:16 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/30 15:03:54 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 19:27:18 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static char	*heredoc_expander(char *str, size_t i, t_env *env_lst)
 	while (str[end])
 	{
 		if (str[end] == '$')
-			right = expand_env_string(str, &end, env_lst);
+			// right = expand_env_string(str, &end, env_lst);
+			printf("%s\n", env_lst->name);
 		else
 			right = ft_substr(str, end, 1);
 		if (!right)
