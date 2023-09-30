@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:20:57 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/30 14:55:29 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/01 00:47:26 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*read_heredoc(t_context *ctx, char *del, t_list **redirect)
 	if (fd == -1)
 		fatal_error("open");
 	if (ft_strchr(tmp_file, '\'') || ft_strchr(tmp_file, '\"'))
-		quote_handle_heredoc(fd, del, ctx->env);
+		quote_handle_heredoc(fd, del, ctx);
 	else
 		handle_heredoc(fd, del);
 	ft_lstadd_back(redirect, ft_lstnew(init_redir(tmp_file, TK_REDIR_HEREDOC)));

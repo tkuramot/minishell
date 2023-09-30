@@ -6,17 +6,18 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:15:16 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/30 19:27:18 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/01 00:57:59 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "heredoc.h"
 #include "expander.h"
+#include "utils.h"
 #include <limits.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
-static char	*heredoc_expander(char *str, size_t i, t_env *env_lst)
+static char	*heredoc_expander(char *str, size_t i, t_context *ctx)
 {
 	size_t	end;
 	char	*left;
@@ -27,8 +28,7 @@ static char	*heredoc_expander(char *str, size_t i, t_env *env_lst)
 	while (str[end])
 	{
 		if (str[end] == '$')
-			// right = expand_env_string(str, &end, env_lst);
-			printf("%s\n", env_lst->name);
+			right = expand_env_string(str, &end, ctx);
 		else
 			right = ft_substr(str, end, 1);
 		if (!right)
@@ -93,17 +93,17 @@ void	handle_heredoc(int fd, char *end_of_file)
 	waitpid(pid, &status, 0);
 }
 
-static void	write_expanded(char *line, int fd, t_env *env)
+static void	write_expanded(char *line, int fd, t_context *ctx)
 {
 	char	*expand;
 
-	expand = heredoc_expander(line, 0, env);
+	expand = heredoc_expander(line, 0, ctx);
 	ft_putendl_fd(expand, fd);
 	free(expand);
 	free(line);
 }
 
-void	quote_handle_heredoc(int fd, char *end_of_file, t_env *env)
+void	quote_handle_heredoc(int fd, char *end_of_file, t_context *ctx)
 {
 	pid_t	pid;
 	char	*line;
@@ -120,7 +120,7 @@ void	quote_handle_heredoc(int fd, char *end_of_file, t_env *env)
 				free(line);
 				break ;
 			}
-			write_expanded(line, fd, env);
+			write_expanded(line, fd, ctx);
 		}
 		close(fd);
 		exit(0);
