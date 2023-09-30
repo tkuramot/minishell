@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 17:10:58 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/30 11:31:11 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 14:54:03 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,7 @@ static bool	redir_append(t_list *node)
 
 static bool	redir_heredoc(t_list *node)
 {
-	int	fd;
-	char	*tmp;
-
-	fd = create_heredoc_file();
-	if (fd == -1)
-	{
-		tmp = ft_strjoin("minishell: ", ((t_redirect *)node->content)->file);
-		perror(tmp);
-		free(tmp);
-		return (false);
-	}
-	handle_heredoc(fd, ((t_redirect *)node->content)->file);
-	dup2(fd, STDIN_FILENO);
-	return (true);
+	return (redir_in(node));
 }
 
 bool	redirect(t_ast *node)

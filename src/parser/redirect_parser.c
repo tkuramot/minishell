@@ -6,15 +6,16 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:12:17 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/29 18:49:30 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 14:48:32 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "heredoc.h"
 #include "lexer.h"
 #include "parser.h"
 #include "utils.h"
 
-static t_redirect	*init_redir(char *file, t_token_type type)
+t_redirect	*init_redir(char *file, t_token_type type)
 {
 	t_redirect	*red;
 
@@ -26,7 +27,7 @@ static t_redirect	*init_redir(char *file, t_token_type type)
 	return (red);
 }
 
-static void		add_redirect(t_list **redirect, t_token **lst)
+static void		add_redirect(t_context *ctx, t_list **redirect, t_token **lst)
 {
 	char	*file;
 
@@ -39,19 +40,14 @@ static void		add_redirect(t_list **redirect, t_token **lst)
 		ft_lstadd_back(redirect, ft_lstnew(
 				init_redir(file, TK_REDIR_OUT)));
 	if ((*lst)->type == TK_REDIR_HEREDOC)
-	{
-		if (ft_strchr(file, '\'') || ft_strchr(file, '\"'))
-			ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_HEREDOC_Q)));
-		else
-			ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_HEREDOC)));
-	}
+		read_heredoc(ctx, (*lst)->next->word, redirect);
 	if ((*lst)->type == TK_REDIR_APPEND)
 		ft_lstadd_back(redirect, ft_lstnew(
 				init_redir((*lst)->next->word, TK_REDIR_APPEND)));
 	*lst = (*lst)->next->next;
 }
 
-t_ast	*arrange_node(t_ast *node)
+t_ast	*arrange_node(t_context *ctx, t_ast *node)
 {
 	t_token	*lst = node->lst;
 	t_token	head;
@@ -65,7 +61,7 @@ t_ast	*arrange_node(t_ast *node)
 	{
 		if (is_redirect(lst) && expect(lst->next, TK_WORD))
 		{
-			add_redirect(&node->redir_lst, &lst);
+			add_redirect(ctx, &node->redir_lst, &lst);
 			continue;
 		}
 		cur->next = token_copy(lst);

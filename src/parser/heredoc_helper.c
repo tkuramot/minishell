@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   heredoc_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:15:16 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/30 11:26:54 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/09/30 14:47:44 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "heredoc.h"
 #include "expander.h"
+#include <limits.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
@@ -42,33 +43,27 @@ static char	*heredoc_expander(char *str, size_t i, t_env *env_lst)
 	return (left);
 }
 
-int	create_heredoc_file(void)
+char	*create_heredoc_file(void)
 {
 	char	*number;
 	char	*name;
 	int		i;
-	int		fd;
 
 	i = 0;
-	while (1)
+	while (i < INT_MAX)
 	{
 		number = ft_itoa(i);
 		if (!number)
-			return (-1);
+			return (NULL);
 		name = ft_strjoin(HEREDOC, number);
 		free(number);
 		if (!name)
-			return (-1);
+			return (NULL);
 		if (access(name, F_OK | R_OK) == -1)
-		{
-			fd = open(name, O_WRONLY | O_CREAT | O_TRUNC,
-					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-			free(name);
-			return (fd);
-		}
-		free(name);
+			return (name);
 		i++;
 	}
+	return (NULL);
 }
 
 void	handle_heredoc(int fd, char *end_of_file)
