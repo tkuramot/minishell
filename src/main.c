@@ -41,8 +41,8 @@ int	main(void)
 	print_minishell();
 	set_sig_handler();
 	env_init(&ctx);
-	ctx.status = 0;
 	rl_outstream = stderr;
+	ctx.status = 0;
 	while (true)
 	{
 		line = readline("\x1b[32mminishell$ \x1b[0m");
@@ -52,13 +52,7 @@ int	main(void)
 		{
 			add_history(line);
 			tokenize(&ctx, line);
-			// TODO free before continue
-			if (!ctx.token)
-				continue;
 			parse_token(&ctx);
-			// TODO free
-			// if (ctx.status != 0)
-			// 	continue;
 			expand_environ(&ctx);
 			set_ign_sig_handler();
 			execute(&ctx);

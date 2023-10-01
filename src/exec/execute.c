@@ -92,8 +92,8 @@ void	execute(t_context *ctx)
 
 	proc_lst = NULL;
 	fd = NULL;
-	if(ft_strcmp(ctx->ast->argv->word, "") == 0)
-		return ;
+	if (!ctx->ast)
+		return;
 	if (ctx->ast->type == ND_PIPE)
 	{
 		std[0] = 0;
