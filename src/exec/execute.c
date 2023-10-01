@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/01 22:22:05 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/01 22:51:32 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ void	execute(t_context *ctx)
 
 	proc_lst = NULL;
 	fd = NULL;
-	// if(ft_strcmp(ctx->ast->argv->word, "") == 0)
-	// 	return ;
+	if(ft_strcmp(ctx->ast->argv->word, "") == 0)
+		return ;
 	if (ctx->ast->type == ND_PIPE)
 	{
 		std[0] = 0;
