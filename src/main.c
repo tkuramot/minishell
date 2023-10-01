@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/01 23:38:31 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/02 00:05:32 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "parser.h"
 #include "exec.h"
 #include "expander.h"
+#include "libft.h"
 #include "utils.h"
 #include <stdbool.h>
 #include <stdio.h>
@@ -64,12 +65,13 @@ int	main(void)
 			set_sig_handler();
 			free(line);
 			token_lst_free(ctx.token);
+			free(ctx.ast);
 		}
 	}
 	return (0);
 }
 
-__attribute__((destructor)) static void destructor()
-{
-    system("leaks -q minishell");
-}
+// __attribute__((destructor)) static void destructor()
+// {
+//     system("leaks -q minishell");
+// }
