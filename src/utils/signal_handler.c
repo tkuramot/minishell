@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 08:32:55 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/01 00:57:42 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/01 22:19:02 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	sigint_handler_no_prompt(int sig)
 	rl_on_new_line();
 }
 
-void	sigint_quit_handler(int sig)
+void	sigquit_handler(int sig)
 {
-	if (sig != SIGINT && sig != SIGQUIT)
+	if (sig != SIGQUIT)
 		return;
 	g_signal = sig;
 	ft_dprintf(STDOUT_FILENO, "Quit: 3\n");

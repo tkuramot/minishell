@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/30 19:53:27 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/01 22:19:11 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	main(void)
 	print_minishell();
 	set_sig_handler();
 	env_init(&ctx);
-	ctx.status = 0;
 	rl_outstream = stderr;
+	ctx.status = 0;
 	while (true)
 	{
 		line = readline("\x1b[32mminishell$ \x1b[0m");
@@ -51,13 +51,7 @@ int	main(void)
 		{
 			add_history(line);
 			tokenize(&ctx, line);
-			// TODO free before continue
-			if (!ctx.token)
-				continue;
 			parse_token(&ctx);
-			// TODO free
-			// if (ctx.status != 0)
-			// 	continue;
 			expand_environ(&ctx);
 			set_ign_sig_handler();
 			execute(&ctx);
