@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:48 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/01 23:00:04 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/01 23:31:39 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,5 @@ int		mini_pwd(void);
 
 void	env_init(t_context *ctx);
 char	*get_environ_str(char *key, t_env *env_lst);
-
-t_env	*decompress(char *env_name, t_env *env_lst);
 
 #endif
