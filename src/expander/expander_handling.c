@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:42:43 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/01 00:42:56 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/01 22:40:27 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char	*find_env_value(char *name, t_context *ctx)
 		}
 		env = env->next;
 	}
-	if(ft_strcmp(name, "\?"))
+	if(ft_strcmp(name, "\?") == 0)
 	{
 		if(g_signal == SIGINT || g_signal == SIGQUIT)
 			ans = ft_itoa(128 + g_signal);
@@ -36,8 +36,8 @@ static char	*find_env_value(char *name, t_context *ctx)
 			ans = ft_itoa(g_signal);
 		else
 			ans = ft_itoa(ctx->status);
-		ctx->status = g_signal;
 		g_signal = 0;
+		ctx->status = 0;
 		return(ans);
 	}
 	ans = ft_strdup("");
@@ -48,12 +48,14 @@ static char	*get_env_value(char *str, size_t *i, t_context *ctx)
 {
 	size_t	start;
 	size_t	end;
+	int		flag;
 	char	*search_name;
 	char	*ans;
 
 	start = *i;
 	end = start;
-	while (str[end] && is_identifier_char(str[end]))
+	flag = 0;
+	while (str[end] && is_identifier_char(str[end], &flag))
 		end++;
 	search_name = ft_substr(str, start, end - start);
 	if (!search_name)
@@ -62,7 +64,7 @@ static char	*get_env_value(char *str, size_t *i, t_context *ctx)
 	free(search_name);
 	if (!ans)
 		return (NULL);
-	*i = end;
+	*i = end - 1;
 	return (ans);
 }
 

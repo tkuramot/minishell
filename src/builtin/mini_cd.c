@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_cd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 12:06:23 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/24 11:10:26 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/02 00:07:02 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include <errno.h>
 #include <stdio.h>
 
-// bash起動後すぐに "cd -" を実行した際、"cd: Bad address" ではなく、"cd: OLDPWD not set"にするひつようがあるかも
 static char	*get_pwd(void)
 {
 	char	*pwd_path;
@@ -84,11 +83,21 @@ int	mini_cd(t_token *token_lst, t_env *env_lst)
 		path_env = ft_strjoin(get_environ_str("HOME", env_lst), \
 												&token_lst->word[1]);
 	else if (!ft_strcmp(token_lst->word, "-"))
+	{
 		path_env = get_environ_str("OLDPWD", env_lst);
+		if(!path_env)
+		{
+			ft_dprintf(1, "minishell: cd: OLDPWD not set\n");
+			return (1);
+		}
+	}
 	else
 		path_env = token_lst->word;
 	if (chdir(path_env))
+	{
 		perror("cd");
+		return (1);
+	}
 	else
 	{
 		update_env("OLDPWD", env_oldpwd, env_lst);

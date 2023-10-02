@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 22:47:24 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/24 11:12:38 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/02 00:09:52 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,38 @@ int	duplication(char *env_str, t_env *env_lst)
 	return (0);
 }
 
-int	mini_export(t_token *token_lst, t_env *env_lst)
+static void	export_print(t_env *env)
+{
+	while (env)
+	{
+		ft_dprintf(1, "declare -x %s=\"%s\"\n", env->name, env->value);
+		env = env->next;
+	}
+}
+
+int	mini_export(t_token *token, t_env *env)
 {
 	t_env	*new;
 
-	if (!token_lst)
-		return (1);
-	if (!is_env(token_lst->word))
-		return (1);
-	if (duplication(token_lst->word, env_lst))
-		return (1);
-	new = env_lst_node_new(token_lst->word);
-	env_lst_add_back(env_lst, new);
+	if (!token || ft_strcmp(token->word, "") == 0)
+	{
+		export_print(env);
+		return (0);
+	}
+	while (token)
+	{
+		if (!is_env(token->word))
+		{
+			ft_dprintf(1, "minishell: ");
+			ft_dprintf(1, "export: %s:", token->word);
+			ft_dprintf(1, "not a valid identifier\n");
+			return (1);
+		}
+		if (duplication(token->word, env))
+			return (0);
+		new = env_lst_node_new(token->word);
+		env_lst_add_back(env, new);
+		token = token->next;
+	}
 	return (0);
 }
