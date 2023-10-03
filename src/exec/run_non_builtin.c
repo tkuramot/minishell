@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:26:03 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/03 11:15:33 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/03 22:48:47 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	run_non_builtin_helper(char **cmd, char **environ)
 	char	*cmd_full_path;
 	char	*path_env;
 
-	set_default_sig_handler();
+	set_exec_child_sig_handler();
 	path_env = get_env_value("PATH", environ);
 	cmd_full_path = resolve_path(cmd[0], path_env);
 	if (get_path_type(cmd[0]))

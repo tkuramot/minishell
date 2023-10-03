@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/01 22:51:32 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/03 23:15:05 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,13 @@ static int	wait_all_children(t_list *proc_lst)
 	while (ft_lstsize(tmp) > 1)
 	{
 		pid = ft_atoi(tmp->content);
-		waitpid(pid, &status, 0);
+		if (waitpid(pid, &status, 0) == -1)
+			waitpid(pid, &status, 0);
 		tmp = tmp->next;
 	}
 	pid = ft_atoi(tmp->content);
-	waitpid(pid, &status, 0);
+	if (waitpid(pid, &status, 0) == -1)
+		waitpid(pid, &status, 0);
 	return (WEXITSTATUS(status));
 }
 
@@ -92,7 +94,7 @@ void	execute(t_context *ctx)
 
 	proc_lst = NULL;
 	fd = NULL;
-	if (!ctx->ast)
+	if (ctx->status != 0 || !ctx->ast)
 		return;
 	if (ctx->ast->type == ND_PIPE)
 	{
@@ -109,7 +111,7 @@ void	execute(t_context *ctx)
 		std[1] = dup(STDOUT_FILENO);
 		if (!redirect(ctx->ast))
 		{
-			//TODO ctx->status = 1
+			ctx->status = 1;
 			return;
 		}
 		ctx->status = run_simple_cmd(ctx->ast->argv, ctx->env);

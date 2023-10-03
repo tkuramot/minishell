@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/03 09:37:27 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/03 23:41:42 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,30 @@ int	main(void)
 	t_context	ctx;
 
 	print_minishell();
-	set_sig_handler();
 	env_init(&ctx);
 	rl_outstream = stderr;
 	ctx.status = 0;
 	while (true)
 	{
+		printf("status %d\n", ctx.status);
+		set_idle_sig_handler();
 		line = readline("\x1b[32mminishell$ \x1b[0m");
 		if (!line)
 			return (1);
 		if (*line)
 		{
 			add_history(line);
+			set_exec_parent_sig_handler();
 			tokenize(&ctx, line);
 			parse_token(&ctx);
 			expand_environ(&ctx);
-			set_ign_sig_handler();
 			execute(&ctx);
-			set_sig_handler();
+			/*
+			// TODO Overwrite with null after free
 			free(line);
 			token_lst_free(ctx.token);
 			free(ctx.ast);
+			*/
 		}
 	}
 	return (0);
