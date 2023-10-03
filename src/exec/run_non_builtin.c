@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:26:03 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/30 19:56:02 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/03 09:26:46 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	run_non_builtin_helper(char **cmd, char **environ)
 	if (get_path_type(cmd[0]))
 	{
 		if (!is_executable(cmd[0]))
-			print_perror(cmd[0]);
+			permission_denied(cmd[0]);
 		if (execve(cmd[0], cmd, environ) == -1)
 			cmd_not_found_error(cmd[0]);
 	}

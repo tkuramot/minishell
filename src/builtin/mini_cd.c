@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 12:06:23 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/02 00:07:02 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/03 09:50:16 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	mini_cd(t_token *token_lst, t_env *env_lst)
 			ft_dprintf(1, "minishell: cd: OLDPWD not set\n");
 			return (1);
 		}
+		ft_dprintf(1, "%s\n", path_env);
 	}
 	else
 		path_env = token_lst->word;
