@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 08:32:55 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/03 22:44:03 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/03 23:04:02 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,13 @@ void	idle_sig_handler(int sig)
 	}
 }
 
-void	sigint_heredoc_handler(int sig)
+void	heredoc_sig_handler(int sig)
 {
-	if (sig != SIGINT)
-		return;
-	close(STDIN_FILENO);
-	g_signal = 1;
-	ft_dprintf(STDOUT_FILENO, "\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	if (sig == SIGINT)
+	{
+		g_signal = 1;
+		ft_dprintf(STDOUT_FILENO, "\n");
+	}
 }
 
 void	exec_parent_sig_handler(int sig)

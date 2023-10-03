@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/01 21:27:58 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/03 23:05:59 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	parse_token(t_context *ctx)
 	t_token	*lst;
 	t_ast	*right;
 
+	if (ctx->status != 0)
+		return;
 	lst = ctx->token;
 	ctx->ast = parse_cmd(ctx, &lst);
 	if (!ctx->ast)

@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 21:11:22 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/03 22:47:43 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/03 22:55:44 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ void	set_heredoc_sig_handler(void)
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa, NULL);
-	sa.sa_handler = sigint_heredoc_handler;
+	sa.sa_handler = heredoc_sig_handler;
 	sigaction(SIGINT, &sa, NULL);
 }

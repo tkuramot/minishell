@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/03 22:45:12 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/03 23:41:42 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	main(void)
 	print_minishell();
 	env_init(&ctx);
 	rl_outstream = stderr;
-	//rl_catch_signals = 0;
 	ctx.status = 0;
 	while (true)
 	{
+		printf("status %d\n", ctx.status);
 		set_idle_sig_handler();
 		line = readline("\x1b[32mminishell$ \x1b[0m");
 		if (!line)
@@ -57,9 +57,12 @@ int	main(void)
 			parse_token(&ctx);
 			expand_environ(&ctx);
 			execute(&ctx);
+			/*
+			// TODO Overwrite with null after free
 			free(line);
 			token_lst_free(ctx.token);
 			free(ctx.ast);
+			*/
 		}
 	}
 	return (0);

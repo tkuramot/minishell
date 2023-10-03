@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/03 22:48:20 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/03 23:15:05 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	execute(t_context *ctx)
 
 	proc_lst = NULL;
 	fd = NULL;
-	if (!ctx->ast)
+	if (ctx->status != 0 || !ctx->ast)
 		return;
 	if (ctx->ast->type == ND_PIPE)
 	{
