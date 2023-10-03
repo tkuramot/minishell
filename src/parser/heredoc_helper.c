@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:15:16 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/01 22:15:16 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/03 22:15:20 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	handle_heredoc(int fd, char *end_of_file)
 	pid = fork();
 	if (pid == 0)
 	{
+		set_heredoc_sig_handler();
 		while (1)
 		{
 			line = readline("> ");
@@ -90,7 +91,8 @@ void	handle_heredoc(int fd, char *end_of_file)
 		close(fd);
 		exit(0);
 	}
-	waitpid(pid, &status, 0);
+	if (waitpid(pid, &status, 0) == -1)
+		waitpid(pid, &status, 0);
 }
 
 static void	write_expanded(char *line, int fd, t_context *ctx)
@@ -112,6 +114,7 @@ void	quote_handle_heredoc(int fd, char *end_of_file, t_context *ctx)
 	pid = fork();
 	if (pid == 0)
 	{
+		set_heredoc_sig_handler();
 		while (1)
 		{
 			line = readline("> ");
@@ -125,7 +128,8 @@ void	quote_handle_heredoc(int fd, char *end_of_file, t_context *ctx)
 		close(fd);
 		exit(0);
 	}
-	waitpid(pid, &status, 0);
+	if (waitpid(pid, &status, 0) == -1)
+		waitpid(pid, &status, 0);
 }
 
 // int main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 21:11:22 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/01 22:11:27 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/03 22:47:43 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-void	set_sig_handler(void)
+void	set_idle_sig_handler(void)
 {
 	struct sigaction	sa;
 
@@ -26,24 +26,24 @@ void	set_sig_handler(void)
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa, NULL);
-	sa.sa_handler = sigint_handler;
+	sa.sa_handler = idle_sig_handler;
 	sigaction(SIGINT, &sa, NULL);
 }
 
-void	set_ign_sig_handler(void)
+void	set_exec_parent_sig_handler(void)
 {
 	struct sigaction	sa;
 
 	ft_bzero(&sa, sizeof(struct sigaction));
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_SIGINFO;
-	sa.sa_handler = sigquit_handler;
+	sa.sa_handler = exec_parent_sig_handler;
 	sigaction(SIGQUIT, &sa, NULL);
-	sa.sa_handler = sigint_handler_no_prompt;
+	sa.sa_handler = exec_parent_sig_handler;
 	sigaction(SIGINT, &sa, NULL);
 }
 
-void	set_default_sig_handler(void)
+void	set_exec_child_sig_handler(void)
 {
 	struct sigaction	sa;
 

@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/03 22:08:01 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/03 22:48:20 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	execute(t_context *ctx)
 		std[1] = dup(STDOUT_FILENO);
 		if (!redirect(ctx->ast))
 		{
-			//TODO ctx->status = 1
+			ctx->status = 1;
 			return;
 		}
 		ctx->status = run_simple_cmd(ctx->ast->argv, ctx->env);
