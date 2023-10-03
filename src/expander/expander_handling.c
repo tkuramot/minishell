@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:42:43 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/03 09:31:59 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/03 11:21:08 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static char	*find_env_value(char *name, t_context *ctx)
 			ans = ft_itoa(g_signal);
 		else
 			ans = ft_itoa(ctx->status);
+		ctx->status = g_signal;
+		g_signal = 0;
 		return(ans);
 	}
 	ans = ft_strdup("");
