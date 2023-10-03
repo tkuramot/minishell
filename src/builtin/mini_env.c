@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:15:39 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/29 12:40:54 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/03 11:55:03 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static bool	is_env_option(const t_token *lst)
 	}
 	if (ft_strcmp("-", lst->word) == 0)
 		return (false);
+	ft_dprintf(1, "env: ");
 	perror(lst->word);
 	return (false);
 }
@@ -59,7 +60,7 @@ int	mini_env(const t_token *lst, t_env *env_lst)
 	if (!env_lst)
 		return (1);
 	if (lst && !is_env_option(lst))
-		return (1);
+		return (127);
 	while (env_lst)
 	{
 		ft_dprintf(STDOUT_FILENO, "%s=%s\n", env_lst->name, env_lst->value);
