@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/03 23:05:59 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/04 03:55:49 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static t_ast	*parse_cmd(t_context *ctx, t_token **lst)
 		if (is_redirect(tmp) && !expect(tmp->next, TK_WORD))
 		{
 			syntax_error();
-			ctx->status = 1;
+			ctx->sys_error = true;
+			ctx->status = 258;
 			return (NULL);
 		}
 		if (!tmp->next || expect(tmp->next, TK_PIPE))
@@ -46,13 +47,13 @@ void	parse_token(t_context *ctx)
 	t_token	*lst;
 	t_ast	*right;
 
-	if (ctx->status != 0)
+	if (ctx->sys_error)
 		return;
 	lst = ctx->token;
 	ctx->ast = parse_cmd(ctx, &lst);
 	if (!ctx->ast)
-		ctx->status = 1;
-	if (ctx->status != 0)
+		ctx->sys_error = true;
+	if (ctx->sys_error)
 		return;
 	while (true)
 	{
@@ -61,8 +62,8 @@ void	parse_token(t_context *ctx)
 			lst = lst->next;
 			right = parse_cmd(ctx, &lst);
 			if (!right)
-				ctx->status = 1;
-			if (ctx->status != 0)
+				ctx->sys_error = true;
+			if (ctx->sys_error)
 				return;
 			ctx->ast = ast_new_node(ND_PIPE, ctx->ast, right);
 		}

@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:20:57 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/03 23:31:26 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/04 03:29:06 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*read_heredoc(t_context *ctx, char *del, t_list **redirect)
 		handle_heredoc(fd, del);
 	ft_lstadd_back(redirect, ft_lstnew(init_redir(tmp_file, TK_REDIR_HEREDOC)));
 	if (g_signal != 0)
-		ctx->status = 1;
+		ctx->sys_error = true;
 	close(fd);
 	return (tmp_file);
 }
