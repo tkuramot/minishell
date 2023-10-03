@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:15:16 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/04 04:58:08 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/04 07:43:26 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	handle_heredoc(int fd, char *end_of_file, t_context *ctx)
 	pid = fork();
 	if (pid == 0)
 	{
-		set_exec_child_sig_handler();
+		set_heredoc_child_sig_handler();
 		while (1)
 		{
 			line = readline("> ");

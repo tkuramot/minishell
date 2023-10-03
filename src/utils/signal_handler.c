@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 08:32:55 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/03 23:04:02 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/04 07:42:11 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	idle_sig_handler(int sig)
 	}
 }
 
-void	heredoc_sig_handler(int sig)
+void	heredoc_parent_sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{

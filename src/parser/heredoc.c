@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:20:57 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/04 05:24:52 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/04 07:42:48 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*read_heredoc(t_context *ctx, char *del, t_list **redirect)
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 		fatal_error("open");
-	set_heredoc_sig_handler();
+	set_heredoc_parent_sig_handler();
 	if (ft_strchr(del, '\'') || ft_strchr(del, '\"'))
 	{
 		redirect_filename_expander(&del);
