@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:17:36 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/30 14:50:46 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/04 03:25:44 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define TYPE_H
 
 # include "libft.h"
+# include <stdbool.h>
 
 typedef enum e_token_type
 {
@@ -73,6 +74,7 @@ typedef struct s_context
 	t_ast	*ast;
 	t_env	*env;
 	int		status;
+	bool	sys_error;
 }	t_context;
 
 #endif

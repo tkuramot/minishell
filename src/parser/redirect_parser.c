@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_parser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:12:17 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/30 14:48:32 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/04 04:50:59 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 #include "lexer.h"
 #include "parser.h"
 #include "utils.h"
+#include "expander.h"
 
-t_redirect	*init_redir(char *file, t_token_type type)
+t_redirect	*init_redir(char *file, t_token_type type, t_context *ctx)
 {
 	t_redirect	*red;
 
 	red = ft_calloc(1, sizeof (t_redirect));
 	if (!red)
 		fatal_error("malloc");
+	str_expander(&file, ctx);
 	red->file = file;
 	red->type = type;
 	return (red);
@@ -35,15 +37,15 @@ static void		add_redirect(t_context *ctx, t_list **redirect, t_token **lst)
 		return;
 	file = (*lst)->next->word;
 	if ((*lst)->type == TK_REDIR_IN)
-		ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_IN)));
+		ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_IN, ctx)));
 	if ((*lst)->type == TK_REDIR_OUT)
 		ft_lstadd_back(redirect, ft_lstnew(
-				init_redir(file, TK_REDIR_OUT)));
+				init_redir(file, TK_REDIR_OUT, ctx)));
 	if ((*lst)->type == TK_REDIR_HEREDOC)
 		read_heredoc(ctx, (*lst)->next->word, redirect);
 	if ((*lst)->type == TK_REDIR_APPEND)
 		ft_lstadd_back(redirect, ft_lstnew(
-				init_redir((*lst)->next->word, TK_REDIR_APPEND)));
+				init_redir((*lst)->next->word, TK_REDIR_APPEND, ctx)));
 	*lst = (*lst)->next->next;
 }
 

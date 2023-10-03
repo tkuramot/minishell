@@ -6,13 +6,13 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:42:36 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/03 23:44:47 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/04 04:34:18 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 
-static void	str_expander(char **str, t_context *ctx)
+void	str_expander(char **str, t_context *ctx)
 {
 	char	*buf_str;
 	char	*sub;
