@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:15:16 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/03 22:50:53 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/04 04:58:08 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*create_heredoc_file(void)
 	return (NULL);
 }
 
-void	handle_heredoc(int fd, char *end_of_file)
+void	quote_handle_heredoc(int fd, char *end_of_file)
 {
 	pid_t	pid;
 	char	*line;
@@ -104,7 +104,7 @@ static void	write_expanded(char *line, int fd, t_context *ctx)
 	free(line);
 }
 
-void	quote_handle_heredoc(int fd, char *end_of_file, t_context *ctx)
+void	handle_heredoc(int fd, char *end_of_file, t_context *ctx)
 {
 	pid_t	pid;
 	char	*line;
