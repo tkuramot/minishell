@@ -6,18 +6,46 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:10:58 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/24 11:11:06 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/04 21:26:12 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdbool.h>
 #include "builtin.h"
+
+// static bool	is_numeric(char *str)
+// {
+// 	size_t i;
+
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if(!ft_isdigit(str[i]))
+// 			return (false);
+// 		i++;
+// 	}
+// 	return (true);
+// }
 
 int	mini_exit(t_token *lst, t_env *env_lst)
 {
 	token_lst_free(lst);
 	free_all_env_lst(env_lst);
-	exit(0);
+	if (!lst->next)
+		exit(0);
+	else
+	{
+		if (!lst->next->next)
+			return (1);
+		else
+		{
+			// if (is_numeric(lst->next->word))
+			// {
+			// }
+			exit(ft_atoi(lst->next->word) % 256);
+		}
+	}
 }
 
 // exit(status)みたいな形で終了すべき？
