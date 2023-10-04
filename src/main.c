@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/04 16:09:55 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:23:55 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,8 @@ int	main(void)
 	env_init(&ctx);
 	rl_outstream = stderr;
 	ctx.status = 0;
-	ctx.sys_error = false;
 	while (true)
 	{
-		// printf("\x1b[31mstatus == %d sys_error = %d signal = %d\x1b[0m\n", ctx.status, ctx.sys_error, g_signal);
 		ctx.sys_error = false;
 		set_idle_sig_handler();
 		line = readline("\x1b[32mminishell$ \x1b[0m");

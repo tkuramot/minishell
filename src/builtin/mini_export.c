@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 22:47:24 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/02 00:09:52 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:53:35 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,7 @@ int	mini_export(t_token *token, t_env *env)
 	while (token)
 	{
 		if (!is_env(token->word))
-		{
-			ft_dprintf(1, "minishell: ");
-			ft_dprintf(1, "export: %s:", token->word);
-			ft_dprintf(1, "not a valid identifier\n");
-			return (1);
-		}
+			return (0);
 		if (duplication(token->word, env))
 			return (0);
 		new = env_lst_node_new(token->word);
