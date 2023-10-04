@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:42:36 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/04 04:34:18 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/04 16:11:11 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	expand_environ(t_context *ctx)
 {
 	t_ast *ast;
 
+	if (ctx->sys_error)
+		return;
 	ast = ctx->ast;
 	env_var_expander(ast, ctx);
 }
