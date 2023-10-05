@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/05 10:17:05 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:34:27 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ int	main(void)
 	ctx.status = 0;
 	while (true)
 	{
+		int fd;
+		fd = dup(1);
+		ft_dprintf(1, "fd = %d\n", fd);
+		close(fd);
+
 		ctx.sys_error = false;
 		set_idle_sig_handler();
 		line = readline("\x1b[32mminishell$ \x1b[0m");
