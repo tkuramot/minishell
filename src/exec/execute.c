@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 11:49:13 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:11:08 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	traverse_pipe(int std[2], t_list *fd, t_ast *ast, t_env *env, t_list **proc
 		std[1] = pp[1];
 		traverse_pipe(std, fd, ast->left, env, proc_lst);
 		close(pp[1]);
+		ft_lstclear(&fd, clear_fd);
 	}
 	else if (ast->type == ND_CMD)
 	{

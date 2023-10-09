@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:12:17 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 17:04:16 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:19:26 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ t_redirect	*init_redir(char *file, t_token_type type, t_context *ctx)
 	red->file = file;
 	red->type = type;
 	return (red);
+}
+
+void	free_redir(void	*content)
+{
+	t_redirect	*redir;
+
+	redir = (t_redirect *)content;
+	free(redir->file);
 }
 
 static void		add_redirect(t_context *ctx, t_list **redirect, t_token **lst)

@@ -6,13 +6,14 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 11:02:32 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/04 07:42:34 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:21:44 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
+# include "type.h"
 # include <signal.h>
 
 sig_atomic_t g_signal;
@@ -32,6 +33,7 @@ void	exec_parent_sig_handler(int sig);
 void	heredoc_parent_sig_handler(int sig);
 int		open_or_create_file(char *file);
 int		open_append_file(char *file);
+void	free_cmd_related_malloc(t_context *ctx, char **line);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:42:36 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/04 16:11:11 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/09 18:14:30 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	env_var_expander(t_ast *ast, t_context *ctx)
 		str_expander(&tmp->word, ctx);
 		tmp = tmp->next;
 	}
+	system("leaks -q minishell");
 }
 
 // __attribute__((destructor)) static void destructor()

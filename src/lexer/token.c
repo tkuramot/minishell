@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 23:52:12 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 17:07:01 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/09 18:09:38 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ t_token	*token_init(char *word, t_token_type type)
 
 t_token	*token_copy(t_token *token)
 {
-	return (token_init(token->word, token->type));
+	if (!token)
+		return (NULL);
+	return (token_init(ft_strdup(token->word), token->type));
 }
 
 void	token_lst_free(t_token *lst)
@@ -39,8 +41,8 @@ void	token_lst_free(t_token *lst)
 	while (lst)
 	{
 		buf = lst;
-		free(lst->word);
 		lst = lst->next;
+		free(buf->word);
 		free(buf);
 	}
 }
