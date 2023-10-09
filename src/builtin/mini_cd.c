@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 12:06:23 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/03 09:50:16 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/09 11:37:40 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,16 @@ int	mini_cd(t_token *token_lst, t_env *env_lst)
 
 	env_oldpwd = get_pwd();
 	if (!token_lst || !ft_strcmp(token_lst->word, "~"))
+	{
 		path_env = get_environ_str("HOME", env_lst);
+		if(!path_env)
+		{
+			ft_dprintf(1, "minishell: cd: HOME not set\n");
+			return (1);
+		}
+	}
 	else if (!ft_strncmp(token_lst->word, "~/", 2))
-		path_env = ft_strjoin(get_environ_str("HOME", env_lst), \
-												&token_lst->word[1]);
+		path_env = ft_strjoin(get_environ_str("HOME", env_lst), &token_lst->word[1]);
 	else if (!ft_strcmp(token_lst->word, "-"))
 	{
 		path_env = get_environ_str("OLDPWD", env_lst);

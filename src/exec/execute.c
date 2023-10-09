@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/05 17:28:05 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/09 11:49:13 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,6 @@ void	execute(t_context *ctx)
 	fd = NULL;
 	if (ctx->sys_error || !ctx->ast)
 		return;
-	// if(strcmp(ctx->ast->argv->word, "\0") == 0)
-	// {
-	// 	ctx->status = 0;
-	// 	return ;
-	// }
 	if (ctx->ast->type == ND_PIPE)
 	{
 		std[0] = 0;
@@ -123,4 +118,6 @@ void	execute(t_context *ctx)
 		close(std[0]);
 		close(std[1]);
 	}
+	ft_lstclear(&proc_lst, free);
+	ft_lstclear(&fd, free);
 }
