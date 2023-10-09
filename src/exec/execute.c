@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/04 21:33:25 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:28:05 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	traverse_pipe(int std[2], t_list *fd, t_ast *ast, t_env *env, t_list **proc
 	if (ast->type == ND_PIPE)
 	{
 		if (pipe(pp) == -1)
-			fatal_error("pipe");
+			perror("pipe");
+			// fatal_error("pipe");
 		ft_lstadd_back(&fd, ft_lstnew(ft_itoa(pp[0])));
 		ft_lstadd_back(&fd, ft_lstnew(ft_itoa(pp[1])));
 		tmp = std[0];
@@ -119,5 +120,7 @@ void	execute(t_context *ctx)
 		ctx->status = run_simple_cmd(ctx->ast->argv, ctx->env);
 		dup2(std[0], STDIN_FILENO);
 		dup2(std[1], STDOUT_FILENO);
+		close(std[0]);
+		close(std[1]);
 	}
 }

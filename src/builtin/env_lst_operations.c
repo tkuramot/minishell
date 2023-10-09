@@ -6,15 +6,13 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:17:32 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/01 23:46:16 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/04 22:42:00 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include "utils.h"
 #include <stdlib.h>
-
-int g_cnt = 0;
 
 t_env	*env_lst_node_new(char *new_env)
 {
