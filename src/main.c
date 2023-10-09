@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 11:35:35 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:08:12 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	main(void)
 			parse_token(&ctx);
 			expand_environ(&ctx);
 			execute(&ctx);
-			// TODO Overwrite with null after free
 			free(line);
 			token_lst_free(ctx.token);
 			token_lst_free(ctx.ast->argv);

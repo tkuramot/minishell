@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/05 10:18:20 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:07:20 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 
 static t_ast	*parse_cmd(t_context *ctx, t_token **lst)
 {
-	t_token	*cmd;
+	t_token	head;
 	t_token	*tmp;
 
-	tmp = *lst;
-	if (!lst || !*lst || expect(tmp, TK_PIPE))
+	head.next = NULL;
+	tmp = &head;
+	if (!lst || !*lst || expect(*lst, TK_PIPE))
 	{
 		syntax_error();
 		ctx->sys_error = true;
@@ -30,21 +31,20 @@ static t_ast	*parse_cmd(t_context *ctx, t_token **lst)
 	}
 	while (true)
 	{
-		if (is_redirect(tmp) && !expect(tmp->next, TK_WORD))
+		if (!*lst || expect(*lst, TK_PIPE))
+			break;
+		if (is_redirect(*lst) && !expect((*lst)->next, TK_WORD))
 		{
 			syntax_error();
 			ctx->sys_error = true;
 			ctx->status = 258;
 			return (NULL);
 		}
-		if (!tmp->next || expect(tmp->next, TK_PIPE))
-			break;
+		tmp->next = token_copy(*lst);
+		*lst = (*lst)->next;
 		tmp = tmp->next;
 	}
-	cmd = *lst;
-	*lst = tmp->next;
-	tmp->next = NULL;
-	return (arrange_node(ctx, ast_new_node_cmd(cmd)));
+	return (arrange_node(ctx, ast_new_node_cmd(head.next)));
 }
 
 void	parse_token(t_context *ctx)

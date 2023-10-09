@@ -6,11 +6,12 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 12:28:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/03 18:41:23 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:02:10 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include <stdio.h>
 
 t_ast	*ast_new_node(t_node_type type, t_ast *left, t_ast *right)
 {
