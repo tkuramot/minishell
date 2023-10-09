@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 11:35:35 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:01:13 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,8 @@ int	main(void)
 			parse_token(&ctx);
 			expand_environ(&ctx);
 			execute(&ctx);
-			// TODO Overwrite with null after free
-			free(line);
-			token_lst_free(ctx.token);
-			token_lst_free(ctx.ast->argv);
-			free(ctx.ast);
+			free_cmd_related_malloc(&ctx, &line);
+			system("leaks -q minishell");
 		}
 	}
 	return (0);

@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expect.c                                           :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/29 15:54:07 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 16:57:03 by tkuramot         ###   ########.fr       */
+/*   Created: 2023/10/09 17:18:08 by tkuramot          #+#    #+#             */
+/*   Updated: 2023/10/09 19:10:27 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lexer.h"
 #include "parser.h"
-#include <stdbool.h>
+#include "type.h"
+#include "utils.h"
+#include <stdlib.h>
 
-bool	expect(t_token *lst, t_token_type type)
+ void	free_cmd_related_malloc(t_context *ctx, char **line)
 {
-	if (!lst)
-		return (false);
-	return (lst->type == type);
+	free(*line);
+	*line = NULL;
+	if (!ctx)
+		return;
+	free_ast(ctx->ast);
+	ctx->ast = NULL;
+	token_lst_free(ctx->token);
+	ctx->token = NULL;
 }
