@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 22:32:13 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/10 00:22:46 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/10 02:22:27 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,43 +61,3 @@ void rm_empty_words(t_context *ctx)
 	}
 	ctx->ast->argv = head;
 }
-
-// void re_empty_words(t_context *ctx)
-// {
-// 	t_token *tmp;
-// 	t_token *ans;
-// 	t_token *del_node;
-
-// 	tmp = ctx->ast->argv;
-// 	if(!tmp)
-// 		return ;
-// 	// if(ft_strcmp(tmp->word, "") == 0)
-// 	// {
-// 	// 	del_node = tmp;
-// 	// 	tmp = del_node->next;
-// 	// 	free(del_node->word);
-// 	// 	free(del_node);
-// 	// 	ft_dprintf(1, "%p\n", tmp);
-// 	// }
-// 	ans = tmp;
-// 	while(tmp->next)
-// 	{
-// 		if(ft_strcmp(tmp->next->word, "") == 0)
-// 		{
-// 			del_node = tmp->next;
-// 			tmp->next = del_node->next;
-// 			free(del_node->word);
-// 			free(del_node);
-// 		}
-// 		tmp = tmp->next;
-// 	}
-// 	if(tmp && ft_strcmp(tmp->word, "") == 0)
-// 	{
-// 		del_node = tmp;
-// 		tmp = del_node->next;
-// 		free(del_node->word);
-// 		free(del_node);
-// 	}
-
-// 	ctx->ast->argv = ans;
-// }
