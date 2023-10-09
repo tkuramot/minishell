@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:10:58 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/10 01:33:30 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/10 01:36:51 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ static void	too_many_error(void)
 
 int	mini_exit(t_token *lst, t_env *env_lst)
 {
+	ft_dprintf(1, "exit\n");
 	if (!lst)
+	{
 		exit(0);
+	}
 	else
 	{
 		if (!is_numeric(lst->word))
