@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 18:11:22 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:01:13 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,31 +61,9 @@ int	main(void)
 			tokenize(&ctx, line);
 			parse_token(&ctx);
 			expand_environ(&ctx);
-			/*
-			printf("ARGV======\n");
-			for (t_token *node = ctx.ast->argv; node; node = node->next)
-			{
-				printf("[%s]\n", node->word);
-				printf("[%p]\n", node->word);
-				printf("[%p]\n", node);
-			}
-			printf("LST======\n");
-			for (t_token *node = ctx.ast->lst; node; node = node->next)
-			{
-				printf("[%s]\n", node->word);
-				printf("[%p]\n", node->word);
-				printf("[%p]\n", node);
-			}
-			printf("TOKEN======\n");
-			for (t_token *node = ctx.token; node; node = node->next)
-			{
-				printf("[%s]\n", node->word);
-				printf("[%p]\n", node->word);
-				printf("[%p]\n", node);
-			}
-			*/
 			execute(&ctx);
 			free_cmd_related_malloc(&ctx, &line);
+			system("leaks -q minishell");
 		}
 	}
 	return (0);

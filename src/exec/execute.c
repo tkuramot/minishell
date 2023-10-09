@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 17:11:08 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/09 18:47:46 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	clear_fd(void *content)
 	free(content);
 }
 
-void	traverse_pipe(int std[2], t_list *fd, t_ast *ast, t_env *env, t_list **proc_lst)
+void	traverse_pipe(int std[2], t_list **fd, t_ast *ast, t_env *env, t_list **proc_lst)
 {
 	pid_t	pid;
 	int		pp[2];
@@ -36,8 +36,8 @@ void	traverse_pipe(int std[2], t_list *fd, t_ast *ast, t_env *env, t_list **proc
 		if (pipe(pp) == -1)
 			perror("pipe");
 			// fatal_error("pipe");
-		ft_lstadd_back(&fd, ft_lstnew(ft_itoa(pp[0])));
-		ft_lstadd_back(&fd, ft_lstnew(ft_itoa(pp[1])));
+		ft_lstadd_back(fd, ft_lstnew(ft_itoa(pp[0])));
+		ft_lstadd_back(fd, ft_lstnew(ft_itoa(pp[1])));
 		tmp = std[0];
 		std[0] = pp[0];
 		traverse_pipe(std, fd, ast->right, env, proc_lst);
@@ -46,7 +46,6 @@ void	traverse_pipe(int std[2], t_list *fd, t_ast *ast, t_env *env, t_list **proc
 		std[1] = pp[1];
 		traverse_pipe(std, fd, ast->left, env, proc_lst);
 		close(pp[1]);
-		ft_lstclear(&fd, clear_fd);
 	}
 	else if (ast->type == ND_CMD)
 	{
@@ -57,7 +56,7 @@ void	traverse_pipe(int std[2], t_list *fd, t_ast *ast, t_env *env, t_list **proc
 			dup2(std[1], STDOUT_FILENO);
 			if (!redirect(ast))
 				exit(127);
-			ft_lstclear(&fd, clear_fd);
+			ft_lstclear(fd, clear_fd);
 			run_simple_cmd_parent(ast->argv, env);
 		}
 		ft_lstadd_front(proc_lst, ft_lstnew(ft_itoa(pid)));
@@ -100,7 +99,8 @@ void	execute(t_context *ctx)
 		std[0] = 0;
 		std[1] = 1;
 		tmp = ctx->ast;
-		traverse_pipe(std, fd, ctx->ast, ctx->env, &proc_lst);
+		traverse_pipe(std, &fd, ctx->ast, ctx->env, &proc_lst);
+		ft_lstclear(&fd, clear_fd);
 		ctx->ast = tmp;
 		ctx->status = wait_all_children(proc_lst);
 	}

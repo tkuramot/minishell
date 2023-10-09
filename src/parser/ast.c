@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 12:28:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 17:59:46 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:13:01 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	free_ast(t_ast *ast)
 	free_ast(ast->left);
 	free_ast(ast->right);
 	token_lst_free(ast->argv);
-	token_lst_free(ast->lst);
 	ft_lstclear(&ast->redir_lst, free_redir);
+	token_lst_free(ast->lst);
 	free(ast);
 }

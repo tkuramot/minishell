@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:12:17 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 17:19:26 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:13:28 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ void	free_redir(void	*content)
 	t_redirect	*redir;
 
 	redir = (t_redirect *)content;
+	//printf("[%p]\n", redir);
 	free(redir->file);
+	free(content);
 }
 
 static void		add_redirect(t_context *ctx, t_list **redirect, t_token **lst)
@@ -43,7 +45,7 @@ static void		add_redirect(t_context *ctx, t_list **redirect, t_token **lst)
 
 	if (!lst || !*lst || !(*lst)->next)
 		return;
-	file = (*lst)->next->word;
+	file = ft_strdup((*lst)->next->word);
 	if ((*lst)->type == TK_REDIR_IN)
 		ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_IN, ctx)));
 	if ((*lst)->type == TK_REDIR_OUT)
