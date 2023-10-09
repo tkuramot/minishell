@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:15:39 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/03 11:55:03 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/09 21:46:20 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "utils.h"
 #include <errno.h>
 
-// envの順番はソートしたほうが多分いい.後でやる
 void	env_init(t_context *ctx)
 {
 	t_env		*head;

@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 12:06:23 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/09 11:37:40 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/09 21:35:19 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	update_env(char *key, char *new_oldpwd, t_env *env_lst)
 	return (1);
 }
 
-char	*get_environ_str(char *key, t_env *env_lst)
+static char	*get_environ_str(char *key, t_env *env_lst)
 {
 	while (env_lst)
 	{
@@ -70,62 +70,58 @@ char	*get_environ_str(char *key, t_env *env_lst)
 	return (NULL);
 }
 
+static int	get_cd_path(t_token *token_lst, t_env *env_lst, char **path_env)
+{
+	char	*path;
+
+	if (!token_lst)
+	{
+		path = get_environ_str("HOME", env_lst);
+		if (!path)
+		{
+			ft_dprintf(1, "minishell: cd: HOME not set\n");
+			return (1);
+		}
+	}
+	else if (!ft_strcmp(token_lst->word, "-"))
+	{
+		path = get_environ_str("OLDPWD", env_lst);
+		if (!path)
+		{
+			ft_dprintf(1, "minishell: cd: OLDPWD not set\n");
+			return (1);
+		}
+		ft_dprintf(1, "%s\n", path);
+	}
+	else
+		path = token_lst->word;
+	*path_env = path;
+	return (0);
+}
+
 int	mini_cd(t_token *token_lst, t_env *env_lst)
 {
 	char	*path_env;
 	char	*env_oldpwd;
 	char	*env_pwd;
 
+	path_env = NULL;
 	env_oldpwd = get_pwd();
-	if (!token_lst || !ft_strcmp(token_lst->word, "~"))
+	if (get_cd_path(token_lst, env_lst, &path_env) == 1)
 	{
-		path_env = get_environ_str("HOME", env_lst);
-		if(!path_env)
-		{
-			ft_dprintf(1, "minishell: cd: HOME not set\n");
-			return (1);
-		}
-	}
-	else if (!ft_strncmp(token_lst->word, "~/", 2))
-		path_env = ft_strjoin(get_environ_str("HOME", env_lst), &token_lst->word[1]);
-	else if (!ft_strcmp(token_lst->word, "-"))
-	{
-		path_env = get_environ_str("OLDPWD", env_lst);
-		if(!path_env)
-		{
-			ft_dprintf(1, "minishell: cd: OLDPWD not set\n");
-			return (1);
-		}
-		ft_dprintf(1, "%s\n", path_env);
-	}
-	else
-		path_env = token_lst->word;
-	if (chdir(path_env))
-	{
-		perror("cd");
+		free(env_oldpwd);
 		return (1);
 	}
-	else
+	if (chdir(path_env))
 	{
-		update_env("OLDPWD", env_oldpwd, env_lst);
-		env_pwd = get_pwd();
-		update_env("PWD", env_pwd, env_lst);
-		free(env_pwd);
+		cd_no_such_file("cd", path_env);
+		free(env_oldpwd);
+		return (1);
 	}
+	update_env("OLDPWD", env_oldpwd, env_lst);
+	env_pwd = get_pwd();
+	update_env("PWD", env_pwd, env_lst);
+	free(env_pwd);
 	free(env_oldpwd);
 	return (0);
 }
-
-// int	mini_pwd(void)
-// {
-// ft_dprintf("%s\n", getenv("PWD"));
-// 	return (0);
-// }
-
-// #include <stdio.h>
-// int main(int argc, char **argv){
-// 	extern char	**environ;
-// 	mini_cd(argv[1], environ);
-// 	// mini_pwd();
-// 	ft_pwd();
-// }
