@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:12:17 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 19:13:28 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/10 02:06:56 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,48 @@
 #include "parser.h"
 #include "utils.h"
 #include "expander.h"
+#include "libft.h"
+
+int is_space(char c)
+{
+	return ((9 <= c && c <= 13) || c == ' ');
+}
+
+bool	is_whitespace(char *file)
+{
+	size_t	i;
+
+	i = 0;
+	while(file[i])
+	{
+		if(is_space(file[i]))
+			return (false);
+		i++;
+	}
+	return (true);
+}
 
 t_redirect	*init_redir(char *file, t_token_type type, t_context *ctx)
 {
+	char		*buf_file;
 	t_redirect	*red;
 
 	red = ft_calloc(1, sizeof (t_redirect));
 	if (!red)
 		fatal_error("malloc");
+	buf_file = ft_strdup(file);
+	if (!buf_file)
+		fatal_error("malloc");
 	str_expander(&file, ctx);
+	if (ft_strcmp(file, "") == 0 || !is_whitespace(file))
+	{
+		ft_dprintf(1, "minishell: %s: ", buf_file);
+		ft_dprintf(1, "ambiguous redirect\n");
+		ctx->sys_error = 1;
+	}
 	red->file = file;
 	red->type = type;
+	free(buf_file);
 	return (red);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:48 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 22:11:06 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/10 01:39:10 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <limits.h>
 # include <errno.h>
+#include <stdbool.h>
 
 extern char	**environ;
 

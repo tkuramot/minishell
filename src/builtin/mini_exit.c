@@ -6,12 +6,10 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:10:58 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/10 01:36:51 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/10 01:38:57 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdbool.h>
 #include "builtin.h"
 
 static bool	is_numeric(char *str)
