@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:10:58 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/04 21:26:12 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:26:52 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,11 @@ int	mini_exit(t_token *lst, t_env *env_lst)
 	free_all_env_lst(env_lst);
 	if (!lst->next)
 		exit(0);
-	else
-	{
-		if (!lst->next->next)
-			return (1);
-		else
-		{
-			// if (is_numeric(lst->next->word))
-			// {
-			// }
-			exit(ft_atoi(lst->next->word) % 256);
-		}
-	}
+	// else
+	// {
+	// 	// if(is_numeric(lst->next->word));
+	// }
+	return (0);
 }
 
 // exit(status)みたいな形で終了すべき？

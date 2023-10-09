@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 21:17:51 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/10 00:23:11 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ int	main(void)
 			tokenize(&ctx, line);
 			parse_token(&ctx);
 			expand_environ(&ctx);
+
+			rm_empty_words(&ctx);
+
 			execute(&ctx);
 			free_cmd_related_malloc(&ctx, &line);
 			system("leaks -q minishell");

@@ -6,17 +6,11 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 12:06:23 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/09 21:35:19 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:10:55 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-#include "lexer.h"
-#include <unistd.h>
-#include <limits.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <stdio.h>
 
 static char	*get_pwd(void)
 {
