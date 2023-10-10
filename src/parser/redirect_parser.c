@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:12:17 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/10 13:32:27 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:57:52 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_ast	*arrange_node(t_context *ctx, t_ast *node)
 	t_token	*cur;
 
 	if (!lst)
-		return (NULL);
+		return (node);
 	head.next = NULL;
 	cur = &head;
 	while (lst)
