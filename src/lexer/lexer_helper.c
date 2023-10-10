@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 13:57:17 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/03 18:01:16 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/11 08:22:52 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,12 @@ bool	is_word(char c)
 	return (c && !is_metacharacter(c));
 }
 
-void	consume_blank(char **line)
+bool	consume_blank(char **line)
 {
 	if (is_blank(**line))
+	{
 		(*line)++;
+		return (true);
+	}
+	return (false);
 }

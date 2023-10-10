@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/11 00:48:05 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/11 08:27:52 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static t_token	*extract_metacharacter(char **line)
 {
 	const char	*ops[] = {"|", "<<", ">>", "<", ">"};
 	const int	token_type[] = {TK_PIPE, TK_REDIR_HEREDOC, TK_REDIR_APPEND,
-			TK_REDIR_IN, TK_REDIR_OUT};
+		TK_REDIR_IN, TK_REDIR_OUT};
 	char		*word;
 	size_t		i;
 
@@ -70,6 +70,12 @@ static t_token	*extract_metacharacter(char **line)
 	return (token_init(word, token_type[i]));
 }
 
+static void	handle_sys_error(t_context *ctx, t_token *lst)
+{
+	ctx->sys_error = true;
+	ctx->token = lst;
+}
+
 void	tokenize(t_context *ctx, char *line)
 {
 	t_token	head;
@@ -85,22 +91,14 @@ void	tokenize(t_context *ctx, char *line)
 		{
 			cur->next = extract_word(&line);
 			if (!cur->next)
-			{
-				ctx->sys_error = true;
-				ctx->token = head.next;
-				return;
-			}
+				return (handle_sys_error(ctx, head.next));
 			cur = cur->next;
 		}
 		else if (is_metacharacter(*line))
 		{
 			cur->next = extract_metacharacter(&line);
 			if (!cur->next)
-			{
-				ctx->sys_error = true;
-				ctx->token = head.next;
-				return;
-			}
+				return (handle_sys_error(ctx, head.next));
 			cur = cur->next;
 		}
 	}
