@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/11 02:00:29 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 08:13:34 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,38 @@
 
 static void	print_minishell(void)
 {
-	ft_dprintf(STDERR_FILENO, "                                   __              ___    ___\n");
-	ft_dprintf(STDERR_FILENO, "           __          __         /\\ \\            /\\_ \\  /\\_ \\\n");
-	ft_dprintf(STDERR_FILENO, "  ___ ___ /\\_\\    ___ /\\_\\    ____\\ \\ \\___      __\\//\\ \\ \\//\\ \\\n");
-	ft_dprintf(STDERR_FILENO, "/' __` __`\\/\\ \\ /' _ `\\/\\ \\  /',__\\\\ \\  _ `\\  /'__`\\\\ \\ \\  \\ \\ \\\n");
-	ft_dprintf(STDERR_FILENO, "/\\ \\/\\ \\/\\ \\ \\ \\/\\ \\/\\ \\ \\ \\/\\__, `\\\\ \\ \\ \\ \\/\\  __/ \\_\\ \\_ \\_\\ \\_\n");
-	ft_dprintf(STDERR_FILENO, "\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\/\\____/ \\ \\_\\ \\_\\ \\____\\/\\____\\/\\____\\\n");
-	ft_dprintf(STDERR_FILENO, " \\/_/\\/_/\\/_/\\/_/\\/_/\\/_/\\/_/\\/___/   \\/_/\\/_/\\/____/\\/____/\\/____/\n\n");
+	ft_dprintf(STDERR_FILENO, "                                   __            \
+___    ___\n");
+	ft_dprintf(STDERR_FILENO, "           __          __         /\\ \\         \
+/\\_ \\  /\\_ \\\n");
+	ft_dprintf(STDERR_FILENO, "  ___ ___ /\\_\\    ___ /\\_\\    ____\\ \\ \\__ \
+_      __\\//\\ \\ \\//\\ \\\n");
+	ft_dprintf(STDERR_FILENO, "/' __` __`\\/\\ \\ /' _ `\\/\\ \\  /',__\\\\ \\  \
+_ `\\  /'__`\\\\ \\ \\  \\ \\ \\\n");
+	ft_dprintf(STDERR_FILENO, "/\\ \\/\\ \\/\\ \\ \\ \\/\\ \\/\\ \\ \\ \\/\\__, \
+`\\\\ \\ \\ \\ \\/\\  __/ \\_\\ \\_ \\_\\ \\_\n");
+	ft_dprintf(STDERR_FILENO, "\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\/\\_ \
+___/ \\ \\_\\ \\_\\ \\____\\/\\____\\/\\____\\\n");
+	ft_dprintf(STDERR_FILENO, " \\/_/\\/_/\\/_/\\/_/\\/_/\\/_/\\/_/\\/___/   \\ \
+/_/\\/_/\\/____/\\/____/\\/____/\n\n");
+}
+
+static void	process_cmd(t_context *ctx, char **line)
+{
+	if (g_signal == 1)
+		ctx->status = g_signal;
+	if (g_signal == SIGINT || g_signal == SIGQUIT)
+		ctx->status = -g_signal;
+	g_signal = 0;
+	add_history(*line);
+	set_exec_parent_sig_handler();
+	tokenize(ctx, *line);
+	parse_token(ctx);
+	expand_environ(ctx);
+	rm_empty_words(ctx);
+	execute(ctx);
+	free_cmd_related_malloc(ctx, line);
+	system("leaks -q minishell");
 }
 
 int	main(void)
@@ -50,22 +75,7 @@ int	main(void)
 		if (!line)
 			return (1);
 		if (*line)
-		{
-			if(g_signal == 1)
-				ctx.status = g_signal;
-			if(g_signal == SIGINT || g_signal == SIGQUIT)
-				ctx.status = - g_signal;
-			g_signal = 0;
-			add_history(line);
-			set_exec_parent_sig_handler();
-			tokenize(&ctx, line);
-			parse_token(&ctx);
-			expand_environ(&ctx);
-			rm_empty_words(&ctx);
-			execute(&ctx);
-			free_cmd_related_malloc(&ctx, &line);
-			system("leaks -q minishell");
-		}
+			process_cmd(&ctx, &line);
 	}
 	return (0);
 }
