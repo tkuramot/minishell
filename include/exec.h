@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 22:14:10 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 02:30:24 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 08:08:11 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@
 # include <stdbool.h>
 
 void	execute(t_context *ctx);
-// int		run_simple_cmd(t_token *token_lst, t_env *env_lst);
-int	run_simple_cmd(t_token **token_lst, t_env *env_lst);
+int		run_simple_cmd(t_token **token_lst, t_env *env_lst);
 void	run_simple_cmd_parent(t_token *token_lst, t_env *env_lst);
 void	run_non_builtin_parent(t_token *lst, t_env *env_lst);
 int		run_non_builtin_child(t_token *lst, t_env *env_lst);

@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 11:02:32 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 17:21:44 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/11 08:06:20 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "type.h"
 # include <signal.h>
 
-sig_atomic_t g_signal;
+sig_atomic_t	g_signal;
 
 void	fatal_error(char *err);
 void	syntax_error(void);
@@ -34,6 +34,5 @@ void	heredoc_parent_sig_handler(int sig);
 int		open_or_create_file(char *file);
 int		open_append_file(char *file);
 void	free_cmd_related_malloc(t_context *ctx, char **line);
-
 
 #endif
