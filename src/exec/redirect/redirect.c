@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 17:10:58 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 18:47:24 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/10 12:58:46 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ static bool	redir_in(t_list *node)
 {
 	int	fd;
 	char	*tmp;
+	char	*file;
 
-	fd = open(((t_redirect *)node->content)->file, O_RDONLY);
+	file = ((t_redirect *)node->content)->file;
+	fd = open(file, O_RDONLY);
 	if (fd == -1)
 	{
-		tmp = ft_strjoin("minishell: ", ((t_redirect *)node->content)->file);
+		tmp = ft_strjoin("minishell: ", file);
 		perror(tmp);
 		free(tmp);
 		return (false);
@@ -35,11 +37,13 @@ static bool	redir_out(t_list *node)
 {
 	int	fd;
 	char	*tmp;
+	char	*file;
 
-	fd = open_or_create_file(((t_redirect *)node->content)->file);
+	file = ((t_redirect *)node->content)->file;
+	fd = open_or_create_file(file);
 	if (fd == -1)
 	{
-		tmp = ft_strjoin("minishell: ", ((t_redirect *)node->content)->file);
+		tmp = ft_strjoin("minishell: ", file);
 		perror(tmp);
 		free(tmp);
 		return (false);
@@ -52,11 +56,13 @@ static bool	redir_append(t_list *node)
 {
 	int	fd;
 	char	*tmp;
+	char	*file;
 
-	fd = open_append_file(((t_redirect *)node->content)->file);
+	file = ((t_redirect *)node->content)->file;
+	fd = open_append_file(file);
 	if (fd == -1)
 	{
-		tmp = ft_strjoin("minishell: ", ((t_redirect *)node->content)->file);
+		tmp = ft_strjoin("minishell: ", file);
 		perror(tmp);
 		free(tmp);
 		return (false);
@@ -67,7 +73,23 @@ static bool	redir_append(t_list *node)
 
 static bool	redir_heredoc(t_list *node)
 {
-	return (redir_in(node));
+	int	fd;
+	char	*tmp;
+	char	*file;
+
+	file = ((t_redirect *)node->content)->file;
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+	{
+		tmp = ft_strjoin("minishell: ", file);
+		perror(tmp);
+		free(tmp);
+		return (false);
+	}
+	dup2(fd, STDIN_FILENO);
+	printf("[%s]\n", file);
+	unlink(file);
+	return (true);
 }
 
 bool	redirect(t_ast *node)
