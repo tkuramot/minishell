@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:15:16 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/10 13:01:34 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/11 08:37:44 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	quote_handle_heredoc(int fd, char *end_of_file)
 		exit(0);
 	}
 	if (waitpid(pid, &status, 0) == -1)
-		 waitpid(pid, &status, 0);
+		waitpid(pid, &status, 0);
 }
 
 static void	write_expanded(char *line, int fd, t_context *ctx)
@@ -132,7 +132,7 @@ void	handle_heredoc(int fd, char *end_of_file, t_context *ctx)
 		exit(0);
 	}
 	if (waitpid(pid, &status, 0) == -1)
-		 waitpid(pid, &status, 0);
+		waitpid(pid, &status, 0);
 }
 
 // int main(int argc, char **argv)

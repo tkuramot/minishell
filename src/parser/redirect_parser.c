@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:12:17 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/10 17:57:52 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/11 08:32:10 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,35 @@ void	free_redir(void	*content)
 	free(content);
 }
 
-static void		add_redirect(t_context *ctx, t_list **redirect, t_token **lst)
+static void	add_redirect(t_context *ctx, t_list **redirect, t_token **lst)
 {
 	char	*file;
 	int		type;
 
 	type = (*lst)->type;
 	if (!lst || !*lst || !(*lst)->next)
-		return;
+		return ;
 	file = ft_strdup((*lst)->next->word);
 	if (type == TK_REDIR_IN)
 		ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_IN, ctx)));
 	if (type == TK_REDIR_OUT)
-		ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_OUT, ctx)));
+		ft_lstadd_back(redirect,
+			ft_lstnew(init_redir(file, TK_REDIR_OUT, ctx)));
 	if (type == TK_REDIR_HEREDOC)
 		read_heredoc(ctx, file, redirect);
 	if (type == TK_REDIR_APPEND)
-		ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_APPEND, ctx)));
+		ft_lstadd_back(redirect,
+			ft_lstnew(init_redir(file, TK_REDIR_APPEND, ctx)));
 	*lst = (*lst)->next->next;
 }
 
 t_ast	*arrange_node(t_context *ctx, t_ast *node)
 {
-	t_token	*lst = node->lst;
+	t_token	*lst;
 	t_token	head;
 	t_token	*cur;
 
+	lst = node->lst;
 	if (!lst)
 		return (node);
 	head.next = NULL;
@@ -74,7 +77,7 @@ t_ast	*arrange_node(t_context *ctx, t_ast *node)
 		if (is_redirect(lst) && expect(lst->next, TK_WORD))
 		{
 			add_redirect(ctx, &node->redir_lst, &lst);
-			continue;
+			continue ;
 		}
 		cur->next = token_copy(lst);
 		cur = cur->next;

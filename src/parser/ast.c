@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 12:28:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/11 00:50:49 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/11 08:30:26 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_ast	*ast_new_node_cmd(t_token *lst)
 void	free_ast(t_ast *ast)
 {
 	if (!ast)
-		return;
+		return ;
 	free_ast(ast->left);
 	free_ast(ast->right);
 	token_lst_free(ast->argv);
