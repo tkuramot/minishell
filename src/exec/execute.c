@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/10 12:21:55 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 02:16:27 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	execute(t_context *ctx)
 			ctx->status = 1;
 			return;
 		}
-		ctx->status = run_simple_cmd(ctx->ast->argv, ctx->env);
+		ctx->status = run_simple_cmd(&ctx->ast->argv, ctx->env);
 		dup2(std[0], STDIN_FILENO);
 		dup2(std[1], STDOUT_FILENO);
 		close(std[0]);
