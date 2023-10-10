@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:15:16 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/04 18:53:35 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/10 13:01:34 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,14 @@ char	*create_heredoc_file(void)
 	int		i;
 
 	i = 0;
+	name = NULL;
 	while (i < INT_MAX)
 	{
 		number = ft_itoa(i);
 		if (!number)
 			return (NULL);
+		if (name)
+			free(name);
 		name = ft_strjoin(HEREDOC, number);
 		free(number);
 		if (!name)

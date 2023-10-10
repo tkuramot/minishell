@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/10 12:37:57 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/10 13:36:40 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(void)
 			rm_empty_words(&ctx);
 			execute(&ctx);
 			free_cmd_related_malloc(&ctx, &line);
-			// system("leaks -q minishell");
+			system("leaks -q minishell");
 		}
 	}
 	return (0);

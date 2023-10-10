@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:20:57 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/04 07:42:48 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/10 13:31:39 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ char	*read_heredoc(t_context *ctx, char *del, t_list **redirect)
 	if (g_signal != 0)
 		ctx->sys_error = true;
 	close(fd);
+	free(del);
 	return (tmp_file);
 }
