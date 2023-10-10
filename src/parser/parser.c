@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/10 17:56:01 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:01:15 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	parse_token(t_context *ctx)
 			right = parse_cmd(ctx, &lst);
 			if (!right)
 				ctx->sys_error = true;
+			ctx->ast = ast_new_node(ND_PIPE, ctx->ast, right);
 			if (ctx->sys_error)
 				return;
-			ctx->ast = ast_new_node(ND_PIPE, ctx->ast, right);
 		}
 		else
 			return;
