@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:12:17 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 19:13:28 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/10 02:10:59 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "parser.h"
 #include "utils.h"
 #include "expander.h"
+#include "libft.h"
 
 t_redirect	*init_redir(char *file, t_token_type type, t_context *ctx)
 {

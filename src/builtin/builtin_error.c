@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_pwd.c                                         :+:      :+:    :+:   */
+/*   builtin_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 17:23:23 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 22:11:36 by tsishika         ###   ########.fr       */
+/*   Created: 2023/10/09 21:27:05 by tsishika          #+#    #+#             */
+/*   Updated: 2023/10/09 21:30:56 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-int	mini_pwd(void)
+void cd_no_such_file(char *command, char *file)
 {
-	char	pwd_path[PATH_MAX];
-
-	if (!getcwd(pwd_path, PATH_MAX))
-	{
-		perror("pwd");
-		return (1);
-	}
-	else
-		ft_dprintf(STDOUT_FILENO, "%s\n", pwd_path);
-	return (0);
+	ft_dprintf(1, "minishell: %s: ", command);
+	perror(file);
 }

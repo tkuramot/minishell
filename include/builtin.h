@@ -6,17 +6,22 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:48 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/01 23:31:39 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/10 01:39:10 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-# include <stdio.h>
-# include <stdlib.h>
 # include "libft.h"
 # include "lexer.h"
+
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <limits.h>
+# include <errno.h>
+#include <stdbool.h>
 
 extern char	**environ;
 
@@ -37,6 +42,7 @@ int		mini_export(t_token *token_lst, t_env *env_lst);
 int		mini_pwd(void);
 
 void	env_init(t_context *ctx);
-char	*get_environ_str(char *key, t_env *env_lst);
+
+void	cd_no_such_file(char *command, char *file);
 
 #endif

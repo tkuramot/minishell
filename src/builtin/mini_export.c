@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 22:47:24 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/04 19:53:35 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/10 01:40:23 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	mini_export(t_token *token, t_env *env)
 {
 	t_env	*new;
 
-	if (!token || ft_strcmp(token->word, "") == 0)
+	if (!token)
 	{
 		export_print(env);
 		return (0);
