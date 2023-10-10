@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:12:17 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/10 02:10:59 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/10 12:36:44 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,11 @@ static void		add_redirect(t_context *ctx, t_list **redirect, t_token **lst)
 	if ((*lst)->type == TK_REDIR_IN)
 		ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_IN, ctx)));
 	if ((*lst)->type == TK_REDIR_OUT)
-		ft_lstadd_back(redirect, ft_lstnew(
-				init_redir(file, TK_REDIR_OUT, ctx)));
+		ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_OUT, ctx)));
 	if ((*lst)->type == TK_REDIR_HEREDOC)
-		read_heredoc(ctx, (*lst)->next->word, redirect);
+		read_heredoc(ctx, file, redirect);
 	if ((*lst)->type == TK_REDIR_APPEND)
-		ft_lstadd_back(redirect, ft_lstnew(
-				init_redir((*lst)->next->word, TK_REDIR_APPEND, ctx)));
+		ft_lstadd_back(redirect, ft_lstnew(init_redir(file, TK_REDIR_APPEND, ctx)));
 	*lst = (*lst)->next->next;
 }
 
