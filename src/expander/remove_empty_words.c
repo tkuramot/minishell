@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 22:32:13 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/10 02:22:27 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/10 13:38:33 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void rm_empty_words(t_context *ctx)
 	t_token *head;
 	t_token *del_node;
 
+	if (!ctx->ast || ctx->sys_error)
+		return;
 	tmp = ctx->ast->argv;
 	head = ctx->ast->argv;
 	if(!tmp)
