@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 17:10:58 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/10 12:58:46 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/10 13:02:16 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ static bool	redir_heredoc(t_list *node)
 		return (false);
 	}
 	dup2(fd, STDIN_FILENO);
-	printf("[%s]\n", file);
 	unlink(file);
 	return (true);
 }

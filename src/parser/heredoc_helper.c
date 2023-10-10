@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:15:16 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/10 12:54:29 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/10 13:01:34 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char	*create_heredoc_file(void)
 
 	i = 0;
 	name = NULL;
-	system("leaks -q minishell");
 	while (i < INT_MAX)
 	{
 		number = ft_itoa(i);
@@ -65,10 +64,7 @@ char	*create_heredoc_file(void)
 		if (!name)
 			return (NULL);
 		if (access(name, F_OK | R_OK) == -1)
-		{
-			system("leaks -q minishell");
 			return (name);
-		}
 		i++;
 	}
 	return (NULL);
