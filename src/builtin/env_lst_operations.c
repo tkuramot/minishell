@@ -6,45 +6,11 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:17:32 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/04 22:42:00 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 10:55:14 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-#include "utils.h"
-#include <stdlib.h>
-
-t_env	*env_lst_node_new(char *new_env)
-{
-	t_env	*new;
-	char	**env_value;
-
-	if (!new_env)
-		return (NULL);
-	new = malloc(sizeof(t_env));
-	if (!new)
-		fatal_error("malloc");
-	new->next = NULL;
-	env_value = ft_split(new_env, '=');
-	if (!env_value)
-		fatal_error("malloc");
-	new->name = env_value[0];
-	if (!env_value[1])
-	{
-		new->value = ft_strdup("");
-		// new->value = NULL;
-		if (!new->value)
-		{
-			free(new->name);
-			free(new);
-			fatal_error("malloc");
-		}
-	}
-	else
-		new->value = env_value[1];
-	free(env_value);
-	return (new);
-}
 
 void	env_lst_add_back(t_env *lst, t_env *new)
 {

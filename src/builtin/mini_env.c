@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:15:39 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/09 21:46:20 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 11:14:45 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,16 @@ void	env_init(t_context *ctx)
 	size_t		i;
 
 	i = 0;
-	head = env_lst_node_new(environ[i]);
+	head = env_lst_head();
 	if (!head)
 		fatal_error("malloc");
-	while (environ[++i])
+	while (environ[i])
 	{
 		new = env_lst_node_new(environ[i]);
 		if (!new)
 			fatal_error("malloc");
 		env_lst_add_back(head, new);
+		i++;
 	}
 	ctx->env = head;
 }
@@ -60,6 +61,7 @@ int	mini_env(const t_token *lst, t_env *env_lst)
 		return (1);
 	if (lst && !is_env_option(lst))
 		return (127);
+	env_lst = env_lst->next;
 	while (env_lst)
 	{
 		ft_dprintf(STDOUT_FILENO, "%s=%s\n", env_lst->name, env_lst->value);
