@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:22:12 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 02:36:22 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 14:43:06 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	run_simple_cmd(t_token **token_lst, t_env *env_lst)
 
 	lst = *token_lst;
 	// env_lstがNULLの場合って環境変数がない時ですが、/bin/lsやechoなどはじっそうできるべきだからいらなそうこの条件
-	if (!lst || !env_lst)
+	if (!lst)
 		return (0);
 	if (ft_strcmp(lst->word, "export") == 0)
 		return (mini_export(lst->next, env_lst));
@@ -49,7 +49,7 @@ int	run_simple_cmd(t_token **token_lst, t_env *env_lst)
 
 void	run_simple_cmd_parent(t_token *lst, t_env *env_lst)
 {
-	if (!lst || !env_lst)
+	if (!lst)
 		return ;
 	if (ft_strcmp(lst->word, "exit") == 0)
 		exit(mini_exit(lst->next, env_lst));
