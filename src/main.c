@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/11 14:40:39 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:18:08 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,20 @@ ___/ \\ \\_\\ \\_\\ \\____\\/\\____\\/\\____\\\n");
 /_/\\/_/\\/____/\\/____/\\/____/\n\n");
 }
 
-static void	process_cmd(t_context *ctx, char **line)
+static void	process_cmd(t_context *ctx, char *line)
 {
 	if (g_signal == 1)
 		ctx->status = g_signal;
 	if (g_signal == SIGINT || g_signal == SIGQUIT)
 		ctx->status = -g_signal;
 	g_signal = 0;
-	add_history(*line);
+	add_history(line);
 	set_exec_parent_sig_handler();
-	tokenize(ctx, *line);
+	tokenize(ctx, line);
 	parse_token(ctx);
 	expand_environ(ctx);
 	rm_empty_words(ctx);
 	execute(ctx);
-	free_cmd_related_malloc(ctx, line);
-	system("leaks -q minishell");
 }
 
 int	main(void)
@@ -75,7 +73,9 @@ int	main(void)
 		if (!line)
 			return (1);
 		if (*line)
-			process_cmd(&ctx, &line);
+			process_cmd(&ctx, line);
+		free_cmd_related_malloc(&ctx, &line);
+		system("leaks -q minishell");
 	}
 	return (0);
 }
