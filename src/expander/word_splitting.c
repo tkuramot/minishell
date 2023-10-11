@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 02:13:02 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 11:16:17 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:30:06 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static t_token	*create_trimmed_token(char	*word, size_t *i)
 	while (word[j] && !is_space(word[j]))
 		j++;
 	new_word = ft_substr(word, *i, j - *i);
-	// if(!new_word)
-		//error
+	if (!new_word)
+		return (NULL);
 	new = token_init(new_word, TK_WORD);
 	*i = j;
 	return (new);
@@ -45,42 +45,39 @@ static void	token_add_back(t_token *head, t_token *new)
 	head->next = new;
 }
 
-void	create_trimmed_token_list(t_token **argv)
+static t_token	*create_trimmed_token_list(t_token *argv)
 {
 	size_t	start;
-	t_token	*lst;
 	t_token	*new;
 	t_token	*head;
 
-	lst = *argv;
 	start = 0;
-	head = create_trimmed_token(lst->word, &start);
-	while (lst->word[start])
+	head = create_trimmed_token(argv->word, &start);
+	while (argv->word[++start])
 	{
-		new = create_trimmed_token(lst->word, &start);
+		new = create_trimmed_token(argv->word, &start);
 		token_add_back(head, new);
-		start++;
 	}
-	lst = lst->next;
-	while (lst)
+	argv = argv->next;
+	while (argv)
 	{
-		start = 0;
-		while (lst->word[start])
+		start = -1;
+		while (argv->word[++start])
 		{
-			new = create_trimmed_token(lst->word, &start);
+			new = create_trimmed_token(argv->word, &start);
 			token_add_back(head, new);
-			start++;
 		}
-		lst = lst->next;
+		argv = argv->next;
 	}
-	*argv = head;
+	return (head);
 }
 
 void	word_split(t_token **token_lst)
 {
+	t_token	*buf;
 	t_token	*lst;
 
 	lst = *token_lst;
-	create_trimmed_token_list(&lst);
-	*token_lst = lst;
+	buf = create_trimmed_token_list(lst);
+	*token_lst = buf;
 }
