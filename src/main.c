@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/12 02:03:00 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 02:08:53 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 __attribute__((destructor))
 void	destructor(void)
 {
-	ft_dprintf(STDOUT_FILENO, "exit\n");
+	ft_dprintf(STDERR_FILENO, "exit\n");
 }
 
 static void	print_minishell(void)
