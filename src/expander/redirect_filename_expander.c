@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 05:05:45 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/04 05:16:35 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 11:53:43 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ void	redirect_filename_expander(char **str)
 		i++;
 	}
 	*str = first;
+	free(buf_str);
 }
