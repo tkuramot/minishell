@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:22:12 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 16:06:53 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/11 18:14:08 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int	run_simple_cmd(t_token **token_lst, t_env *env_lst)
 		return (0);
 	if (ft_strcmp(lst->word, "export") == 0)
 		return (mini_export(lst->next, env_lst));
-	word_split(&lst);
-	token_lst_free(*token_lst);
 	*token_lst = lst;
 	if (ft_strcmp(lst->word, "exit") == 0)
 		return (mini_exit(lst->next, env_lst));
@@ -52,8 +50,6 @@ void	run_simple_cmd_parent(t_token **token_lst, t_env *env_lst)
 		return ;
 	if (ft_strcmp(lst->word, "export") == 0)
 		mini_export(lst->next, env_lst);
-	word_split(&lst);
-	token_lst_free(*token_lst);
 	*token_lst = lst;
 	if (ft_strcmp(lst->word, "exit") == 0)
 		exit(mini_exit(lst->next, env_lst));
