@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 22:32:13 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 15:08:06 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:06:03 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,41 @@ static t_token	*find_enpty_word(t_context *ctx)
 	return (lst);
 }
 
+static void	free_delnode(t_token **tmp)
+{
+	free((*tmp)->word);
+	free(*tmp);
+}
+
+void	move_empty_node(t_token **tmp, t_token **del_node, t_context *ctx)
+{
+	t_token	*buf_tmp;
+	t_token	*del_node_buf;
+
+	buf_tmp = *tmp;
+	del_node_buf = buf_tmp;
+	buf_tmp = find_enpty_word(ctx);
+	buf_tmp->next = del_node_buf->next;
+	*tmp = buf_tmp;
+	*del_node = del_node_buf;
+}
+
 void	rm_empty_words(t_context *ctx)
 {
 	t_token	*tmp;
 	t_token	*head;
 	t_token	*del_node;
 
-	if (!ctx->ast || ctx->sys_error)
+	if (!ctx->ast || ctx->sys_error || !ctx->ast->argv)
 		return ;
-	tmp = ctx->ast->argv;
+	tmp = ctx->ast->argv->next;
 	head = ctx->ast->argv;
-	if (!tmp)
-		return ;
-	tmp = tmp->next;
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->word, "") == 0)
 		{
-			del_node = tmp;
-			tmp = find_enpty_word(ctx);
-			tmp->next = del_node->next;
-			free(del_node->word);
-			free(del_node);
+			move_empty_node(&tmp, &del_node, ctx);
+			free_delnode(&del_node);
 			ctx->ast->argv = head;
 		}
 		tmp = tmp->next;
@@ -58,8 +71,7 @@ void	rm_empty_words(t_context *ctx)
 	{
 		del_node = head;
 		head = head->next;
-		free(del_node->word);
-		free(del_node);
+		free_delnode(&del_node);
 	}
 	ctx->ast->argv = head;
 }

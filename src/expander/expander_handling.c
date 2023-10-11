@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:42:43 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 15:09:38 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:25:51 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static char	*get_env_value(char *str, size_t *i, t_context *ctx)
 	start = *i;
 	end = start;
 	flag = 0;
-	while (str[end] && is_identifier_char(str[end], &flag))
+	while (str[end] && is_identifier_char_flag(str[end], &flag))
 		end++;
 	search_name = ft_substr(str, start, end - start);
 	if (!search_name)
@@ -96,7 +96,7 @@ char	*expand_env_string(char	*str, size_t *i, t_context *ctx)
 	char	*ans;
 
 	end = *i;
-	if (is_expandable(str, &end))
+	if (is_expandable(str, &end) && is_identifier_char(str[end]))
 		ans = concatenate_env(str, *i, &end, ctx);
 	else
 		ans = ft_substr(str, *i, end - *i + 1);
