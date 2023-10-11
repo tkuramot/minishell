@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:52:08 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/09/25 11:07:18 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 14:48:41 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*resolve_path(char *cmd, char *path_env)
 	int		i;
 
 	i = 0;
+	if (!path_env)
+		return (NULL);
 	paths = ft_split(path_env, ':');
 	while (paths[i] != NULL)
 	{

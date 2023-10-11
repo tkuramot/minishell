@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:59:15 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/03 09:26:14 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 14:04:02 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	print_perror(char *cmd)
 	exit(1);
 }
 
-void	permission_denied(char *cmd)
+void	perror_exit(char *cmd, int status)
 {
 	ft_dprintf(STDERR_FILENO, "minishell: ");
 	perror(cmd);
-	exit(126);
+	exit(status);
 }
 
 void	cmd_not_found_error(char *cmd)

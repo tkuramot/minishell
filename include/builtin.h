@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:48 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/11 08:06:55 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/11 11:01:36 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "lexer.h"
+# include "utils.h"
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -41,5 +42,6 @@ int		mini_export(t_token *token_lst, t_env *env_lst);
 int		mini_pwd(void);
 void	env_init(t_context *ctx);
 void	cd_no_such_file(char *command, char *file);
+t_env	*env_lst_head(void);
 
 #endif

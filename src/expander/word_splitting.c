@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 02:13:02 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 02:28:37 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 11:16:17 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	create_trimmed_token_list(t_token **argv)
 	lst = *argv;
 	start = 0;
 	head = create_trimmed_token(lst->word, &start);
-	ft_dprintf(1, "head = %p\n", head);
 	while (lst->word[start])
 	{
 		new = create_trimmed_token(lst->word, &start);
