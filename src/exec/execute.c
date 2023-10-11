@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/11 15:01:06 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 01:24:56 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@ static void	execute_simple_cmd(t_context *ctx)
 	std[1] = dup(STDOUT_FILENO);
 	if (!redirect(ctx->ast))
 	{
+		dup2(std[0], STDIN_FILENO);
+		dup2(std[1], STDOUT_FILENO);
+		close(std[0]);
+		close(std[1]);
 		ctx->status = 1;
 		return ;
 	}
