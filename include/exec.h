@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 22:14:10 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 15:13:00 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:02:49 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	traverse_ast(int std[2],
 			t_context *ctx, t_list **fd, t_list **proc_lst);
 void	clear_fd(void *content);
 int		run_simple_cmd(t_token **token_lst, t_env *env_lst);
-void	run_simple_cmd_parent(t_token *token_lst, t_env *env_lst);
+void	run_simple_cmd_parent(t_token **token_lst, t_env *env_lst);
 void	run_non_builtin_parent(t_token *lst, t_env *env_lst);
 int		run_non_builtin_child(t_token *lst, t_env *env_lst);
 char	*resolve_path(char *cmd, char *path_env);

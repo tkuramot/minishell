@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:22:12 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 15:48:58 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:06:53 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	run_simple_cmd(t_token **token_lst, t_env *env_lst)
 	t_token	*lst;
 
 	lst = *token_lst;
-	// env_lstがNULLの場合って環境変数がない時ですが、/bin/lsやechoなどはじっそうできるべきだからいらなそうこの条件
 	if (!lst)
 		return (0);
 	if (ft_strcmp(lst->word, "export") == 0)
@@ -44,10 +43,18 @@ int	run_simple_cmd(t_token **token_lst, t_env *env_lst)
 		return (run_non_builtin_child(lst, env_lst));
 }
 
-void	run_simple_cmd_parent(t_token *lst, t_env *env_lst)
+void	run_simple_cmd_parent(t_token **token_lst, t_env *env_lst)
 {
+	t_token	*lst;
+
+	lst = *token_lst;
 	if (!lst)
 		return ;
+	if (ft_strcmp(lst->word, "export") == 0)
+		mini_export(lst->next, env_lst);
+	word_split(&lst);
+	token_lst_free(*token_lst);
+	*token_lst = lst;
 	if (ft_strcmp(lst->word, "exit") == 0)
 		exit(mini_exit(lst->next, env_lst));
 	else if (ft_strcmp(lst->word, "pwd") == 0)
@@ -58,8 +65,6 @@ void	run_simple_cmd_parent(t_token *lst, t_env *env_lst)
 		exit(mini_env(lst->next, env_lst));
 	else if (ft_strcmp(lst->word, "unset") == 0)
 		exit(mini_unset(lst->next, env_lst));
-	else if (ft_strcmp(lst->word, "export") == 0)
-		exit(mini_export(lst->next, env_lst));
 	else if (ft_strcmp(lst->word, "echo") == 0)
 		exit(mini_echo(lst->next));
 	else

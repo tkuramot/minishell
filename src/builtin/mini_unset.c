@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 22:48:31 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/02 00:08:39 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:14:47 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	mini_unset(const t_token *token_lst, t_env *env_lst)
 
 	if (!token_lst || !env_lst)
 		return (0);
-	while(token_lst)
+	while (token_lst)
 	{
 		delete_env = search_env(token_lst->word, env_lst);
 		env_lst_node_delete(env_lst, delete_env);
