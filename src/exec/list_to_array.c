@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 22:30:33 by tsishika          #+#    #+#             */
-/*   Updated: 2023/09/05 16:09:25 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/12 02:04:56 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ char	**env_list_to_array(t_env *env_lst)
 	char	*buf;
 
 	i = 0;
+	env_lst = env_lst->next;
 	lst_size = env_lst_size(env_lst);
 	env_array = malloc(sizeof(char *) * (lst_size + 1));
 	if (!env_array)
