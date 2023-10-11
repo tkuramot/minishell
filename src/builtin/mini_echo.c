@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:35:18 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/10 00:59:40 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:14:32 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	echo_without_option_n(t_token *lst)
 	while (lst->next)
 	{
 		ft_dprintf(STDOUT_FILENO, "%s", lst->word);
-		if(ft_strcmp(lst->word, "\0") != 0)
+		if (ft_strcmp(lst->word, "\0") != 0)
 			ft_dprintf(STDOUT_FILENO, " ", lst->word);
 		lst = lst->next;
 	}

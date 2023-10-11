@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 10:50:22 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 11:00:19 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:13:38 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_env	*env_lst_head(void)
 {
-	t_env *head;
+	t_env	*head;
 
 	head = malloc(sizeof(t_env));
 	if (!head)
@@ -55,11 +55,7 @@ t_env	*env_lst_node_new(char *new_env)
 	{
 		new->value = ft_strdup("");
 		if (!new->value)
-		{
-			free(new->name);
-			free(new);
 			fatal_error("malloc");
-		}
 	}
 	else
 		new->value = env_value[1];

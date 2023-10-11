@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:58:30 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/11 15:01:51 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:01:44 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	traverse_ast_cmd_node(int std[2],
 		if (!redirect(ctx->ast))
 			exit(127);
 		ft_lstclear(fd, clear_fd);
-		run_simple_cmd_parent(ctx->ast->argv, ctx->env);
+		run_simple_cmd_parent(&ctx->ast->argv, ctx->env);
 	}
 	ft_lstadd_front(proc_lst, ft_lstnew(ft_itoa(pid)));
 }
