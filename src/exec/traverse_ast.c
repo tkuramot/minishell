@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:58:30 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/11 16:01:44 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 01:50:02 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ static void	traverse_ast_pipe_node(int std[2],
 	int		tmp;
 
 	if (pipe(pp) == -1)
-		fatal_error("pipe");
+	{
+		perror("pipe");
+		ctx->sys_error = true;
+		return ;
+	}
 	ft_lstadd_back(fd, ft_lstnew(ft_itoa(pp[0])));
 	ft_lstadd_back(fd, ft_lstnew(ft_itoa(pp[1])));
 	tmp = std[0];
@@ -59,6 +63,11 @@ static void	traverse_ast_cmd_node(int std[2],
 	pid_t	pid;
 
 	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		ctx->sys_error = true;
+	}
 	if (pid == 0)
 	{
 		dup2(std[0], STDIN_FILENO);
