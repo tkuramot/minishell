@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/11 17:07:01 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 01:20:47 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ static t_ast	*parse_cmd(t_context *ctx, t_token **lst)
 		*lst = (*lst)->next;
 		tmp = tmp->next;
 	}
+	if (!head.next)
+		return (handle_syntax_error(ctx,
+				arrange_node(ctx, ast_new_node_cmd(head.next))));
 	return (arrange_node(ctx, ast_new_node_cmd(head.next)));
 }
 
