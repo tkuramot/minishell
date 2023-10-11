@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 17:10:58 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/10 13:02:16 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/11 14:35:00 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static bool	redir_in(t_list *node)
 {
-	int	fd;
+	int		fd;
 	char	*tmp;
 	char	*file;
 
@@ -35,7 +35,7 @@ static bool	redir_in(t_list *node)
 
 static bool	redir_out(t_list *node)
 {
-	int	fd;
+	int		fd;
 	char	*tmp;
 	char	*file;
 
@@ -54,7 +54,7 @@ static bool	redir_out(t_list *node)
 
 static bool	redir_append(t_list *node)
 {
-	int	fd;
+	int		fd;
 	char	*tmp;
 	char	*file;
 
@@ -73,7 +73,7 @@ static bool	redir_append(t_list *node)
 
 static bool	redir_heredoc(t_list *node)
 {
-	int	fd;
+	int		fd;
 	char	*tmp;
 	char	*file;
 

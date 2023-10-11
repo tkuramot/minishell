@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:56 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/03 11:18:43 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 14:34:14 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int	is_executable(char *command)
 {
-	if(access(command, F_OK) == -1)
+	if (access(command, F_OK) == -1)
 		return (0);
 	if (access(command, X_OK) == -1)
 		return (0);
@@ -28,7 +28,7 @@ int	is_directory(char *command)
 	struct stat	stat_buf;
 
 	if (stat(command, &stat_buf) == -1)
-		return (-1); // error;
+		return (-1);
 	if ((stat_buf.st_mode & S_IFMT) == S_IFDIR)
 	{
 		errno = IS_A_DIRECTORY;
