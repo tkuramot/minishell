@@ -1,4 +1,5 @@
 CFLAGS  = -g -MMD -MP -Wall -Wextra -Werror
+DFLAGS = -fsanitize=address -fsanitize=undefined -fsanitize=bounds
 LDFLAGS = -lreadline -lhistory -L $(shell brew --prefix readline)/lib
 LIBS    = libft/libft.a
 INCLUDE = -I./include -I./libft/include -I$(shell brew --prefix readline)/include
@@ -12,11 +13,11 @@ DEPENDS = $(OBJS:.o=.d)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBS)
-	$(CC) -o $@ $^ $(INCLUDE) $(LDFLAGS) $(LIBS)
+	$(CC) -o $@ $^ $(INCLUDE) $(CFLAGS) $(if $(DEBUG),$(DFLAGS),) $(LDFLAGS) $(LIBS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@ mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
+	$(CC) $(CFLAGS) $(if $(DEBUG),$(DFLAGS),) $(INCLUDE) -o $@ -c $<
 
 $(LIBS):
 	$(MAKE) -C ./libft
@@ -33,6 +34,9 @@ re: fclean all
 
 test: all
 	bash ./test/test.sh
+
+debug:
+	make DEBUG=1
 
 cfile:
 	find . -name "*.c" -not -path "./libft/*" | sed 's/\.\///g' | tr '\n' ' '
