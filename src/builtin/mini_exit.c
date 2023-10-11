@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:10:58 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 18:22:32 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 02:05:18 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,21 @@ static bool	is_numeric(char *str)
 
 static void	numeric_error(char *status)
 {
-	ft_dprintf(1, "minishell: exit: ");
-	ft_dprintf(1, "%s: ", status);
-	ft_dprintf(1, "numeric argument required\n");
+	ft_dprintf(STDERR_FILENO, "minishell: exit: ");
+	ft_dprintf(STDERR_FILENO, "%s: ", status);
+	ft_dprintf(STDERR_FILENO, "numeric argument required\n");
 }
 
 static void	too_many_error(void)
 {
-	ft_dprintf(1, "minishell: exit: ");
-	ft_dprintf(1, "too many arguments\n");
+	ft_dprintf(STDERR_FILENO, "minishell: exit: ");
+	ft_dprintf(STDERR_FILENO, "too many arguments\n");
 }
 
 int	mini_exit(t_token *lst, t_env *env_lst)
 {
-	ft_dprintf(1, "exit\n");
 	if (!lst)
-	{
 		exit(0);
-	}
 	else
 	{
 		if (!is_numeric(lst->word))
