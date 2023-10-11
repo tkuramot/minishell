@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:42:43 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/04 04:55:03 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:09:38 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ static char	*find_env_value(char *name, t_context *ctx)
 		}
 		env = env->next;
 	}
-	if(ft_strcmp(name, "\?") == 0)
+	if (ft_strcmp(name, "\?") == 0)
 	{
-		if(ctx->status < 0)
+		if (ctx->status < 0)
 			ans = ft_itoa(128 - ctx->status);
 		else
 			ans = ft_itoa(ctx->status);
-		return(ans);
+		return (ans);
 	}
 	ans = ft_strdup("");
 	return (ans);

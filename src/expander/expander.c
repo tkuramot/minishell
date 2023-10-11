@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:42:36 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/10 13:30:55 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:10:28 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	str_expander(char **str, t_context *ctx)
 
 void	expand_environ(t_context *ctx)
 {
-	t_ast *ast;
+	t_ast	*ast;
 
 	if (ctx->sys_error)
-		return;
+		return ;
 	ast = ctx->ast;
 	env_var_expander(ast, ctx);
 }

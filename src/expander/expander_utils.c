@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 21:05:51 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/01 22:29:14 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:10:04 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ bool	is_expandable(char *str, size_t *i)
 
 bool	is_identifier_char(char c, int *flag)
 {
-	if(*flag == 1)
+	if (*flag == 1)
 		return (false);
 	else
 	{
-		if(c == '?')
+		if (c == '?')
 			*flag = 1;
 		return (c == '_' || ('A' <= c && c <= 'Z') || c == '?'
 			|| ('a' <= c && c <= 'z') || ('0' <= c && c <= '9'));
