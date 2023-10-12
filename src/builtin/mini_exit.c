@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:10:58 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/12 02:05:18 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 22:09:36 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ static void	too_many_error(void)
 	ft_dprintf(STDERR_FILENO, "too many arguments\n");
 }
 
-int	mini_exit(t_token *lst, t_env *env_lst)
+int	mini_exit(t_token *lst, t_env *env_lst, bool is_parent)
 {
+	if (is_parent)
+		ft_dprintf(STDERR_FILENO, "exit\n");
 	if (!lst)
 		exit(0);
 	else

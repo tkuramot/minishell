@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/12 02:08:53 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 22:07:33 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-
-__attribute__((destructor))
-void	destructor(void)
-{
-	ft_dprintf(STDERR_FILENO, "exit\n");
-}
 
 static void	print_minishell(void)
 {
@@ -67,17 +61,20 @@ int	main(void)
 	char		*line;
 	t_context	ctx;
 
+	ft_bzero(&ctx, sizeof (t_context));
 	print_minishell();
 	env_init(&ctx);
 	rl_outstream = stderr;
-	ctx.status = 0;
 	while (true)
 	{
 		ctx.sys_error = false;
 		set_idle_sig_handler();
 		line = readline("\x1b[32mminishell$ \x1b[0m");
 		if (!line)
-			return (1);
+		{
+			perror("readline");
+			return (1) ;
+		}
 		if (*line)
 			process_cmd(&ctx, line);
 		free_cmd_related_malloc(&ctx, &line);
