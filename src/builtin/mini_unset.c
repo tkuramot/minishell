@@ -6,11 +6,10 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 22:48:31 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 16:14:47 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:13:30 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// 単純に消去すればOK？
 #include "builtin.h"
 
 static t_env	*search_env(const char *env_name, t_env *env_lst)

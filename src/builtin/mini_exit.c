@@ -6,13 +6,11 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:10:58 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/12 23:08:16 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:11:51 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-
-#define LONG_MIN_STRLEN 20
 
 static bool	is_overflow(char *str)
 {
@@ -57,6 +55,19 @@ static bool	is_numeric(char *str)
 		i++;
 	}
 	return (true);
+}
+
+static void	numeric_error(char *status)
+{
+	ft_dprintf(STDERR_FILENO, "minishell: exit: ");
+	ft_dprintf(STDERR_FILENO, "%s: ", status);
+	ft_dprintf(STDERR_FILENO, "numeric argument required\n");
+}
+
+static void	too_many_error(void)
+{
+	ft_dprintf(STDERR_FILENO, "minishell: exit: ");
+	ft_dprintf(STDERR_FILENO, "too many arguments\n");
 }
 
 int	mini_exit(t_token *lst, t_env *env_lst, bool is_parent)

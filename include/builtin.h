@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:48 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/12 22:37:40 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:12:27 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 
 extern char	**environ;
 
+# define LONG_MIN_STRLEN 20
+
 t_env	*env_lst_node_new(char *new_env);
 void	env_lst_add_back(t_env *lst, t_env *new);
 void	env_lst_node_delete(t_env *lst, t_env *delete_node);
@@ -44,7 +46,5 @@ int		mini_pwd(void);
 void	env_init(t_context *ctx);
 void	cd_no_such_file(char *command, char *file);
 t_env	*env_lst_head(void);
-void	numeric_error(char *status);
-void	too_many_error(void);
 
 #endif
