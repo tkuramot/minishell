@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/12 23:33:54 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:41:28 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	main(void)
 		if (!line)
 		{
 			ft_dprintf(STDERR_FILENO, "exit\n");
-			return (1);
+			exit(1);
 		}
 		if (*line)
 			process_cmd(&ctx, line);

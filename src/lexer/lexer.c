@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/11 08:27:52 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:44:39 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static bool	is_quote(char c)
 	return (c == SINGLE_QUOTE || c == DOUBLE_QUOTE);
 }
 
+// Set sys error in caller func when malloc fails
 static t_token	*extract_word(char **line)
 {
 	char	*tmp;
@@ -47,6 +48,7 @@ static t_token	*extract_word(char **line)
 	return (token);
 }
 
+// Set sys error in caller func when malloc fails
 static t_token	*extract_metacharacter(char **line)
 {
 	const char	*ops[] = {"|", "<<", ">>", "<", ">"};
@@ -62,6 +64,8 @@ static t_token	*extract_metacharacter(char **line)
 		if (start_with(*line, ops[i]))
 		{
 			word = ft_strdup(ops[i]);
+			if (!word)
+				return (NULL);
 			break ;
 		}
 		i++;
