@@ -6,11 +6,10 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:35:18 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/11 16:14:32 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:13:03 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
 #include "builtin.h"
 
 static bool	is_valid_option(char *option)

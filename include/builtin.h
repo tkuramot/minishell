@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:48 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/12 22:08:05 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:12:27 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "lexer.h"
 # include "utils.h"
+# include "libft.h"
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -25,6 +26,8 @@
 # include <stdbool.h>
 
 extern char	**environ;
+
+# define LONG_MIN_STRLEN 20
 
 t_env	*env_lst_node_new(char *new_env);
 void	env_lst_add_back(t_env *lst, t_env *new);
