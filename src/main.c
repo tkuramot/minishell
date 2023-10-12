@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/12 23:41:28 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/13 00:21:49 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,19 @@ int	main(void)
 		if (!line)
 		{
 			ft_dprintf(STDERR_FILENO, "exit\n");
-			exit(1);
+			line = find_env_value("?", &ctx);
+			exit(ft_atoi(line));
 		}
 		if (*line)
 			process_cmd(&ctx, line);
 		free_cmd_related_malloc(&ctx, &line);
-		system("leaks -q minishell");
 	}
 	return (0);
 }
 
+/*
 __attribute__((destructor)) static void destructor()
 {
     system("leaks -q minishell");
 }
+*/

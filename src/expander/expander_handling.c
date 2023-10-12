@@ -6,14 +6,14 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:42:43 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 17:56:30 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/13 00:19:02 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 #include "utils.h"
 
-static char	*find_env_value(char *name, t_context *ctx)
+char	*find_env_value(char *name, t_context *ctx)
 {
 	char	*ans;
 	t_env	*env;
