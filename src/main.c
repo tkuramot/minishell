@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/12 23:17:15 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:33:54 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,7 @@ int	main(void)
 	return (0);
 }
 
-/*
 __attribute__((destructor)) static void destructor()
 {
     system("leaks -q minishell");
 }
-*/

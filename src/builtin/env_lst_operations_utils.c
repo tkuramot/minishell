@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 10:50:22 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/12 23:16:47 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:35:41 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,10 @@ t_env	*env_lst_head(void)
 	return (head);
 }
 
-t_env	*env_lst_node_new(char *new_env)
+static t_env	*env_lst_node_new_helper(t_env *new, char *new_env)
 {
-	t_env	*new;
 	char	**env_value;
 
-	if (!new_env)
-		return (NULL);
-	new = malloc(sizeof(t_env));
-	if (!new)
-		return (NULL);
-	new->next = NULL;
 	env_value = ft_split(new_env, '=');
 	if (!env_value)
 		return (NULL);
@@ -48,10 +41,28 @@ t_env	*env_lst_node_new(char *new_env)
 	{
 		new->value = ft_strdup("");
 		if (!new->value)
+		{
+			free(new->name);
+			free(new);
+			free(env_value);
 			return (NULL);
+		}
 	}
 	else
 		new->value = env_value[1];
 	free(env_value);
 	return (new);
+}
+
+t_env	*env_lst_node_new(char *new_env)
+{
+	t_env	*new;
+
+	if (!new_env)
+		return (NULL);
+	new = malloc(sizeof(t_env));
+	if (!new)
+		return (NULL);
+	new->next = NULL;
+	return (env_lst_node_new_helper(new, new_env));
 }
