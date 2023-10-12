@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/12 22:07:33 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 22:20:32 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(void)
 		line = readline("\x1b[32mminishell$ \x1b[0m");
 		if (!line)
 		{
-			perror("readline");
+			ft_dprintf(STDERR_FILENO, "exit\n");
 			return (1) ;
 		}
 		if (*line)
