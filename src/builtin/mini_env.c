@@ -6,13 +6,11 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:15:39 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 11:14:45 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:13:20 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-#include "utils.h"
-#include <errno.h>
 
 void	env_init(t_context *ctx)
 {

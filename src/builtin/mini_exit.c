@@ -6,11 +6,38 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 11:10:58 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/12 22:09:36 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:11:51 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
+
+static bool	is_overflow(char *str)
+{
+	size_t	len;
+	size_t	num;
+	int		flag;
+
+	len = ft_strlen(str);
+	if (len > LONG_MIN_STRLEN)
+		return (false);
+	num = 0;
+	flag = 1;
+	if (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			flag *= -1;
+		str++;
+	}
+	while (ft_isdigit(*str))
+	{
+		num = (num * 10) + (*str - '0');
+		str++;
+	}
+	if ((num > LONG_MAX && flag == 1) || (num - 1 > LONG_MAX && flag == -1))
+		return (false);
+	return (true);
+}
 
 static bool	is_numeric(char *str)
 {
@@ -51,7 +78,7 @@ int	mini_exit(t_token *lst, t_env *env_lst, bool is_parent)
 		exit(0);
 	else
 	{
-		if (!is_numeric(lst->word))
+		if (!is_numeric(lst->word) || !is_overflow(lst->word))
 		{
 			numeric_error(lst->word);
 			token_lst_free(lst);
