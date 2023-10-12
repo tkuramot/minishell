@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:48 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/12 22:08:05 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 22:37:40 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "lexer.h"
 # include "utils.h"
+# include "libft.h"
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -43,5 +44,7 @@ int		mini_pwd(void);
 void	env_init(t_context *ctx);
 void	cd_no_such_file(char *command, char *file);
 t_env	*env_lst_head(void);
+void	numeric_error(char *status);
+void	too_many_error(void);
 
 #endif
