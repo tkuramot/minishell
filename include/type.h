@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:17:36 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/11 11:11:58 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/12 22:08:49 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ struct s_ast
 	t_token		*lst;
 };
 
-// 環境変数の線形リスト
 typedef struct s_env	t_env;
 struct s_env
 {
