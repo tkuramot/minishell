@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/12 01:24:56 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/14 00:02:24 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static int	wait_all_children(t_list *proc_lst)
 	pid = ft_atoi(tmp->content);
 	if (waitpid(pid, &status, 0) == -1)
 		waitpid(pid, &status, 0);
+	if (status == 0)
+		g_signal = 0;
 	return (WEXITSTATUS(status));
 }
 
