@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   traverse_ast.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:58:30 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/12 22:07:40 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/13 23:45:47 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	traverse_ast_cmd_node(int std[2],
 		dup2(std[0], STDIN_FILENO);
 		dup2(std[1], STDOUT_FILENO);
 		if (!redirect(ctx->ast))
-			exit(127);
+			exit(1);
 		ft_lstclear(fd, clear_fd);
 		run_simple_cmd_parent(&ctx->ast->argv, ctx->env);
 	}

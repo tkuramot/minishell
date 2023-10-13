@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/12 23:09:23 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/13 23:53:48 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int	main(void)
 			ft_dprintf(STDERR_FILENO, "exit\n");
 			line = find_env_value("?", &ctx);
 			exit(ft_atoi(line));
-
 		}
 		if (*line)
 			process_cmd(&ctx, line);
