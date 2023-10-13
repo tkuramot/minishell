@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:26:03 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 14:49:23 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/13 00:41:30 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*get_env_value(char *key, char **environ)
 	{
 		if (ft_strncmp(environ[i], key, ft_strlen(key)) == 0)
 			return (ft_substr(ft_strchr(environ[i], '='),
-					0, ft_strlen(environ[i])));
+					1, ft_strlen(environ[i])));
 		i++;
 	}
 	return (NULL);
