@@ -24,20 +24,21 @@
 
 static void	print_minishell(void)
 {
-	ft_dprintf(STDERR_FILENO, "                                   __            \
-___    ___\n");
-	ft_dprintf(STDERR_FILENO, "           __          __         /\\ \\         \
-/\\_ \\  /\\_ \\\n");
-	ft_dprintf(STDERR_FILENO, "  ___ ___ /\\_\\    ___ /\\_\\    ____\\ \\ \\__ \
-_      __\\//\\ \\ \\//\\ \\\n");
-	ft_dprintf(STDERR_FILENO, "/' __` __`\\/\\ \\ /' _ `\\/\\ \\  /',__\\\\ \\  \
-_ `\\  /'__`\\\\ \\ \\  \\ \\ \\\n");
-	ft_dprintf(STDERR_FILENO, "/\\ \\/\\ \\/\\ \\ \\ \\/\\ \\/\\ \\ \\ \\/\\__, \
-`\\\\ \\ \\ \\ \\/\\  __/ \\_\\ \\_ \\_\\ \\_\n");
-	ft_dprintf(STDERR_FILENO, "\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\/\\_ \
-___/ \\ \\_\\ \\_\\ \\____\\/\\____\\/\\____\\\n");
-	ft_dprintf(STDERR_FILENO, " \\/_/\\/_/\\/_/\\/_/\\/_/\\/_/\\/_/\\/___/   \\ \
-/_/\\/_/\\/____/\\/____/\\/____/\n\n");
+	ft_dprintf(STDERR_FILENO,
+		"                                   __              ___    ___\n");
+	ft_dprintf(STDERR_FILENO,
+		"           __          __         /\\ \\            /\\_ \\  /\\_ \\\n");
+	ft_dprintf(STDERR_FILENO,
+		"  ___ ___ /\\_\\    ___ /\\_\\    ____\\ \\ \\___      __\\//\\ \\ \\//\\ \\\n");
+	ft_dprintf(STDERR_FILENO,
+		"/' __` __`\\/\\ \\ /' _ `\\/\\ \\  /',__\\\\ \\  _ `\\  /'__`\\\\ \\ \\  \\ \\ \\\n");
+	ft_dprintf(STDERR_FILENO,
+		"/\\ \\/\\ \\/\\ \\ \\ \\/\\ \\/\\ \\ \\ \\/\\__, `\\\\ \\ \\ \\ \\/\\  __/ \\_\\ \\_ \\_\\ \\_\n");
+	ft_dprintf(STDERR_FILENO,
+		"\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\ \\_\\/\\____/ \\ \\_\\ \\_\\ \\____\\/\\____\\/\\____\\\n");
+	ft_dprintf(STDERR_FILENO,
+		" \\/_/\\/_/\\/_/\\/_/\\/_/\\/_/\\/_/\\/___/   \
+\\/_/\\/_/\\/____/\\/____/\\/____/\n\n");
 }
 
 static void	process_cmd(t_context *ctx, char *line)
@@ -73,7 +74,9 @@ int	main(void)
 		if (!line)
 		{
 			ft_dprintf(STDERR_FILENO, "exit\n");
-			return (1);
+			line = find_env_value("?", &ctx);
+			exit(ft_atoi(line));
+
 		}
 		if (*line)
 			process_cmd(&ctx, line);
@@ -82,7 +85,9 @@ int	main(void)
 	return (0);
 }
 
-// __attribute__((destructor)) static void destructor()
-// {
-//     system("leaks -q minishell");
-// }
+/*
+__attribute__((destructor)) static void destructor()
+{
+    system("leaks -q minishell");
+}
+*/

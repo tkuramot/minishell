@@ -6,7 +6,7 @@
 /*   By: tkuramot <tkuramot@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 23:52:12 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/09 18:09:38 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:43:50 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ t_token	*token_init(char *word, t_token_type type)
 	t_token	*token;
 
 	if (!word)
-		fatal_error("malloc");
+		return (NULL);
 	token = ft_calloc(1, sizeof (t_token));
 	if (!token)
-		fatal_error("malloc");
+		return (NULL);
 	token->word = word;
 	token->type = type;
 	return (token);

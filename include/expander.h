@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:41:27 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 17:21:02 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/13 00:19:13 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 // expander_handling.c
 char	*expand_env_string(char	*str, size_t *i, t_context *ctx);
+char	*find_env_value(char *name, t_context *ctx);
 
 // epander_utils.c
 bool	is_identifier_char_flag(char c, int *flag);
