@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 22:32:13 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/14 22:12:39 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/14 22:45:55 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,19 @@
 #include "expander.h"
 #include "type.h"
 
+void	rm_head(t_token **lst)
+{
+	t_token	*buf;
+	t_token	*delnode;
+
+	delnode = *lst;
+	buf = delnode->next;
+	free(delnode);
+	*lst = buf;
+}
+
 void	rm_empty_words(t_ast *ast)
 {
-	t_token	*head;
 	t_token	*tmp;
 	t_token	*delnode;
 
@@ -26,8 +36,7 @@ void	rm_empty_words(t_ast *ast)
 	rm_empty_words(ast->left);
 	if (!ast->argv)
 		return ;
-	head = ast->argv;
-	tmp = head;
+	tmp = ast->argv;
 	while (tmp && tmp->next)
 	{
 		if (!tmp->next->word)
@@ -38,14 +47,9 @@ void	rm_empty_words(t_ast *ast)
 		}
 		else
 			tmp = tmp->next;
-		if (!tmp)
-			break ;
 	}
-	if (!head->word)
-	{
-		delnode = head;
-		head = head->next;
-		free(delnode);
-	}
-	ast->argv = head;
+	tmp = ast->argv;
+	if (!tmp->word)
+		rm_head(&tmp);
+	ast->argv = tmp;
 }
