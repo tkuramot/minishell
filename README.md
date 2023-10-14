@@ -7,3 +7,6 @@ Simple bash-like shell
 $ make
 $ ./minishell
 ```
+
+### Demonstration
+![Demo](/docs/demo.gif)
