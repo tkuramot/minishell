@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 22:47:24 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/14 15:59:37 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/14 16:20:42 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ int	mini_export(t_token *token, t_env *env)
 	{
 		if (!is_env(token->word))
 		{
-			ft_dprintf(1, "minishell: export: %s: not a valid identifier\n", token->word);
+			export_not_a_valid(token->word);
 			return (1);
 		}
-		if(is_env(token->word) == 2)
+		if (is_env(token->word) == 2)
 			return (0);
 		if (duplication(token->word, env))
 			return (0);
