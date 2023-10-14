@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/14 18:42:15 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/14 22:41:28 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	process_cmd(t_context *ctx, char *line)
 	tokenize(ctx, line);
 	parse_token(ctx);
 	expand_environ(ctx);
-	rm_empty_words(ctx);
+	rm_empty_words(ctx->ast);
 	execute(ctx);
 }
 
@@ -68,6 +68,7 @@ int	main(void)
 	rl_outstream = stderr;
 	while (true)
 	{
+		ctx.include_quote = false;
 		ctx.sys_error = false;
 		set_idle_sig_handler();
 		line = readline("\x1b[32mminishell$ \x1b[0m");

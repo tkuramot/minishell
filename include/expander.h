@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:41:27 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/13 00:19:13 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/14 22:24:17 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	env_var_expander(t_ast *ast, t_context *ctx);
 
 // quote_handling.c
 void	expand_environ(t_context *ctx);
-char	*single_quote_expander(char *str, size_t *i);
+char	*single_quote_expander(char *str, size_t *i, t_context *ctx);
 char	*no_quote_expander(char *str, size_t *i, t_context *ctx);
 char	*double_quote_expander(char *str, size_t *i, t_context *ctx);
 
@@ -44,7 +44,7 @@ char	*double_quote_expander(char *str, size_t *i, t_context *ctx);
 void	redirect_filename_expander(char **str);
 
 // remove_empty_words.c
-void	rm_empty_words(t_context *ctx);
+void	rm_empty_words(t_ast *ast);
 
 // word_splitting.c
 void	word_split(t_token **token_lst);
