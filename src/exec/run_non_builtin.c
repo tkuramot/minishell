@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:26:03 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/13 23:53:15 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/14 11:13:05 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ int	run_non_builtin_child(t_token *lst, t_env *env_lst)
 	pid = fork();
 	if (pid == 0)
 		run_non_builtin_helper(cmd, env);
-	waitpid(pid, &status, 0);
+	if (waitpid(pid, &status, 0) == -1)
+		 waitpid(pid, &status, 0);
 	free_two_d_array(env);
 	free_two_d_array(cmd);
 	return (WEXITSTATUS(status));
