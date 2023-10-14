@@ -6,13 +6,11 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:15:39 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/14 11:58:42 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/14 15:58:15 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-
-#define FIND_FILE 2
 
 void	env_init(t_context *ctx)
 {

@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 22:47:24 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 11:14:09 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/14 15:59:37 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	is_env(char *env_str)
 		i++;
 	}
 	if (env_str[i] == '\0')
-		return (0);
+		return (2);
 	return (1);
 }
 
@@ -80,6 +80,11 @@ int	mini_export(t_token *token, t_env *env)
 	while (token)
 	{
 		if (!is_env(token->word))
+		{
+			ft_dprintf(1, "minishell: export: %s: not a valid identifier\n", token->word);
+			return (1);
+		}
+		if(is_env(token->word) == 2)
 			return (0);
 		if (duplication(token->word, env))
 			return (0);
