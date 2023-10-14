@@ -1,6 +1,7 @@
 ## minishell
 ### Description
-Simple bash-like shell
+Simple bash-like shell.
+Implemented some builtins, pipe, redirects and command execution.
 
 ### Usage
 ```bash
