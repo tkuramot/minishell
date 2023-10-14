@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:26:03 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/14 15:50:31 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:43:08 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	get_path_type(char *cmd)
 	size_t	i;
 
 	i = 0;
+	if(!cmd || ft_strcmp(cmd, "") == 0)
+		cmd_not_found_error("");
 	if (cmd[i] == '/')
 		return (1);
 	i++;
