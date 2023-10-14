@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:59:15 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/11 14:04:02 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:35:22 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ void	fatal_error(char *err)
 	exit(1);
 }
 
-void	syntax_error(void)
+void	syntax_error(t_context *ctx)
 {
+	ctx->status = 258;
+	ctx->sys_error = true;
 	ft_dprintf(STDERR_FILENO, "minishell: syntax error\n");
 }
 

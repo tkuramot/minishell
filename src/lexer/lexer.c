@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 12:20:26 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/12 23:44:39 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:36:35 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	is_quote(char c)
 }
 
 // Set sys error in caller func when malloc fails
-static t_token	*extract_word(char **line)
+static t_token	*extract_word(t_context *ctx, char **line)
 {
 	char	*tmp;
 	t_token	*token;
@@ -37,7 +37,7 @@ static t_token	*extract_word(char **line)
 				tmp++;
 			if (!*tmp)
 			{
-				syntax_error();
+				syntax_error(ctx);
 				return (NULL);
 			}
 		}
@@ -93,7 +93,7 @@ void	tokenize(t_context *ctx, char *line)
 			consume_blank(&line);
 		else if (is_word(*line))
 		{
-			cur->next = extract_word(&line);
+			cur->next = extract_word(ctx, &line);
 			if (!cur->next)
 				return (handle_sys_error(ctx, head.next));
 			cur = cur->next;

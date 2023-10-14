@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/14 17:19:10 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:39:33 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@
 
 static t_ast	*handle_syntax_error(t_context *ctx, t_ast *node)
 {
-	syntax_error();
-	ctx->sys_error = true;
-	ctx->status = 258;
+	syntax_error(ctx);
 	return (node);
 }
 
@@ -34,7 +32,7 @@ static t_ast	*parse_cmd(t_context *ctx, t_token **lst)
 		return (NULL);
 	if (expect(*lst, TK_PIPE))
 	{
-		syntax_error();
+		syntax_error(ctx);
 		return (NULL);
 	}
 	while (true)
@@ -71,7 +69,7 @@ void	parse_token(t_context *ctx)
 		{
 			lst = lst->next;
 			right = parse_cmd(ctx, &lst);
-			if (!right)
+			if (!right && !ctx->sys_error)
 				handle_syntax_error(ctx, NULL);
 			else
 				ctx->ast = ast_new_node(ND_PIPE, ctx->ast, right);
