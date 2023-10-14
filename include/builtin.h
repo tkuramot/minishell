@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 10:55:48 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/14 15:58:09 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/14 16:20:09 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ int		mini_pwd(void);
 void	env_init(t_context *ctx);
 void	cd_no_such_file(char *command, char *file);
 t_env	*env_lst_head(void);
+void	export_not_a_valid(char *str);
 
 #endif
