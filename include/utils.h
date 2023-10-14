@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 11:02:32 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/11 14:04:18 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:35:33 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 sig_atomic_t	g_signal;
 
 void	fatal_error(char *err);
-void	syntax_error(void);
+void	syntax_error(t_context *ctx);
 void	print_perror(char *cmd);
 void	perror_exit(char *cmd, int status);
 void	cmd_not_found_error(char *cmd);
