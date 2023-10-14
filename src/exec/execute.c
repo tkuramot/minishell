@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:03:24 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/14 00:02:24 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/14 22:11:46 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,9 @@ static void	execute_simple_cmd(t_context *ctx)
 
 void	execute(t_context *ctx)
 {
-	if (ctx->sys_error || !ctx->ast)
+	if (ctx->sys_error || !ctx->ast
+		|| (!ctx->ast->argv && ctx->ast->type != ND_PIPE)
+		|| (ctx->ast->argv && !ctx->ast->argv->word))
 		return ;
 	if (ctx->ast->type == ND_PIPE)
 		execute_cmd_with_pipe(ctx);

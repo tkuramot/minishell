@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/14 18:42:15 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/14 22:04:12 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	process_cmd(t_context *ctx, char *line)
 	tokenize(ctx, line);
 	parse_token(ctx);
 	expand_environ(ctx);
-	rm_empty_words(ctx);
+	rm_empty_words(ctx->ast);
 	execute(ctx);
 }
 

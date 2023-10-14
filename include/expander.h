@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:41:27 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/13 00:19:13 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/14 21:40:06 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*double_quote_expander(char *str, size_t *i, t_context *ctx);
 void	redirect_filename_expander(char **str);
 
 // remove_empty_words.c
-void	rm_empty_words(t_context *ctx);
+void	rm_empty_words(t_ast *ast);
 
 // word_splitting.c
 void	word_split(t_token **token_lst);

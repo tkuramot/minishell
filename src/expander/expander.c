@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 15:42:36 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 15:10:28 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/14 22:13:10 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	str_expander(char **str, t_context *ctx)
 	char	*first;
 	char	*ans;
 	size_t	i;
+	size_t	judge = 0;
 
 	buf_str = *str;
 	i = 0;
@@ -26,9 +27,15 @@ void	str_expander(char **str, t_context *ctx)
 	while (buf_str[i])
 	{
 		if (buf_str[i] == SINGLE_QUOTE)
+		{
 			sub = single_quote_expander(*str, &i);
+			judge = 1;
+		}
 		else if (buf_str[i] == DOUBLE_QUOTE)
+		{
+			judge = 1;
 			sub = double_quote_expander(*str, &i, ctx);
+		}
 		else
 			sub = no_quote_expander(*str, &i, ctx);
 		ans = ft_strjoin(first, sub);
@@ -38,6 +45,11 @@ void	str_expander(char **str, t_context *ctx)
 		i++;
 	}
 	free(buf_str);
+	if(judge == 0 && ft_strcmp(first, "") == 0)
+	{
+		free(first);
+		first = NULL;
+	}
 	*str = first;
 }
 
