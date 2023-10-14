@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 23:57:29 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/14 18:39:33 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:55:30 by tkuramot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ static t_ast	*parse_cmd(t_context *ctx, t_token **lst)
 	if (!lst || !*lst)
 		return (NULL);
 	if (expect(*lst, TK_PIPE))
-	{
-		syntax_error(ctx);
-		return (NULL);
-	}
+		return (handle_syntax_error(ctx, ast_new_node_cmd(head.next)));
 	while (true)
 	{
 		if (!*lst || expect(*lst, TK_PIPE))
