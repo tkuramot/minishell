@@ -6,11 +6,30 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 05:05:45 by tsishika          #+#    #+#             */
-/*   Updated: 2023/10/11 11:53:43 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/14 22:27:30 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
+
+char	*redirect_single_quote_expander(char *str, size_t *i)
+{
+	size_t	start;
+	size_t	end;
+	char	*ans;
+
+	start = *i + 1;
+	end = start;
+	while (str[end] != SINGLE_QUOTE && str)
+		end++;
+	if (str[end] != SINGLE_QUOTE)
+		return (NULL);
+	ans = ft_substr(str, start, end - start);
+	if (!ans)
+		return (NULL);
+	*i = end;
+	return (ans);
+}
 
 char	*redirect_double_quote_expander(char *str, size_t *i)
 {
@@ -70,7 +89,7 @@ void	redirect_filename_expander(char **str)
 	while (buf_str[i])
 	{
 		if (buf_str[i] == SINGLE_QUOTE)
-			sub = single_quote_expander(*str, &i);
+			sub = redirect_single_quote_expander(*str, &i);
 		else if (buf_str[i] == DOUBLE_QUOTE)
 			sub = redirect_double_quote_expander(*str, &i);
 		else

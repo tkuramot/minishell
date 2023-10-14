@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 17:33:13 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/14 22:04:12 by tsishika         ###   ########.fr       */
+/*   Updated: 2023/10/14 22:23:17 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	main(void)
 	rl_outstream = stderr;
 	while (true)
 	{
+		ctx.include_quote = false;
 		ctx.sys_error = false;
 		set_idle_sig_handler();
 		line = readline("\x1b[32mminishell$ \x1b[0m");

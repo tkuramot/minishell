@@ -6,7 +6,7 @@
 /*   By: tsishika <tsishika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:17:36 by tkuramot          #+#    #+#             */
-/*   Updated: 2023/10/12 22:08:49 by tkuramot         ###   ########.fr       */
+/*   Updated: 2023/10/14 22:21:34 by tsishika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_context
 	t_env	*env;
 	int		status;
 	bool	sys_error;
+	bool	include_quote;
 }	t_context;
 
 #endif
